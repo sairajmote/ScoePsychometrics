@@ -7,8 +7,7 @@ import os
 from . import models, database, schemas
 from .database import engine, get_db
 
-# Create database tables
-models.Base.metadata.create_all(bind=engine)
+# Tables are managed by Alembic migrations — run: alembic upgrade head
 
 app = FastAPI()
 
