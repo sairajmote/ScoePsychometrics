@@ -50,7 +50,7 @@ async def health_db(db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/questions", response_model=List[schemas.QuestionBase])
+@app.get("/questions", response_model=list[schemas.QuestionBase])
 async def get_questions(db: Session = Depends(get_db)):
     questions = db.query(models.Question).all()
     # Explicitly return dictionaries that match QuestionBase

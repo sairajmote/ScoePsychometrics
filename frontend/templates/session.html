@@ -591,24 +591,24 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Store for client-side report view (fallback)
-                    localStorage.setItem('personality_results', JSON.stringify(finalPersonalityData));
-                    localStorage.setItem('cognitive_results', JSON.stringify(finalCognitiveData));
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Store for client-side report view (fallback)
+                        localStorage.setItem('personality_results', JSON.stringify(finalPersonalityData));
+                        localStorage.setItem('cognitive_results', JSON.stringify(finalCognitiveData));
 
-                    clearInterval(interval);
-                    alert("Examination submitted successfully and saved to database. Redirecting to your report...");
-                    setTimeout(() => { window.location.href = "/report"; }, 1000);
-                } else {
-                    alert("Error submitting results: " + data.detail);
-                }
-            })
-            .catch(err => {
-                console.error("Submission failed:", err);
-                alert("Failed to connect to server. Check your connection.");
-            });
+                        clearInterval(interval);
+                        alert("Examination submitted successfully and saved to database. Redirecting to your report...");
+                        setTimeout(() => { window.location.href = "/sample-report"; }, 1000);
+                    } else {
+                        alert("Error submitting results: " + data.detail);
+                    }
+                })
+                .catch(err => {
+                    console.error("Submission failed:", err);
+                    alert("Failed to connect to server. Check your connection.");
+                });
         }
 
         document.getElementById('final-submit').addEventListener('click', submitExam);
