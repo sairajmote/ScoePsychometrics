@@ -8,7 +8,7 @@ class QuestionBase(BaseModel):
     text: str
     options: Dict[str, Optional[str]]
     keyed: Optional[str] = None
-    correct_answer: str
+    correct_answer: Optional[str] = None
 
 class TestResultBase(BaseModel):
     student_name: str

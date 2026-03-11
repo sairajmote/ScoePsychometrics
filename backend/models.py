@@ -25,6 +25,8 @@ class Question(Base):
     option_c = Column(String(500), nullable=False)
     option_d = Column(String(500), nullable=False)
     option_e = Column(String(500), nullable=True)
+    option_f = Column(String(500), nullable=True)
+    option_g = Column(String(500), nullable=True)
     keyed = Column(String(5), nullable=True)          # "+" or "-" for personality traits
     correct_answer = Column(String(5), nullable=True) # "A", "B", "C", "D" or "E"
     created_at = Column(DateTime(timezone=True), server_default=func.now())
