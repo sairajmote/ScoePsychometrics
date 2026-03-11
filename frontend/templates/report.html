@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychometric Report | SCOE-Psychometrics</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .report-container {
+            max-width: 1000px;
+            margin: 8rem auto;
+            padding: 4rem;
+            border: 2px solid #000;
+            background: #fff;
+            opacity: 1 !important;
+            /* Override any reveal animation */
+            transform: none !important;
+        }
+
+        .report-header {
+            border-bottom: 4px solid #000;
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .report-title h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .status-badge {
+            background: #000;
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .metric-card {
+            border: 1px solid #000;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .analysis-section {
+            margin-bottom: 4rem;
+        }
+
+        .analysis-section h2 {
+            font-size: 1.5rem;
+            border-left: 10px solid #000;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .placeholder-text {
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .report-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+
+        .action-btns {
+            text-align: center;
+            margin-bottom: 8rem;
+        }
+
+        @media (max-width: 768px) {
+            .report-container {
+                padding: 2rem;
+                margin: 4rem 1rem;
+            }
+
+            .report-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
+            <span class="logo">ScoePsychometrics</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/exam">Exam</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Demo mode banner (hidden by default) -->
+    <div id="demo-banner"
+        style="display:none; background:#000; color:#fff; text-align:center; padding:0.75rem 1rem; font-size:0.85rem; font-weight:600; letter-spacing:0.05em;">
+        SAMPLE REPORT — These are illustrative scores, not from a real session.
+        <a href="/exam" style="color:#fff; text-decoration:underline; margin-left:1.5rem;">Take the real assessment
+            →</a>
+    </div>
+
+    <main class="report-container">
+        <div class="report-header">
+            <div class="report-title">
+                <span class="metric-label" id="report-subtitle">Assessment Result</span>
+                <h1 id="report-title-text">PROFILE_REPORT</h1>
+            </div>
+            <div class="status-badge">Verified</div>
+        </div>
+
+        <div class="report-grid" id="main-metrics">
+            <div class="metric-card">
+                <div class="metric-value" id="metric-personality">—</div>
+                <div class="metric-label">Personality Avg</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metric-cognitive">—</div>
+                <div class="metric-label">Cognitive Index</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metric-top-trait">—</div>
+                <div class="metric-label">Strongest Trait</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metric-consistency">High</div>
+                <div class="metric-label">Consistency</div>
+            </div>
+        </div>
+
+        <!-- Personality Profile -->
+        <div class="analysis-section">
+            <h2>Personality Profile (Big Five)</h2>
+            <div id="personality-bars" style="margin-top: 2rem;">
+                <!-- Dynamically injected trait bars -->
+            </div>
+        </div>
+
+        <!-- Cognitive Failures Profile -->
+        <div class="analysis-section">
+            <h2>Cognitive Failures Profile</h2>
+            <div id="cognitive-bars" style="margin-top: 2rem;">
+                <!-- Dynamically injected cognitive bars -->
+            </div>
+        </div>
+
+        <!-- Qualitative Analysis -->
+        <div class="analysis-section">
+            <h2>Qualitative Analysis</h2>
+            <div id="personality-descriptions" class="placeholder-text">
+                <!-- Dynamically injected descriptions -->
+            </div>
+        </div>
+
+        <div class="report-footer">
+            <span>Report ID: SP-2026-X99</span>
+            <span id="report-date">Generated: 2026-03-01</span>
+        </div>
+    </main>
+
+    <div class="action-btns">
+        <button class="btn" onclick="window.print()">Print Report</button>
+        <a href="/" class="btn" style="background:#fff;color:#000;border:2px solid #000;">Return Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDemo = new URLSearchParams(window.location.search).get('demo') === 'true';
+            const reportDate = document.getElementById('report-date');
+            reportDate.innerText = `Generated: ${new Date().toLocaleDateString()}`;
+
+            // ── Sample hardcoded data ──────────────────────────────────────────
+            const SAMPLE_PERSONALITY = {
+                "Extraversion": { total: 38, count: 10, average: 3.8 },
+                "Agreeableness": { total: 42, count: 10, average: 4.2 },
+                "Conscientiousness": { total: 45, count: 10, average: 4.5 },
+                "Emotional Stability": { total: 30, count: 10, average: 3.0 },
+                "Intellect/Imagination": { total: 40, count: 10, average: 4.0 }
+            };
+            const SAMPLE_COGNITIVE = {
+                "Forgetfulness": { total: 18, count: 8, average: 2.25 },
+                "Distractibility": { total: 20, count: 8, average: 2.5 },
+                "False Triggering": { total: 14, count: 8, average: 1.75 }
+            };
+
+            // Real or demo?
+            let personalityData, cognitiveData;
+            if (isDemo) {
+                personalityData = SAMPLE_PERSONALITY;
+                cognitiveData = SAMPLE_COGNITIVE;
+                document.getElementById('demo-banner').style.display = 'block';
+                document.getElementById('report-subtitle').textContent = 'Sample Report';
+                document.getElementById('report-title-text').textContent = 'DEMO_PROFILE';
+            } else {
+                personalityData = JSON.parse(localStorage.getItem('personality_results') || '{}');
+                cognitiveData = JSON.parse(localStorage.getItem('cognitive_results') || '{}');
+            }
+
+            // ── Helper: render a section of trait bars ─────────────────────────
+            function renderBars(containerId, dataObj, maxVal, colorFn) {
+                const container = document.getElementById(containerId);
+                if (Object.keys(dataObj).length === 0) {
+                    container.innerHTML = '<p style="color:#888;">No data found.</p>';
+                    return;
+                }
+                Object.entries(dataObj).forEach(([trait, data]) => {
+                    const pct = ((data.average / maxVal) * 100).toFixed(0);
+                    const bar = document.createElement('div');
+                    bar.style.marginBottom = '1.5rem';
+                    bar.innerHTML = `
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-weight:600;">
+                            <span>${trait}</span>
+                            <span>${pct}%</span>
+                        </div>
+                        <div style="height:12px;border:1px solid #000;background:#eee;position:relative;">
+                            <div style="height:100%;background:${colorFn(data.average, maxVal)};width:${pct}%;transition:width 1.2s ease;"></div>
+                        </div>
+                    `;
+                    container.appendChild(bar);
+                });
+            }
+
+            // personality bars (black fill, scale 1-5)
+            renderBars('personality-bars', personalityData, 5, () => '#000');
+
+            // cognitive bars — lower is better, so use colour gradient (green=low, red=high)
+            renderBars('cognitive-bars', cognitiveData, 5, (avg) => {
+                if (avg <= 2) return '#2ecc71';   // green = rarely fails
+                if (avg <= 3) return '#f39c12';   // amber = occasionally
+                return '#e74c3c';                  // red = frequently fails
+            });
+
+            // ── Summary metric cards ───────────────────────────────────────────
+            const pAvg = Object.values(personalityData).reduce((s, d) => s + parseFloat(d.average), 0)
+                / (Object.values(personalityData).length || 1);
+            document.getElementById('metric-personality').textContent = (pAvg / 5 * 100).toFixed(0) + '%';
+
+            const cAvg = Object.values(cognitiveData).reduce((s, d) => s + parseFloat(d.average), 0)
+                / (Object.values(cognitiveData).length || 1);
+            // For CFQ, LOWER = better cognitive performance
+            document.getElementById('metric-cognitive').textContent = ((1 - cAvg / 5) * 100).toFixed(0) + '%';
+
+            // Top personality trait
+            const topTrait = Object.entries(personalityData).sort((a, b) => b[1].average - a[1].average)[0];
+            if (topTrait) document.getElementById('metric-top-trait').textContent = topTrait[0].split('/')[0];
+
+            // ── Qualitative descriptions ───────────────────────────────────────
+            const traitInfo = {
+                "Extraversion": "Engagement with the external world. High scorers are energetic and talkative; low scorers are more reserved and prefer solitary activities.",
+                "Agreeableness": "Value of social harmony. High scorers are kind and sympathetic; low scorers are more competitive or challenging in their approach.",
+                "Conscientiousness": "Self-discipline and organization. High scorers are dutiful and well-prepared; low scorers tend to be more spontaneous.",
+                "Emotional Stability": "Resilience to stress. High scorers are calm and steady; low scorers (high Neuroticism) tend to be more emotionally reactive.",
+                "Intellect/Imagination": "Openness to experience. High scorers are curious and creative; low scorers typically prefer routine and practical tasks."
+            };
+
+            const descContainer = document.getElementById('personality-descriptions');
+            let html = '';
+            Object.entries(personalityData).forEach(([trait, data]) => {
+                const pct = ((data.average / 5) * 100).toFixed(0);
+                let level = 'moderate';
+                if (data.average >= 4) level = 'high';
+                else if (data.average <= 2.5) level = 'low';
+
+                const commentary = {
+                    high: 'This indicates a strong natural tendency in this area.',
+                    moderate: 'You demonstrate a balanced approach to these traits.',
+                    low: 'You may approach situations in this domain with more caution or a narrower focus.'
+                }[level];
+
+                html += `<p style="margin-bottom:1.5rem;">
+                    <strong>${trait}:</strong> You scored in the <strong>${level}</strong> range (${pct}%). 
+                    ${traitInfo[trait] || ''} ${commentary}
+                </p>`;
+            });
+
+            // Add cognitive failure narrative
+            if (Object.keys(cognitiveData).length > 0) {
+                html += `<hr style="border:none;border-top:1px solid #ddd;margin:2rem 0;">
+                    <p><strong>Cognitive Failures:</strong> The CFQ sub-scores below reflect how often you experience lapses in Forgetfulness, Distractibility, and False Triggering. Lower scores indicate better cognitive self-regulation.</p>`;
+                Object.entries(cognitiveData).forEach(([cat, data]) => {
+                    const pct = ((data.average / 5) * 100).toFixed(0);
+                    let level = data.average <= 2 ? 'rarely' : data.average <= 3 ? 'occasionally' : 'frequently';
+                    html += `<p style="margin-bottom:1rem;"><strong>${cat}:</strong> You ${level} experience failures in this area (${pct}% frequency rate).</p>`;
+                });
+            }
+            descContainer.innerHTML = html;
+        });
+    </script>
+</body>
+
+</html>

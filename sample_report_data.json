@@ -1,0 +1,619 @@
+{
+    "meta": {
+        "report_id": "RPT-2026-0311-A7X9",
+        "generated_at": "2026-03-11T23:15:00+05:30",
+        "version": "1.0",
+        "candidate": {
+            "name": "Arjun Mehta",
+            "email": "arjun.mehta@example.com",
+            "age": 24,
+            "gender": "male",
+            "education": "B.Tech Computer Science"
+        },
+        "quiz_duration_seconds": 2340,
+        "total_questions_answered": 142
+    },
+    "subtests": {
+        "big_five": {
+            "label": "Big Five Personality Traits",
+            "description": "Measures five broad dimensions of personality.",
+            "chart_type": "radar",
+            "traits": {
+                "openness": {
+                    "label": "Openness to Experience",
+                    "score": 78,
+                    "max_score": 100,
+                    "percentile": 82,
+                    "level": "high",
+                    "facets": {
+                        "imagination": 85,
+                        "artistic_interest": 72,
+                        "emotionality": 68,
+                        "adventurousness": 80,
+                        "intellect": 90,
+                        "liberalism": 73
+                    },
+                    "interpretation": "You are highly open to new experiences, intellectually curious, and appreciate art and beauty. You tend to think creatively and are willing to explore unconventional ideas."
+                },
+                "conscientiousness": {
+                    "label": "Conscientiousness",
+                    "score": 65,
+                    "max_score": 100,
+                    "percentile": 60,
+                    "level": "moderate",
+                    "facets": {
+                        "self_efficacy": 70,
+                        "orderliness": 55,
+                        "dutifulness": 68,
+                        "achievement_striving": 75,
+                        "self_discipline": 60,
+                        "cautiousness": 62
+                    },
+                    "interpretation": "You have a moderate level of conscientiousness. You balance between being organized and being spontaneous, and you can be disciplined when motivated."
+                },
+                "extraversion": {
+                    "label": "Extraversion",
+                    "score": 42,
+                    "max_score": 100,
+                    "percentile": 35,
+                    "level": "low",
+                    "facets": {
+                        "friendliness": 50,
+                        "gregariousness": 35,
+                        "assertiveness": 48,
+                        "activity_level": 40,
+                        "excitement_seeking": 38,
+                        "cheerfulness": 45
+                    },
+                    "interpretation": "You tend to be more introverted and reserved. You prefer smaller social gatherings and need time alone to recharge. You are thoughtful and reflective in group settings."
+                },
+                "agreeableness": {
+                    "label": "Agreeableness",
+                    "score": 71,
+                    "max_score": 100,
+                    "percentile": 68,
+                    "level": "moderate-high",
+                    "facets": {
+                        "trust": 65,
+                        "morality": 78,
+                        "altruism": 80,
+                        "cooperation": 72,
+                        "modesty": 60,
+                        "sympathy": 75
+                    },
+                    "interpretation": "You are generally cooperative and considerate of others. You value harmony and tend to be empathetic, though you can assert yourself when necessary."
+                },
+                "neuroticism": {
+                    "label": "Neuroticism",
+                    "score": 55,
+                    "max_score": 100,
+                    "percentile": 50,
+                    "level": "moderate",
+                    "facets": {
+                        "anxiety": 60,
+                        "anger": 45,
+                        "depression": 50,
+                        "self_consciousness": 65,
+                        "immoderation": 48,
+                        "vulnerability": 58
+                    },
+                    "interpretation": "You experience a typical range of emotional responses. You can feel stressed under pressure but generally manage your emotions effectively."
+                }
+            }
+        },
+        "mbti": {
+            "label": "Myers-Briggs Type Indicator",
+            "description": "Identifies personality type based on four dichotomies.",
+            "chart_type": "horizontal_bar",
+            "result_type": "INFJ",
+            "type_label": "The Advocate",
+            "dichotomies": {
+                "energy": {
+                    "label": "Energy",
+                    "dimension_a": {
+                        "code": "E",
+                        "label": "Extraversion",
+                        "score": 38
+                    },
+                    "dimension_b": {
+                        "code": "I",
+                        "label": "Introversion",
+                        "score": 62
+                    },
+                    "dominant": "I"
+                },
+                "information": {
+                    "label": "Information",
+                    "dimension_a": {
+                        "code": "S",
+                        "label": "Sensing",
+                        "score": 35
+                    },
+                    "dimension_b": {
+                        "code": "N",
+                        "label": "Intuition",
+                        "score": 65
+                    },
+                    "dominant": "N"
+                },
+                "decisions": {
+                    "label": "Decisions",
+                    "dimension_a": {
+                        "code": "T",
+                        "label": "Thinking",
+                        "score": 44
+                    },
+                    "dimension_b": {
+                        "code": "F",
+                        "label": "Feeling",
+                        "score": 56
+                    },
+                    "dominant": "F"
+                },
+                "lifestyle": {
+                    "label": "Lifestyle",
+                    "dimension_a": {
+                        "code": "J",
+                        "label": "Judging",
+                        "score": 58
+                    },
+                    "dimension_b": {
+                        "code": "P",
+                        "label": "Perceiving",
+                        "score": 42
+                    },
+                    "dominant": "J"
+                }
+            },
+            "cognitive_functions": {
+                "dominant": {
+                    "code": "Ni",
+                    "label": "Introverted Intuition",
+                    "strength": 85
+                },
+                "auxiliary": {
+                    "code": "Fe",
+                    "label": "Extraverted Feeling",
+                    "strength": 72
+                },
+                "tertiary": {
+                    "code": "Ti",
+                    "label": "Introverted Thinking",
+                    "strength": 55
+                },
+                "inferior": {
+                    "code": "Se",
+                    "label": "Extraverted Sensing",
+                    "strength": 30
+                }
+            },
+            "interpretation": "As an INFJ, you are idealistic, empathetic, and driven by a strong sense of purpose. You combine intuitive understanding with a desire to help others, often seeking meaning in relationships and ideas."
+        },
+        "temperament": {
+            "label": "Temperament Analysis",
+            "description": "Assesses the four classical temperaments and their blend.",
+            "chart_type": "doughnut",
+            "primary": "melancholic",
+            "secondary": "phlegmatic",
+            "scores": {
+                "sanguine": {
+                    "label": "Sanguine",
+                    "score": 18,
+                    "max_score": 100,
+                    "percentage": 15,
+                    "traits": [
+                        "enthusiastic",
+                        "social",
+                        "optimistic",
+                        "impulsive"
+                    ]
+                },
+                "choleric": {
+                    "label": "Choleric",
+                    "score": 22,
+                    "max_score": 100,
+                    "percentage": 18,
+                    "traits": [
+                        "ambitious",
+                        "leader-like",
+                        "decisive",
+                        "stubborn"
+                    ]
+                },
+                "melancholic": {
+                    "label": "Melancholic",
+                    "score": 42,
+                    "max_score": 100,
+                    "percentage": 40,
+                    "traits": [
+                        "analytical",
+                        "detail-oriented",
+                        "perfectionist",
+                        "sensitive"
+                    ]
+                },
+                "phlegmatic": {
+                    "label": "Phlegmatic",
+                    "score": 30,
+                    "max_score": 100,
+                    "percentage": 27,
+                    "traits": [
+                        "relaxed",
+                        "peaceful",
+                        "empathetic",
+                        "patient"
+                    ]
+                }
+            },
+            "blend_label": "Melancholic-Phlegmatic",
+            "interpretation": "Your dominant Melancholic temperament combined with Phlegmatic traits makes you thoughtful, analytical, and empathetic. You value deep connections and prefer to think before acting. You may struggle with overthinking but excel in tasks requiring precision and patience."
+        },
+        "multiple_intelligences": {
+            "label": "Multiple Intelligences",
+            "description": "Based on Howard Gardner's theory of multiple intelligences.",
+            "chart_type": "bar",
+            "dominant_intelligences": [
+                "logical_mathematical",
+                "intrapersonal"
+            ],
+            "intelligences": {
+                "linguistic": {
+                    "label": "Linguistic Intelligence",
+                    "score": 62,
+                    "max_score": 100,
+                    "percentile": 58,
+                    "level": "moderate",
+                    "description": "Ability to use words effectively, both orally and in writing.",
+                    "strengths": [
+                        "reading comprehension",
+                        "vocabulary",
+                        "storytelling"
+                    ],
+                    "career_hints": [
+                        "writer",
+                        "journalist",
+                        "teacher",
+                        "lawyer"
+                    ]
+                },
+                "logical_mathematical": {
+                    "label": "Logical-Mathematical Intelligence",
+                    "score": 88,
+                    "max_score": 100,
+                    "percentile": 92,
+                    "level": "very high",
+                    "description": "Ability to use numbers, reasoning, and logic effectively.",
+                    "strengths": [
+                        "problem solving",
+                        "pattern recognition",
+                        "abstract thinking"
+                    ],
+                    "career_hints": [
+                        "engineer",
+                        "scientist",
+                        "programmer",
+                        "data analyst"
+                    ]
+                },
+                "visual_spatial": {
+                    "label": "Visual-Spatial Intelligence",
+                    "score": 70,
+                    "max_score": 100,
+                    "percentile": 65,
+                    "level": "moderate-high",
+                    "description": "Ability to perceive the visual-spatial world accurately.",
+                    "strengths": [
+                        "visualization",
+                        "spatial reasoning",
+                        "design sense"
+                    ],
+                    "career_hints": [
+                        "architect",
+                        "graphic designer",
+                        "photographer",
+                        "pilot"
+                    ]
+                },
+                "bodily_kinesthetic": {
+                    "label": "Bodily-Kinesthetic Intelligence",
+                    "score": 45,
+                    "max_score": 100,
+                    "percentile": 40,
+                    "level": "moderate",
+                    "description": "Ability to use one's body skillfully for expressive or goal-directed purposes.",
+                    "strengths": [
+                        "coordination",
+                        "hands-on learning",
+                        "physical expression"
+                    ],
+                    "career_hints": [
+                        "athlete",
+                        "surgeon",
+                        "dancer",
+                        "craftsperson"
+                    ]
+                },
+                "interpersonal": {
+                    "label": "Interpersonal Intelligence",
+                    "score": 58,
+                    "max_score": 100,
+                    "percentile": 52,
+                    "level": "moderate",
+                    "description": "Ability to understand and interact effectively with others.",
+                    "strengths": [
+                        "empathy",
+                        "group collaboration",
+                        "conflict resolution"
+                    ],
+                    "career_hints": [
+                        "counselor",
+                        "manager",
+                        "social worker",
+                        "diplomat"
+                    ]
+                },
+                "intrapersonal": {
+                    "label": "Intrapersonal Intelligence",
+                    "score": 82,
+                    "max_score": 100,
+                    "percentile": 85,
+                    "level": "high",
+                    "description": "Ability to understand oneself — one's strengths, weaknesses, moods, and motivations.",
+                    "strengths": [
+                        "self-awareness",
+                        "emotional regulation",
+                        "goal setting"
+                    ],
+                    "career_hints": [
+                        "psychologist",
+                        "philosopher",
+                        "entrepreneur",
+                        "researcher"
+                    ]
+                }
+            }
+        },
+        "learning_styles": {
+            "label": "Learning Styles (VARK Model)",
+            "description": "Identifies preferred modes of learning based on the VARK framework.",
+            "chart_type": "pie",
+            "primary_style": "reading_writing",
+            "secondary_style": "visual",
+            "styles": {
+                "visual": {
+                    "label": "Visual",
+                    "score": 30,
+                    "max_score": 100,
+                    "percentage": 28,
+                    "preferences": [
+                        "diagrams",
+                        "charts",
+                        "color-coded notes",
+                        "mind maps"
+                    ],
+                    "study_tips": [
+                        "Use flowcharts and mind maps to organize information",
+                        "Highlight key concepts with different colors",
+                        "Watch video tutorials and visual demonstrations"
+                    ]
+                },
+                "auditory": {
+                    "label": "Auditory",
+                    "score": 18,
+                    "max_score": 100,
+                    "percentage": 15,
+                    "preferences": [
+                        "lectures",
+                        "podcasts",
+                        "group discussions",
+                        "verbal repetition"
+                    ],
+                    "study_tips": [
+                        "Record lectures and listen to them repeatedly",
+                        "Discuss topics with study groups",
+                        "Use mnemonic devices and rhymes"
+                    ]
+                },
+                "reading_writing": {
+                    "label": "Reading/Writing",
+                    "score": 38,
+                    "max_score": 100,
+                    "percentage": 35,
+                    "preferences": [
+                        "textbooks",
+                        "note-taking",
+                        "essays",
+                        "lists"
+                    ],
+                    "study_tips": [
+                        "Rewrite notes in your own words",
+                        "Create written summaries after each chapter",
+                        "Use bullet-point lists to organize ideas"
+                    ]
+                },
+                "kinesthetic": {
+                    "label": "Kinesthetic",
+                    "score": 24,
+                    "max_score": 100,
+                    "percentage": 22,
+                    "preferences": [
+                        "hands-on experiments",
+                        "role-playing",
+                        "physical models",
+                        "field trips"
+                    ],
+                    "study_tips": [
+                        "Use physical models or simulations",
+                        "Take breaks and move around while studying",
+                        "Apply concepts through real-world projects"
+                    ]
+                }
+            },
+            "multimodal": false,
+            "interpretation": "You are predominantly a Reading/Writing learner with strong Visual tendencies. You absorb information best through written material and benefit from organized notes, lists, and structured text. Supplementing with diagrams and visual aids enhances your retention."
+        },
+        "brain_hemispheres": {
+            "label": "Brain Hemisphere Dominance",
+            "description": "Assesses relative dominance of left vs right brain processing.",
+            "chart_type": "gauge",
+            "dominant_hemisphere": "left",
+            "scores": {
+                "left": {
+                    "label": "Left Hemisphere",
+                    "score": 62,
+                    "max_score": 100,
+                    "percentage": 62,
+                    "associated_traits": [
+                        "analytical",
+                        "logical",
+                        "sequential",
+                        "detail-oriented",
+                        "mathematical"
+                    ],
+                    "strengths": [
+                        "Systematic problem solving",
+                        "Language and verbal reasoning",
+                        "Mathematical computation",
+                        "Logical analysis"
+                    ]
+                },
+                "right": {
+                    "label": "Right Hemisphere",
+                    "score": 38,
+                    "max_score": 100,
+                    "percentage": 38,
+                    "associated_traits": [
+                        "creative",
+                        "intuitive",
+                        "holistic",
+                        "visual",
+                        "artistic"
+                    ],
+                    "strengths": [
+                        "Creative thinking",
+                        "Pattern recognition",
+                        "Spatial reasoning",
+                        "Emotional intelligence"
+                    ]
+                }
+            },
+            "balance_index": 0.62,
+            "interpretation": "You show a moderate left-brain dominance, indicating strong analytical and logical thinking abilities. However, your right-brain score is significant enough to support creative pursuits. This balance makes you well-suited for roles requiring both structured thinking and creative problem-solving."
+        },
+        "enneagram": {
+            "label": "Enneagram Personality Type",
+            "description": "Identifies core personality type from nine interconnected types.",
+            "chart_type": "radar",
+            "primary_type": {
+                "number": 5,
+                "label": "The Investigator",
+                "wing": "5w4",
+                "wing_label": "The Iconoclast"
+            },
+            "tritype": "549",
+            "instinctual_variant": {
+                "primary": "sp",
+                "label": "Self-Preservation",
+                "stack": "sp/so/sx"
+            },
+            "center": {
+                "type": "head",
+                "label": "Head Center (Thinking)",
+                "core_emotion": "fear"
+            },
+            "integration_direction": {
+                "growth": {
+                    "type": 8,
+                    "label": "The Challenger",
+                    "description": "In growth, you become more assertive, confident, and action-oriented."
+                },
+                "stress": {
+                    "type": 7,
+                    "label": "The Enthusiast",
+                    "description": "Under stress, you may become scattered, escapist, and overly indulgent."
+                }
+            },
+            "type_scores": {
+                "type_1": {
+                    "label": "The Reformer",
+                    "score": 35,
+                    "max_score": 100
+                },
+                "type_2": {
+                    "label": "The Helper",
+                    "score": 28,
+                    "max_score": 100
+                },
+                "type_3": {
+                    "label": "The Achiever",
+                    "score": 40,
+                    "max_score": 100
+                },
+                "type_4": {
+                    "label": "The Individualist",
+                    "score": 62,
+                    "max_score": 100
+                },
+                "type_5": {
+                    "label": "The Investigator",
+                    "score": 88,
+                    "max_score": 100
+                },
+                "type_6": {
+                    "label": "The Loyalist",
+                    "score": 45,
+                    "max_score": 100
+                },
+                "type_7": {
+                    "label": "The Enthusiast",
+                    "score": 30,
+                    "max_score": 100
+                },
+                "type_8": {
+                    "label": "The Challenger",
+                    "score": 25,
+                    "max_score": 100
+                },
+                "type_9": {
+                    "label": "The Peacemaker",
+                    "score": 50,
+                    "max_score": 100
+                }
+            },
+            "levels_of_development": {
+                "current_level": 4,
+                "level_label": "Healthy (Level 4)",
+                "description": "You are at a healthy level of development — perceptive, innovative, and able to observe the world with clarity and insight."
+            },
+            "interpretation": "As a Type 5 (The Investigator) with a 4-wing, you are intensely curious, independent, and deeply introspective. You seek knowledge and understanding, often immersing yourself in complex subjects. Your 4-wing adds a creative and emotionally sensitive dimension to your analytical nature."
+        }
+    },
+    "composite_insights": {
+        "personality_summary": "You are an analytically-minded, introspective individual with strong intellectual curiosity and a preference for depth over breadth. Your combination of INFJ, Melancholic temperament, and Enneagram Type 5 paints a picture of someone who seeks meaning, values knowledge, and approaches the world with thoughtful precision.",
+        "top_strengths": [
+            "Logical and analytical thinking",
+            "Strong self-awareness and introspection",
+            "Creative problem-solving",
+            "Empathy and emotional depth",
+            "Preference for structured, deep learning"
+        ],
+        "growth_areas": [
+            "Building assertiveness and social confidence",
+            "Balancing overthinking with action",
+            "Expanding comfort zone in group settings",
+            "Developing kinesthetic and hands-on skills"
+        ],
+        "recommended_career_domains": [
+            "Technology & Software Development",
+            "Research & Academia",
+            "Data Science & Analytics",
+            "Psychology & Counseling",
+            "Writing & Content Strategy"
+        ],
+        "compatibility_notes": {
+            "work_environment": "Thrives in quiet, intellectually stimulating environments with autonomy. Prefers remote or small-team setups over large open offices.",
+            "team_role": "Best suited as a subject-matter expert, researcher, or strategic thinker. May struggle in heavily social or sales-oriented roles.",
+            "leadership_style": "Leads through knowledge and competence rather than charisma. Prefers mentoring over commanding."
+        }
+    }
+}

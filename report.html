@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Psychometric Report | SCOE-Psychometrics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f4f0;
+      --mid: #888;
+      --light: #e8e6e0;
+      --accent: #c8c0b0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 56px;
+      border-bottom: 1px solid #333;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-logo { height: 22px; filter: invert(1); }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: #888;
+      text-decoration: none;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--white); }
+
+    /* ── SAMPLE BANNER ── */
+    .sample-banner {
+      position: sticky;
+      top: 56px;
+      z-index: 90;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #333;
+    }
+
+    /* ── REPORT CONTAINER ── */
+    .report-container {
+      max-width: 1100px;
+      margin: 6rem auto 5rem;
+      padding: 0 2rem;
+    }
+
+    /* ── REPORT HEADER ── */
+    .report-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 2rem;
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--black);
+      margin-bottom: 3rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .candidate-id {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.6rem;
+    }
+
+    .report-title h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .status-badge {
+      background: var(--black);
+      color: var(--white);
+      padding: 0.5rem 1.2rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      height: fit-content;
+    }
+
+    /* ── METRIC CARDS ── */
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-bottom: 4rem;
+      border: 1px solid var(--black);
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .metric-card {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-right: 1px solid var(--black);
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .metric-card:last-child { border-right: none; }
+
+    .metric-card:hover { background: var(--black); color: var(--white); }
+
+    .metric-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+    }
+
+    .metric-card:hover .metric-label { color: #999; }
+
+    /* ── CHART SECTION ── */
+    .chart-wrap {
+      margin-bottom: 4rem;
+      border: 1px solid var(--black);
+      padding: 2.5rem 2.5rem 2rem;
+      animation: fadeUp 0.6s 0.15s ease both;
+    }
+
+    .chart-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── EXEC SUMMARY ── */
+    .exec-summary-box {
+      border-top: 3px solid var(--black);
+      border-bottom: 1px solid var(--light);
+      padding: 2.5rem 0;
+      margin-bottom: 4.5rem;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .exec-summary-box strong {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* ── ANALYSIS SECTIONS ── */
+    .analysis-section {
+      margin-bottom: 5rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--light);
+    }
+
+    .section-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      text-transform: uppercase;
+    }
+
+    .analysis-section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .analysis-section > p {
+      color: #444;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 72ch;
+    }
+
+    /* ── HBARS ── */
+    .hbar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .hbar-item { width: 100%; }
+
+    .hbar-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+
+    .hbar-info span:last-child {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .hbar-track {
+      height: 3px;
+      background: var(--light);
+      position: relative;
+    }
+
+    .hbar-fill {
+      height: 100%;
+      background: var(--black);
+      position: relative;
+      transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hbar-fill::after {
+      content: '';
+      position: absolute;
+      right: -1px; top: -3px;
+      width: 2px; height: 9px;
+      background: var(--black);
+    }
+
+    .hbar-fill.dim { background: #bbb; }
+    .hbar-fill.dim::after { background: #bbb; }
+
+    .hbar-tag {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* ── OBS BOX ── */
+    .obs-box {
+      border: 1px solid var(--light);
+      border-left: 3px solid var(--black);
+      padding: 1.8rem 2rem;
+      margin-top: 2rem;
+      background: #faf9f6;
+    }
+
+    .obs-box h4 {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 1.2rem;
+      color: var(--mid);
+    }
+
+    .obs-box ul { list-style: none; }
+
+    .obs-box li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .obs-box li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      top: 0.1em;
+    }
+
+    .obs-box p {
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    /* ── RADAR CHART ── */
+    .radar-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* ── MORALITY TABLE ── */
+    .sum-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    .sum-table th,
+    .sum-table td {
+      padding: 1.1rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--light);
+      font-size: 0.85rem;
+    }
+
+    .sum-table th {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--mid);
+      font-weight: 500;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .sum-table td:first-child { font-weight: 600; }
+
+    .sum-table td:nth-child(2) {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .theta-pos { color: var(--black); }
+    .theta-neg { color: #aaa; }
+
+    .propensity-pill {
+      display: inline-block;
+      padding: 0.15rem 0.7rem;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 1px solid currentColor;
+    }
+
+    .pill-high { border-color: var(--black); color: var(--black); background: var(--black); color: var(--white); }
+    .pill-mid  { border-color: #888; color: #666; }
+    .pill-low  { border-color: #ccc; color: #bbb; }
+
+    /* ── RECOMMENDATIONS ── */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .rec-card {
+      border: 1px solid var(--black);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .rec-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+
+    .rec-card:hover::before { transform: translateY(0); }
+    .rec-card:hover { color: var(--white); }
+    .rec-card:hover .rec-badge { background: var(--white); color: var(--black); }
+
+    .rec-card > * { position: relative; z-index: 1; }
+
+    .rec-badge {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      padding: 0.2rem 0.7rem;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.2rem;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .rec-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .rec-card p { font-size: 0.85rem; line-height: 1.7; color: inherit; }
+
+    /* ── FOOTER METHOD ── */
+    .method-footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--light);
+      font-size: 0.75rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    footer {
+      background: var(--black);
+      color: #666;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: #555; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .report-grid { grid-template-columns: repeat(3, 1fr); }
+      .metric-card:nth-child(3) { border-right: none; }
+      .metric-card:nth-child(4) { border-right: 1px solid var(--black); }
+      .rec-grid { grid-template-columns: 1fr; }
+      .report-header { grid-template-columns: 1fr; }
+      header { padding: 0 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .report-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
+      <span class="logo">ScoePsychometrics</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/exam">Exam</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="sample-banner">
+    Sample Report — High-Fidelity IRT-Based Assessment Profile
+  </div>
+
+  <main class="report-container">
+
+    <div class="report-header">
+      <div class="report-title">
+        <div class="candidate-id">Subject: DEMO_CANDIDATE_0087</div>
+        <h1>PROFILE<br>REPORT</h1>
+      </div>
+      <div class="status-badge">Professional</div>
+    </div>
+
+    <div class="report-grid">
+      <div class="metric-card">
+        <div class="metric-value">82<sup style="font-size:1rem">nd</sup></div>
+        <div class="metric-label">Cognitive %ile</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">+0.95</div>
+        <div class="metric-label">Theta (θ)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">8.7</div>
+        <div class="metric-label">Openness / 10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">9.1</div>
+        <div class="metric-label">Investigative</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">01</div>
+        <div class="metric-label">Rank</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-label">Domain Comparison — Strength Index (0–100)</div>
+      <canvas id="domainComparison" height="220"></canvas>
+    </div>
+
+    <div class="exec-summary-box">
+      <strong>Executive Summary</strong>
+      This report measures cognitive abilities, aptitudes, personality traits, moral reasoning, and professional interests. The candidate demonstrates sharp analytical cognition (82nd percentile), a strong theoretical knowledge base, high imaginative drive, and a clear preference for systems architecture and exploratory R&amp;D over routine implementation roles.
+    </div>
+
+    <!-- DOMAIN 1 -->
+    <section class="analysis-section">
+      <div class="section-head">
+        <span class="section-number">01</span>
+        <h2>Cognitive Abilities</h2>
+      </div>
+      <p>The candidate demonstrates sharp cognitive abilities with strong analytical reasoning and information processing speed. They excel at pattern recognition and logical deductions. Occasional forgetfulness surfaces during working memory tasks under time pressure.</p>
+      <ul class="hbar-list">
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Analytical Reasoning</span><span>88%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:88%"></div></div>
+          <span class="hbar-tag">Superior Performance</span>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Problem-Solving</span><span>84%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:84%"></div></div>
+          <span class="hbar-tag">Above Average Consistency</span>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Information Processing</span><span>74%</span></div>
+          <div class="hbar-track"><div class="hbar-fill dim" style="width:74%"></div></div>
+          <span class="hbar-tag">Average — minor retrieval lags</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- DOMAIN 2 -->
+    <section class="analysis-section">
+      <div class="section-head">
+        <span class="section-number">02</span>
+        <h2>Aptitudes &amp; Skills</h2>
+      </div>
+      <p>Strong theoretical knowledge and conceptual understanding of computer science principles. However, they struggle with algorithmic thinking and syntax precision when implementing solutions. Practical coding tasks reveal gaps in translating concepts to executable code.</p>
+      <ul class="hbar-list">
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Knowledge Base</span><span>82%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:82%"></div></div>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Algorithmic Logic</span><span>34%</span></div>
+          <div class="hbar-track"><div class="hbar-fill dim" style="width:34%"></div></div>
+        </li>
+      </ul>
+      <div class="obs-box">
+        <h4>Specific Observations</h4>
+        <ul>
+          <li>Can explain hash tables conceptually but implements them inefficiently</li>
+          <li>Understands recursion theory but struggles with base cases</li>
+          <li>Strong at system design diagrams; weak at syntax-level details</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DOMAIN 3 -->
+    <section class="analysis-section">
+      <div class="section-head">
+        <span class="section-number">03</span>
+        <h2>Personality Profile</h2>
+      </div>
+      <div class="radar-wrap">
+        <canvas id="personalityRadar"></canvas>
+      </div>
+      <div class="obs-box" style="margin-top: 2.5rem;">
+        <h4>Analytic Narrative</h4>
+        <p>The radar chart above visualizes the subject's personality structure. The extreme spike in <strong>Openness &amp; Intellect (8.7)</strong> indicates a highly imaginative and abstract mind. This is balanced by a secondary strength in <strong>Conscientiousness (6.8)</strong>, suggesting the subject can organize their creative thoughts into structured outcomes. The lower <strong>Agreeableness (3.1)</strong> score reflects a tendency to prioritize truth and debate over social pleasantries.</p>
+      </div>
+    </section>
+
+    <!-- DOMAIN 4 -->
+    <section class="analysis-section">
+      <div class="section-head">
+        <span class="section-number">04</span>
+        <h2>Morality &amp; Ethical Reasoning</h2>
+      </div>
+      <p>The candidate prioritises outcomes over strict moral rules, evaluating ethical situations based on consequences. This pragmatic approach leads to justifying actions by results and a tendency toward utilitarian thinking.</p>
+      <table class="sum-table">
+        <thead>
+          <tr>
+            <th>Ethical Framework</th>
+            <th>Theta Value</th>
+            <th>Propensity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Outcome-Based</td>
+            <td class="theta-pos">+1.4</td>
+            <td><span class="propensity-pill pill-high">High Primary</span></td>
+          </tr>
+          <tr>
+            <td>Care-Based</td>
+            <td class="theta-pos">+0.3</td>
+            <td><span class="propensity-pill pill-mid">Average</span></td>
+          </tr>
+          <tr>
+            <td>Rule-Based</td>
+            <td class="theta-neg">−1.2</td>
+            <td><span class="propensity-pill pill-low">Minimal</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+    <section class="analysis-section">
+      <div class="section-head">
+        <span class="section-number">05</span>
+        <h2>Recommendations</h2>
+      </div>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <div class="rec-badge">Primary Fit</div>
+          <h3>Systems Architect</h3>
+          <p>High investigative interests and strong conceptual knowledge drive exploration of complex architectures. Focus on high-level design and scalability.</p>
+        </div>
+        <div class="rec-card">
+          <div class="rec-badge">Secondary Fit</div>
+          <h3>R&amp;D Engineer</h3>
+          <p>Dominant investigative drive (9.1) points directly to R&amp;D. Leverages conceptual strengths while exploring new technologies.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="method-footer">
+      <strong style="color: var(--black);">Methodology:</strong> Calibrated via Item Response Theory (IRT) models (2PL/3PL/GRM). Theta (θ) scores represent latent trait estimates (mean=0, SD=1). This is a professional-grade simulation of assessment results.
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ScoePsychometrics. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Standardization</a>
+    </div>
+  </footer>
+
+  <script>
+    Chart.defaults.font.family = "'DM Mono', monospace";
+    Chart.defaults.color = '#0a0a0a';
+
+    // ── DOMAIN BAR CHART ──
+    const barCtx = document.getElementById('domainComparison').getContext('2d');
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Cognitive', 'Aptitude', 'Personality', 'Morality', 'Interests'],
+        datasets: [{
+          label: 'Strength',
+          data: [82, 38, 75, 88, 91],
+          backgroundColor: (ctx) => {
+            const val = ctx.raw;
+            return val < 50 ? '#c8c0b0' : '#0a0a0a';
+          },
+          borderWidth: 0,
+          barThickness: 48,
+          borderRadius: 0,
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        animation: {
+          duration: 1200,
+          easing: 'easeOutQuart'
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            border: { display: false },
+            grid: {
+              color: (ctx) => ctx.tick.value === 0 ? '#0a0a0a' : '#e8e6e0',
+              lineWidth: (ctx) => ctx.tick.value === 0 ? 1 : 1,
+            },
+            ticks: {
+              stepSize: 25,
+              font: { size: 10 },
+              color: '#888',
+              callback: v => v === 0 ? '' : v
+            }
+          },
+          x: {
+            border: { display: false },
+            grid: { display: false },
+            ticks: {
+              font: { family: "'Syne', sans-serif", size: 12, weight: '700' },
+              color: '#0a0a0a',
+              textTransform: 'uppercase'
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0a0a0a',
+            titleFont: { family: "'Syne', sans-serif", size: 11, weight: '700' },
+            bodyFont: { size: 11 },
+            padding: 12,
+            callbacks: {
+              label: ctx => ` ${ctx.raw} / 100`
+            }
+          }
+        }
+      }
+    });
+
+    // ── PERSONALITY RADAR ──
+    const radarCtx = document.getElementById('personalityRadar').getContext('2d');
+    new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Extraversion', 'Agreeableness', 'Conscientiousness', 'Emotional Stability', 'Openness / Intellect'],
+        datasets: [{
+          label: 'Score',
+          data: [4.2, 3.1, 6.8, 5.5, 8.7],
+          backgroundColor: 'rgba(10,10,10,0.06)',
+          borderColor: '#0a0a0a',
+          borderWidth: 1.5,
+          pointBackgroundColor: '#0a0a0a',
+          pointBorderColor: '#f5f4f0',
+          pointBorderWidth: 2,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+        }]
+      },
+      options: {
+        animation: { duration: 1400, easing: 'easeOutQuart' },
+        scales: {
+          r: {
+            min: 0,
+            max: 10,
+            angleLines: { color: '#e8e6e0', lineWidth: 1 },
+            grid: { color: '#e8e6e0', lineWidth: 1 },
+            ticks: {
+              stepSize: 2.5,
+              display: true,
+              font: { size: 9 },
+              color: '#bbb',
+              backdropColor: 'transparent',
+              callback: v => v === 0 ? '' : v
+            },
+            pointLabels: {
+              font: { family: "'Syne', sans-serif", size: 11, weight: '700' },
+              color: '#0a0a0a',
+              padding: 16
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0a0a0a',
+            bodyFont: { size: 12 },
+            padding: 10,
+            callbacks: {
+              label: ctx => ` ${ctx.raw} / 10`
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

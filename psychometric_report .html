@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychometric Assessment Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray-50: #f7f7f7;
+      --gray-100: #eeeeee;
+      --gray-200: #d8d8d8;
+      --gray-300: #bbbbbb;
+      --gray-400: #999999;
+      --gray-600: #555555;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* ─── COVER ─── */
+    .cover {
+      min-height: 100vh;
+      background: var(--black);
+      color: var(--white);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .cover-header {
+      padding: 2.5rem 4rem;
+      border-bottom: 1px solid #ffffff18;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cover-brand {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #ffffff88;
+    }
+
+    .cover-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffffff33;
+    }
+
+    .cover-body {
+      padding: 5rem 4rem 5rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #ffffff44;
+      margin-bottom: 2rem;
+    }
+
+    .cover-title {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .cover-title span {
+      display: block;
+      color: #ffffff44;
+      font-weight: 300;
+    }
+
+    .cover-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    .cover-desc {
+      font-size: 0.78rem;
+      color: #ffffff55;
+      max-width: 440px;
+      line-height: 1.9;
+    }
+
+    .cover-stats {
+      display: flex;
+      gap: 4rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid #ffffff15;
+    }
+
+    .cs-num {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .cs-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #ffffff33;
+      margin-top: 0.4rem;
+    }
+
+    .cover-footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid #ffffff10;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cover-footer span {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: #ffffff25;
+    }
+
+    /* ─── BODY LAYOUT ─── */
+    .report-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+
+    /* ─── SECTION LABELS ─── */
+    .section-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid var(--gray-100);
+      margin: 4.5rem 0;
+    }
+
+    /* ─── EXEC SUMMARY ─── */
+    .exec-box {
+      background: var(--black);
+      color: var(--white);
+      padding: 3rem 3.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .exec-box .section-eyebrow {
+      color: #ffffff44;
+    }
+
+    .exec-box .section-title {
+      color: var(--white);
+    }
+
+    .exec-text {
+      font-size: 0.82rem;
+      color: #ffffffaa;
+      line-height: 1.95;
+      max-width: 660px;
+    }
+
+    /* ─── SNAPSHOT CARDS ─── */
+    .snap-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      margin-bottom: 5rem;
+    }
+
+    @media (max-width: 720px) {
+      .snap-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .snap-card {
+      background: var(--white);
+      padding: 1.8rem 1.4rem;
+    }
+
+    .snap-card-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+    }
+
+    .snap-card-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .snap-card-sub {
+      font-size: 0.6rem;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+    }
+
+    .snap-tag {
+      display: inline-block;
+      border: 1px solid var(--gray-200);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ─── DOMAIN BLOCK ─── */
+    .domain-block {
+      margin-bottom: 4.5rem;
+    }
+
+    .domain-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--black);
+      margin-bottom: 2rem;
+    }
+
+    .domain-num {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+    }
+
+    .domain-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      flex: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .domain-meta {
+      font-size: 0.6rem;
+      color: var(--gray-400);
+      letter-spacing: 0.05em;
+    }
+
+    .domain-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 640px) {
+      .domain-two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .domain-interpret {
+      font-size: 0.8rem;
+      color: var(--gray-600);
+      line-height: 1.9;
+    }
+
+    /* ─── HORIZONTAL BAR ─── */
+    .hbar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .hbar-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.45rem;
+    }
+
+    .hbar-name {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .hbar-pct {
+      font-size: 0.68rem;
+      color: var(--gray-400);
+    }
+
+    .hbar-track {
+      height: 6px;
+      background: var(--gray-100);
+      position: relative;
+    }
+
+    .hbar-fill {
+      height: 100%;
+      background: var(--black);
+      transition: width 1s ease;
+    }
+
+    .hbar-fill.dim {
+      background: var(--gray-300);
+    }
+
+    .hbar-tag {
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-top: 0.25rem;
+    }
+
+    /* ─── OBSERVATION BOX ─── */
+    .obs-box {
+      background: var(--gray-50);
+      border-left: 3px solid var(--black);
+      padding: 1.4rem 2rem;
+      margin-top: 2rem;
+    }
+
+    .obs-title {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 0.8rem;
+    }
+
+    .obs-box ul {
+      list-style: none;
+    }
+
+    .obs-box li {
+      font-size: 0.78rem;
+      color: var(--gray-600);
+      padding: 0.2rem 0 0.2rem 1.2rem;
+      position: relative;
+    }
+
+    .obs-box li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-400);
+    }
+
+    /* ─── BIG FIVE ─── */
+    .b5-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .b5-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .b5-card {
+      background: var(--white);
+      padding: 1.8rem 1.2rem;
+      text-align: center;
+    }
+
+    .b5-card.standout {
+      background: var(--black);
+    }
+
+    .b5-trait {
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+    }
+
+    .b5-card.standout .b5-trait {
+      color: #ffffff44;
+    }
+
+    .b5-score {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .b5-card.standout .b5-score {
+      color: var(--white);
+    }
+
+    .b5-pct {
+      font-size: 0.6rem;
+      color: var(--gray-400);
+      margin-bottom: 0.8rem;
+    }
+
+    .b5-card.standout .b5-pct {
+      color: #ffffff33;
+    }
+
+    .b5-desc {
+      font-size: 0.65rem;
+      color: var(--gray-600);
+      line-height: 1.55;
+    }
+
+    .b5-card.standout .b5-desc {
+      color: #ffffffaa;
+    }
+
+    /* ─── MORALITY ─── */
+    .morality-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .m-label-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .m-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .m-theta {
+      font-size: 0.65rem;
+      color: var(--gray-400);
+    }
+
+    .m-track {
+      height: 8px;
+      background: var(--gray-100);
+    }
+
+    .m-fill {
+      height: 100%;
+      background: var(--black);
+      transition: width 1s ease;
+    }
+
+    .m-fill.mid {
+      background: var(--gray-400);
+    }
+
+    .m-fill.low {
+      background: var(--gray-200);
+    }
+
+    .scenario-block {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      margin-top: 2rem;
+    }
+
+    .scenario-head {
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    .scenario-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.5rem;
+      border-bottom: 1px solid var(--gray-100);
+      gap: 2rem;
+    }
+
+    .scenario-item:last-child {
+      border-bottom: none;
+    }
+
+    .s-q {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gray-600);
+    }
+
+    .s-a {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--black);
+      padding: 0.2rem 0.7rem;
+      white-space: nowrap;
+      color: var(--black);
+    }
+
+    /* ─── RIASEC ─── */
+    .riasec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .riasec-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .riasec-code {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .riasec-score-val {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--black);
+      width: 30px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .riasec-track {
+      flex: 1;
+      height: 6px;
+      background: var(--gray-100);
+    }
+
+    .riasec-bar {
+      height: 100%;
+      background: var(--black);
+      transition: width 1s ease;
+    }
+
+    .riasec-bar.dim {
+      background: var(--gray-300);
+    }
+
+    .riasec-bar.faint {
+      background: var(--gray-200);
+    }
+
+    /* ─── SUMMARY TABLE ─── */
+    .sum-table-wrap {
+      border: 1px solid var(--gray-200);
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    table.sum-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.sum-table thead tr {
+      background: var(--black);
+    }
+
+    table.sum-table th {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 0.9rem 1.4rem;
+      text-align: left;
+      font-weight: 400;
+    }
+
+    table.sum-table td {
+      font-size: 0.78rem;
+      padding: 0.9rem 1.4rem;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: middle;
+      color: var(--gray-600);
+    }
+
+    table.sum-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.sum-table tr:nth-child(even) td {
+      background: var(--gray-50);
+    }
+
+    table.sum-table td:first-child {
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .theta-tag {
+      font-size: 0.65rem;
+      border: 1px solid var(--gray-200);
+      padding: 0.15rem 0.5rem;
+      color: var(--gray-600);
+      white-space: nowrap;
+    }
+
+    .theta-tag.pos {
+      border-color: var(--black);
+      color: var(--black);
+    }
+
+    /* ─── RECOMMENDATIONS ─── */
+    .rec-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 640px) {
+      .rec-duo {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rec-card {
+      border: 1px solid var(--gray-200);
+    }
+
+    .rec-card-head {
+      background: var(--black);
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .rec-card-head.light {
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .rec-head-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .rec-card-head.light .rec-head-title {
+      color: var(--black);
+    }
+
+    .rec-badge {
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid #ffffff44;
+      color: #ffffffaa;
+      padding: 0.2rem 0.55rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .rec-card-head.light .rec-badge {
+      border-color: var(--gray-200);
+      color: var(--gray-400);
+    }
+
+    .rec-card-body {
+      padding: 1.4rem 1.6rem;
+      font-size: 0.78rem;
+      color: var(--gray-600);
+      line-height: 1.85;
+      background: var(--white);
+    }
+
+    .action-list {
+      list-style: none;
+      margin-top: 1rem;
+      border: 1px solid var(--gray-200);
+    }
+
+    .action-list li {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--gray-100);
+      align-items: flex-start;
+    }
+
+    .action-list li:last-child {
+      border-bottom: none;
+    }
+
+    .action-list li:nth-child(odd) {
+      background: var(--gray-50);
+    }
+
+    .action-num {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--gray-400);
+      width: 1.8rem;
+      flex-shrink: 0;
+      padding-top: 0.05rem;
+    }
+
+    .action-content strong {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.2rem;
+    }
+
+    .action-content span {
+      font-size: 0.75rem;
+      color: var(--gray-600);
+    }
+
+    /* ─── METHODOLOGY ─── */
+    .method-box {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      padding: 2rem 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .method-title {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 0.8rem;
+    }
+
+    .method-text {
+      font-size: 0.75rem;
+      color: var(--gray-600);
+      line-height: 1.9;
+    }
+
+    /* ─── FOOTER ─── */
+    .page-footer {
+      background: var(--black);
+      padding: 1.8rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pf-brand {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #ffffff55;
+    }
+
+    .pf-copy {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      color: #ffffff25;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════ COVER ══════ -->
+  <div class="cover">
+    <div class="cover-header">
+      <span class="cover-brand">PsychoMetrics Pro · Assessment Division</span>
+      <span class="cover-tag">Confidential · IRT-Based · 2PL / 3PL / GRM Models</span>
+    </div>
+
+    <div class="cover-body">
+      <div class="cover-eyebrow">Comprehensive Psychometric Assessment Report</div>
+      <div class="cover-title">
+        Cognitive &amp;<br>Behavioural<br><span>Profile Report</span>
+      </div>
+      <div class="cover-divider"></div>
+      <p class="cover-desc">A full-spectrum evaluation across cognitive abilities, aptitudes, personality, moral
+        reasoning, and professional interests — calibrated via Item Response Theory.</p>
+      <div class="cover-stats">
+        <div>
+          <div class="cs-num">82nd</div>
+          <div class="cs-label">Cognitive Percentile</div>
+        </div>
+        <div>
+          <div class="cs-num">+0.95</div>
+          <div class="cs-label">Theta · Cognitive</div>
+        </div>
+        <div>
+          <div class="cs-num">5</div>
+          <div class="cs-label">Domains Assessed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <span>Report ID: PMP-2026-0087-A · Candidate: [Confidential]</span>
+      <span>Assessment Date: March 2026</span>
+    </div>
+  </div>
+
+  <!-- ══════ REPORT BODY ══════ -->
+  <div class="report-body">
+
+    <!-- EXEC SUMMARY -->
+    <div class="exec-box">
+      <div class="section-eyebrow">Overview</div>
+      <div class="section-title">Executive Summary</div>
+      <p class="exec-text">This report presents results of a comprehensive psychometric assessment measuring cognitive
+        abilities, aptitudes, personality traits, moral reasoning, and professional interests. The candidate
+        demonstrates sharp analytical cognition (82nd percentile), a strong theoretical knowledge base, high imaginative
+        and investigative drive, outcome-oriented ethical reasoning, and a clear preference for systems architecture and
+        exploratory R&D over routine implementation roles.</p>
+    </div>
+
+    <!-- SNAPSHOT -->
+    <div class="section-eyebrow">At a Glance</div>
+    <div class="section-title">Domain Snapshot</div>
+    <div class="snap-grid">
+      <div class="snap-card">
+        <div class="snap-card-label">Cognitive Abilities</div>
+        <div class="snap-card-value">82</div>
+        <div class="snap-card-sub">Percentile · θ = +0.95</div>
+        <span class="snap-tag">Sharp · Analytical</span>
+      </div>
+      <div class="snap-card">
+        <div class="snap-card-label">Aptitudes &amp; Skills</div>
+        <div class="snap-card-value">38</div>
+        <div class="snap-card-sub">Percentile · θ = −0.31</div>
+        <span class="snap-tag">Conceptual → Dev.</span>
+      </div>
+      <div class="snap-card">
+        <div class="snap-card-label">Openness / Intellect</div>
+        <div class="snap-card-value">8.7</div>
+        <div class="snap-card-sub">Score / 10 · 94th %ile</div>
+        <span class="snap-tag">Very High</span>
+      </div>
+      <div class="snap-card">
+        <div class="snap-card-label">Investigative Interest</div>
+        <div class="snap-card-value">9.1</div>
+        <div class="snap-card-sub">RIASEC Score / 10</div>
+        <span class="snap-tag">Dominant</span>
+      </div>
+      <div class="snap-card">
+        <div class="snap-card-label">Moral Orientation</div>
+        <div class="snap-card-value">+1.4</div>
+        <div class="snap-card-sub">Outcome-Based θ</div>
+        <span class="snap-tag">Consequentialist</span>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- DOMAIN 1: COGNITIVE -->
+    <div class="domain-block">
+      <div class="domain-header">
+        <span class="domain-num">01</span>
+        <h2 class="domain-title">Cognitive Abilities</h2>
+        <span class="domain-meta">Raw 42/50 · θ = +0.95 · 82nd %ile</span>
+      </div>
+      <div class="domain-two-col">
+        <p class="domain-interpret">The candidate demonstrates sharp cognitive abilities with strong analytical
+          reasoning and information processing speed. They excel at pattern recognition and logical deductions.
+          Occasional forgetfulness surfaces during working memory tasks under time pressure — suggesting strong fluid
+          intelligence with minor attentional fluctuations.</p>
+        <ul class="hbar-list">
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Analytical Reasoning</span><span class="hbar-pct">88%</span>
+            </div>
+            <div class="hbar-track">
+              <div class="hbar-fill" style="width:88%"></div>
+            </div>
+            <div class="hbar-tag">Superior</div>
+          </li>
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Problem-Solving</span><span class="hbar-pct">84%</span></div>
+            <div class="hbar-track">
+              <div class="hbar-fill" style="width:84%"></div>
+            </div>
+            <div class="hbar-tag">Above Average</div>
+          </li>
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Information Processing</span><span class="hbar-pct">74%</span>
+            </div>
+            <div class="hbar-track">
+              <div class="hbar-fill dim" style="width:74%"></div>
+            </div>
+            <div class="hbar-tag">Average — memory retrieval lags</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DOMAIN 2: APTITUDES -->
+    <div class="domain-block">
+      <div class="domain-header">
+        <span class="domain-num">02</span>
+        <h2 class="domain-title">Aptitudes &amp; Skills</h2>
+        <span class="domain-meta">Raw 31/50 · θ = −0.31 · 38th %ile</span>
+      </div>
+      <div class="domain-two-col">
+        <p class="domain-interpret">Strong theoretical knowledge and conceptual understanding of computer science
+          principles. The candidate can explain complex ideas with breadth. However, they struggle with algorithmic
+          thinking and syntax precision when implementing solutions. Practical coding tasks reveal gaps in translating
+          concepts to executable code.</p>
+        <ul class="hbar-list">
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Technical Knowledge Base</span><span
+                class="hbar-pct">82%</span></div>
+            <div class="hbar-track">
+              <div class="hbar-fill" style="width:82%"></div>
+            </div>
+            <div class="hbar-tag">Strong</div>
+          </li>
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Algorithmic Implementation</span><span
+                class="hbar-pct">34%</span></div>
+            <div class="hbar-track">
+              <div class="hbar-fill dim" style="width:34%"></div>
+            </div>
+            <div class="hbar-tag">Developing</div>
+          </li>
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Syntax Accuracy</span><span class="hbar-pct">28%</span></div>
+            <div class="hbar-track">
+              <div class="hbar-fill dim" style="width:28%"></div>
+            </div>
+            <div class="hbar-tag">Needs Improvement</div>
+          </li>
+          <li class="hbar-item">
+            <div class="hbar-top"><span class="hbar-name">Debugging Ability</span><span class="hbar-pct">42%</span>
+            </div>
+            <div class="hbar-track">
+              <div class="hbar-fill dim" style="width:42%"></div>
+            </div>
+            <div class="hbar-tag">Below Average</div>
+          </li>
+        </ul>
+      </div>
+      <div class="obs-box">
+        <div class="obs-title">Specific Observations</div>
+        <ul>
+          <li>Can explain hash tables conceptually but implements them inefficiently</li>
+          <li>Understands recursion theory but struggles with base cases</li>
+          <li>Strong at system design diagrams; weak at syntax-level details</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- DOMAIN 3: PERSONALITY -->
+    <div class="domain-block">
+      <div class="domain-header">
+        <span class="domain-num">03</span>
+        <h2 class="domain-title">Personality Traits — Big Five</h2>
+        <span class="domain-meta">Profile Code: RLOAI</span>
+      </div>
+      <div class="b5-grid">
+        <div class="b5-card">
+          <div class="b5-trait">Extraversion</div>
+          <div class="b5-score">4.2</div>
+          <div class="b5-pct">35th %ile</div>
+          <div class="b5-desc">Slightly introverted; energised by solo work</div>
+        </div>
+        <div class="b5-card">
+          <div class="b5-trait">Agreeableness</div>
+          <div class="b5-score">3.1</div>
+          <div class="b5-pct">18th %ile</div>
+          <div class="b5-desc">Questions authority; truth over social harmony</div>
+        </div>
+        <div class="b5-card">
+          <div class="b5-trait">Conscientiousness</div>
+          <div class="b5-score">6.8</div>
+          <div class="b5-pct">68th %ile</div>
+          <div class="b5-desc">Organised; follows through on commitments</div>
+        </div>
+        <div class="b5-card">
+          <div class="b5-trait">Emotional Stability</div>
+          <div class="b5-score">5.5</div>
+          <div class="b5-pct">52nd %ile</div>
+          <div class="b5-desc">Generally calm; typical stress response</div>
+        </div>
+        <div class="b5-card standout">
+          <div class="b5-trait">Openness / Intellect</div>
+          <div class="b5-score">8.7</div>
+          <div class="b5-pct">94th %ile</div>
+          <div class="b5-desc">Very high — imaginative, abstract, novel ideas</div>
+        </div>
+      </div>
+      <div class="obs-box">
+        <div class="obs-title">Key Themes</div>
+        <ul>
+          <li>High imagination and outside-the-box thinking; Openness/Intellect is the dominant trait</li>
+          <li>Low agreeableness — focused on truth, willing to debate and challenge assumptions</li>
+          <li>Prefers abstract concepts over routine tasks</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DOMAIN 4: MORALITY -->
+    <div class="domain-block">
+      <div class="domain-header">
+        <span class="domain-num">04</span>
+        <h2 class="domain-title">Morality &amp; Ethical Reasoning</h2>
+        <span class="domain-meta">Primary: Consequentialist · Secondary: Situational</span>
+      </div>
+      <div class="domain-two-col">
+        <p class="domain-interpret">The candidate prioritises outcomes over strict moral rules, evaluating ethical
+          situations based on consequences. This pragmatic approach leads to justifying actions by results, adapting
+          moral positions to context, and a tendency toward utilitarian thinking — the greatest good for the greatest
+          number.</p>
+        <div class="morality-bars">
+          <div>
+            <div class="m-label-row"><span class="m-label">Outcome-Based Reasoning</span><span class="m-theta">θ = +1.4
+                · High</span></div>
+            <div class="m-track">
+              <div class="m-fill" style="width:82%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="m-label-row"><span class="m-label">Care-Based Reasoning</span><span class="m-theta">θ = +0.3 ·
+                Average</span></div>
+            <div class="m-track">
+              <div class="m-fill mid" style="width:55%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="m-label-row"><span class="m-label">Rule-Based Reasoning</span><span class="m-theta">θ = −1.2 ·
+                Low</span></div>
+            <div class="m-track">
+              <div class="m-fill low" style="width:18%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-block">
+        <div class="scenario-head">Sample Scenario Responses</div>
+        <div class="scenario-item">
+          <span class="s-q">"Stealing to feed a starving family"</span>
+          <span class="s-a">Justified</span>
+        </div>
+        <div class="scenario-item">
+          <span class="s-q">"Lying to protect someone's feelings"</span>
+          <span class="s-a">Context-dependent</span>
+        </div>
+        <div class="scenario-item">
+          <span class="s-q">"Following unjust laws"</span>
+          <span class="s-a">Should be challenged</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- DOMAIN 5: INTERESTS -->
+    <div class="domain-block">
+      <div class="domain-header">
+        <span class="domain-num">05</span>
+        <h2 class="domain-title">Interests &amp; Preferences — RIASEC</h2>
+        <span class="domain-meta">Primary: I-R-C · Secondary: A-E-S</span>
+      </div>
+      <ul class="riasec-list">
+        <li>
+          <div class="riasec-top">
+            <span class="riasec-code">Investigative</span>
+            <div class="riasec-track">
+              <div class="riasec-bar" style="width:91%"></div>
+            </div>
+            <span class="riasec-score-val">9.1</span>
+          </div>
+        </li>
+        <li>
+          <div class="riasec-top">
+            <span class="riasec-code">Artistic</span>
+            <div class="riasec-track">
+              <div class="riasec-bar" style="width:74%"></div>
+            </div>
+            <span class="riasec-score-val">7.4</span>
+          </div>
+        </li>
+        <li>
+          <div class="riasec-top">
+            <span class="riasec-code">Realistic</span>
+            <div class="riasec-track">
+              <div class="riasec-bar" style="width:62%"></div>
+            </div>
+            <span class="riasec-score-val">6.2</span>
+          </div>
+        </li>
+        <li>
+          <div class="riasec-top">
+            <span class="riasec-code">Social</span>
+            <div class="riasec-track">
+              <div class="riasec-bar dim" style="width:43%"></div>
+            </div>
+            <span class="riasec-score-val">4.3</span>
+          </div>
+        </li>
+        <li>
+          <div class="riasec-top">
+            <span class="riasec-code">Enterprising</span>
+            <div class="riasec-track">
+              <div class="riasec-bar dim" style="width:38%"></div>
+            </div>
+            <span class="riasec-score-val">3.8</span>
+          </div>
+        </li>
+        <li>
+          <div class="riasec-top">
+            <span class="riasec-code">Conventional</span>
+            <div class="riasec-track">
+              <div class="riasec-bar faint" style="width:29%"></div>
+            </div>
+            <span class="riasec-score-val">2.9</span>
+          </div>
+        </li>
+      </ul>
+      <div class="obs-box">
+        <div class="obs-title">Key Finding — Process Curiosity</div>
+        <ul>
+          <li>Prefers to design the system rather than use it</li>
+          <li>Curious about internal architecture and engineering mechanics over user-facing outcomes</li>
+          <li>Understands algorithms conceptually; drawn to exploring how things work</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- SUMMARY TABLE -->
+    <div class="section-eyebrow">Consolidated View</div>
+    <div class="section-title">Domain Summary</div>
+    <div class="sum-table-wrap">
+      <table class="sum-table">
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>Theta (θ)</th>
+            <th>Percentile</th>
+            <th>Key Takeaway</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cognitive Abilities</td>
+            <td><span class="theta-tag pos">+0.95</span></td>
+            <td>82nd</td>
+            <td>Sharp analytical mind; minor working memory dips</td>
+          </tr>
+          <tr>
+            <td>Aptitudes &amp; Skills</td>
+            <td><span class="theta-tag">−0.31</span></td>
+            <td>38th</td>
+            <td>Strong conceptual base; implementation gap to close</td>
+          </tr>
+          <tr>
+            <td>Personality (Big Five)</td>
+            <td><span class="theta-tag">—</span></td>
+            <td>—</td>
+            <td>Low agreeableness; very high imagination and openness</td>
+          </tr>
+          <tr>
+            <td>Morality</td>
+            <td><span class="theta-tag pos">+1.4</span></td>
+            <td>—</td>
+            <td>Outcome-focused; pragmatic; utilitarian</td>
+          </tr>
+          <tr>
+            <td>Interests (RIASEC)</td>
+            <td><span class="theta-tag">—</span></td>
+            <td>—</td>
+            <td>Process-curious; architecture and R&amp;D aligned</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="rule">
+
+    <!-- RECOMMENDATIONS -->
+    <div class="section-eyebrow">Career Alignment</div>
+    <div class="section-title">Recommendations</div>
+
+    <div class="rec-duo">
+      <div class="rec-card">
+        <div class="rec-card-head">
+          <div class="rec-head-title">Systems Architect / Backend Infrastructure Engineer</div>
+          <span class="rec-badge">Primary</span>
+        </div>
+        <div class="rec-card-body">High investigative and realistic interests combined with low conventional scores
+          indicate a natural drive for understanding internal system mechanics. Strong conceptual knowledge and high
+          openness drive exploration of complex architectures. Lower agreeableness means challenging suboptimal designs.
+          Syntax-level weakness is less critical here — architects focus on high-level design, component interaction,
+          and scalability.</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-head light">
+          <div class="rec-head-title">Research &amp; Development (R&amp;D) Engineer</div>
+          <span class="rec-badge">Secondary</span>
+        </div>
+        <div class="rec-card-body">A very high investigative score (9.1) and strong theoretical knowledge point directly
+          to R&amp;D roles. Outcome-focused morality means prioritising practical results over dogmatic approaches —
+          effective in applied research settings. R&amp;D leverages conceptual strengths while minimising syntax-heavy
+          coding and enables deep exploration of how things could work.</div>
+      </div>
+    </div>
+
+    <div class="section-eyebrow">Action Items</div>
+    <ul class="action-list">
+      <li>
+        <span class="action-num">01</span>
+        <div class="action-content">
+          <strong>Skill Development</strong>
+          <span>Focus on coding practice — LeetCode, syntax drills, implementation exercises to close the
+            knowledge-to-execution gap.</span>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">02</span>
+        <div class="action-content">
+          <strong>Career Paths</strong>
+          <span>Prioritise architecture, R&amp;D, and backend engineering. Not aligned with Frontend, QA, PM, or
+            Documentation roles.</span>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">03</span>
+        <div class="action-content">
+          <strong>Collaboration Style</strong>
+          <span>Works best with intellectually challenging peers who welcome open debate and do not require social
+            deference.</span>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">04</span>
+        <div class="action-content">
+          <strong>Learning Approach</strong>
+          <span>Concept-first learning is optimal. Emphasises deep understanding over rote memorisation.</span>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">05</span>
+        <div class="action-content">
+          <strong>Growth Area</strong>
+          <span>Adopt memory encoding techniques — spaced repetition, retrieval practice — to address attentional
+            fluctuations under time pressure.</span>
+        </div>
+      </li>
+    </ul>
+
+    <!-- METHODOLOGY -->
+    <div class="method-box">
+      <div class="method-title">Methodology &amp; Psychometric Framework</div>
+      <p class="method-text">This report was generated using Item Response Theory (IRT) models, including 2PL and 3PL
+        models for binary-scored domains and the Graded Response Model (GRM) for polytomously scored items. Theta (θ)
+        scores represent latent trait estimates on a standardised scale (mean = 0, SD = 1). Percentile ranks are derived
+        from normative samples representative of the candidate's reference population. All results should be interpreted
+        alongside contextual and behavioural information by a qualified assessor.</p>
+    </div>
+
+  </div>
+
+  <!-- PAGE FOOTER -->
+  <div class="page-footer">
+    <span class="pf-brand">PsychoMetrics Pro · Assessment Division</span>
+    <span class="pf-copy">Report ID: PMP-2026-0087-A · Confidential · © 2026</span>
+  </div>
+
+</body>
+
+</html>

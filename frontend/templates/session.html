@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Session | SCOE-Psychometrics</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            border-bottom: 2px solid #000;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 100;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: #000;
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+        }
+
+        /* ── Domain navigation ── */
+        .domain-nav {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #000;
+            overflow-x: auto;
+            background: #fafafa;
+        }
+
+        .domain-btn {
+            flex: 1;
+            min-width: 160px;
+            padding: 1rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            border-right: 1px solid #ddd;
+            background: transparent;
+            color: #555;
+            transition: background 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+
+        .domain-btn:last-child {
+            border-right: none;
+        }
+
+        .domain-btn:hover {
+            background: #f0f0f0;
+            color: #000;
+        }
+
+        .domain-btn.active {
+            background: #000;
+            color: #fff;
+        }
+
+        .domain-btn .badge {
+            display: inline-block;
+            margin-left: 6px;
+            background: rgba(255, 255, 255, 0.25);
+            color: inherit;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            padding: 1px 7px;
+        }
+
+        .domain-btn:not(.active) .badge {
+            background: #e0e0e0;
+            color: #555;
+        }
+
+        /* ── Progress bar ── */
+        .domain-progress {
+            height: 4px;
+            background: #eee;
+        }
+
+        .domain-progress-fill {
+            height: 100%;
+            background: #000;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        /* ── Question cards ── */
+        .question-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .domain-panel {
+            display: none;
+        }
+
+        .domain-panel.active {
+            display: block;
+        }
+
+        .domain-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #000;
+        }
+
+        .question-card {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease-out;
+        }
+
+        .question-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .question-number {
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option-label:hover {
+            border-color: #000;
+            background: #f5f5f5;
+        }
+
+        .option-label:has(input:checked) {
+            border-color: #000;
+            background: #000;
+            color: #fff;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 2px solid currentColor;
+            position: relative;
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+        }
+
+        /* ── Horizontal Likert Scale ── */
+        .likert-scale {
+            margin-top: 1.5rem;
+        }
+
+        .likert-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #555;
+            margin-bottom: 0.6rem;
+            padding: 0 4px;
+        }
+
+        .likert-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .likert-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .likert-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #aaa;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+            flex-shrink: 0;
+            background: #fff;
+        }
+
+        .likert-option input[type="radio"]:hover {
+            border-color: #333;
+            transform: scale(1.15);
+        }
+
+        .likert-option input[type="radio"]:checked {
+            background: #000;
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+        }
+
+        .likert-option-num {
+            font-size: 0.7rem;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* ── Navigation footer ── */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+            gap: 1rem;
+        }
+
+        .nav-footer .btn-outline {
+            padding: 1rem 2.5rem;
+            border: 2px solid #000;
+            background: transparent;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        .nav-footer .btn-outline:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .nav-footer .btn-outline:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        #final-submit {
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="session-header">
+        <div class="logo-container">
+            <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
+            <span class="logo">ScoePsychometrics</span>
+        </div>
+        <div id="timer" class="timer">120:00</div>
+    </div>
+
+    <!-- Domain tabs -->
+    <nav class="domain-nav" id="domain-nav">
+        <!-- Injected by JS -->
+    </nav>
+
+    <div class="domain-progress">
+        <div class="domain-progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- Question panels (one per domain) -->
+    <div id="panels-container"></div>
+
+    <div class="nav-footer">
+        <button class="btn-outline" id="btn-prev" onclick="changeDomain(-1)" disabled>&#8592; Previous</button>
+        <button class="btn btn-outline" id="final-submit" style="display:none">Submit Examination</button>
+        <button class="btn-outline" id="btn-next" onclick="changeDomain(1)">Next &#8594;</button>
+    </div>
+
+    <script>
+        const DOMAINS = [
+            "Cognitive Abilities",
+            "Personality Traits"
+        ];
+
+        let currentDomain = 0;
+        let allQuestions = {};
+
+        const domainNav = document.getElementById('domain-nav');
+        const panelsContainer = document.getElementById('panels-container');
+        const progressFill = document.getElementById('progress-fill');
+
+        // Build skeleton nav + panels
+        DOMAINS.forEach((domain, i) => {
+            // Tab button
+            const btn = document.createElement('button');
+            btn.className = 'domain-btn' + (i === 0 ? ' active' : '');
+            btn.id = `tab-${i}`;
+            btn.onclick = () => goToDomain(i);
+            btn.innerHTML = `${domain} <span class="badge" id="badge-${i}">5</span>`;
+            domainNav.appendChild(btn);
+
+            // Panel
+            const panel = document.createElement('div');
+            panel.className = 'domain-panel question-container' + (i === 0 ? ' active' : '');
+            panel.id = `panel-${i}`;
+            panel.innerHTML = `
+                <div class="domain-title">${domain}</div>
+                <div id="questions-${i}"><p style="color:#999;text-align:center;padding:3rem">Loading...</p></div>
+            `;
+            panelsContainer.appendChild(panel);
+        });
+
+        // Fetch & render all questions
+        async function loadQuestions() {
+            let questions = [];
+            try {
+                const res = await fetch('/questions');
+                if (!res.ok) throw new Error('Failed to fetch');
+                questions = await res.json();
+            } catch (err) {
+                panelsContainer.innerHTML = `<p style="text-align:center;padding:4rem;color:red;">
+                    Could not load questions.<br><small>${err.message}</small></p>`;
+                return;
+            }
+
+            // Group by category
+            DOMAINS.forEach(domain => { allQuestions[domain] = []; });
+            questions.forEach(q => {
+                if (allQuestions[q.category] !== undefined) {
+                    allQuestions[q.category].push(q);
+                } else {
+                    // Fallback for unexpected categories
+                    console.warn(`Unexpected category: ${q.category}`);
+                }
+            });
+
+            // Update badges and render
+            DOMAINS.forEach((domain, di) => {
+                const qs = allQuestions[domain];
+                const badge = document.getElementById(`badge-${di}`);
+                if (badge) badge.textContent = qs.length;
+
+                const container = document.getElementById(`questions-${di}`);
+
+                qs.forEach((item, qi) => {
+                    const globalIndex = DOMAINS.slice(0, di).reduce((acc, d) => acc + (allQuestions[d]?.length || 0), 0) + qi;
+                    const card = document.createElement('div');
+                    const optionKeys = ['A', 'B', 'C', 'D', 'E'].filter(key => item.options[key] !== null && item.options[key] !== '');
+                    const isLikert = (domain === 'Personality Traits' || (domain === 'Cognitive Abilities' && optionKeys.length === 5));
+
+                    // Clean the question text (remove bracketed trait label for display)
+                    const displayText = item.text.replace(/^\(.*?\)\s*/, '');
+                    const traitMatch = item.text.match(/^\((.*?)\)/);
+                    const traitTag = traitMatch ? `<span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:0.25rem;display:block;">${traitMatch[1]}</span>` : '';
+
+                    let optionsHtml;
+                    if (isLikert) {
+                        const labels = (domain === 'Cognitive Abilities')
+                            ? ['Never', 'Always']
+                            : ['Strongly Disagree', 'Strongly Agree'];
+
+                        optionsHtml = `
+                            <div class="likert-scale">
+                                <div class="likert-header">
+                                    <span>${labels[0]}</span>
+                                    <span>${labels[1]}</span>
+                                </div>
+                                <div class="likert-options">
+                                    ${optionKeys.map((key, idx) => `
+                                        <label class="likert-option" title="${item.options[key]}">
+                                            <input type="radio" name="q${globalIndex}" value="${key}">
+                                            <span class="likert-option-num">${idx + 1}</span>
+                                        </label>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        optionsHtml = `
+                            <div class="options-grid">
+                                ${optionKeys.map(key => `
+                                    <label class="option-label">
+                                        <input type="radio" name="q${globalIndex}" value="${key}">
+                                        <span><strong>${key}.</strong> ${item.options[key]}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+
+                    card.className = 'question-card reveal';
+                    card.innerHTML = `
+                        <div class="question-number">Question ${qi + 1} of ${qs.length}</div>
+                        ${traitTag}
+                        <div class="question-text">${displayText}</div>
+                        ${optionsHtml}
+                    `;
+                    container.appendChild(card);
+                });
+
+                // Animate in
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+                }, { threshold: 0.1 });
+                container.querySelectorAll('.question-card').forEach(c => observer.observe(c));
+            });
+
+            updateNav();
+        }
+
+        function goToDomain(index) {
+            document.getElementById(`panel-${currentDomain}`).classList.remove('active');
+            document.getElementById(`tab-${currentDomain}`).classList.remove('active');
+            currentDomain = index;
+            document.getElementById(`panel-${currentDomain}`).classList.add('active');
+            document.getElementById(`tab-${currentDomain}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateNav();
+        }
+
+        function changeDomain(dir) { goToDomain(currentDomain + dir); }
+
+        function updateNav() {
+            const progress = ((currentDomain + 1) / DOMAINS.length) * 100;
+            progressFill.style.width = `${progress}%`;
+
+            document.getElementById('btn-prev').disabled = currentDomain === 0;
+            const isLast = currentDomain === DOMAINS.length - 1;
+            document.getElementById('btn-next').style.display = isLast ? 'none' : 'inline-block';
+            document.getElementById('final-submit').style.display = isLast ? 'inline-block' : 'none';
+        }
+
+        // Submit
+        function submitExam() {
+            let totalQ = 0;
+            const domainKeys = DOMAINS;
+            domainKeys.forEach(d => { totalQ += (allQuestions[d]?.length || 0); });
+
+            let answered = 0;
+            let traitScores = {};
+            let traitCounts = {};
+            let results = [];
+
+            // Helper to get score from option key (A-E) and keying (+/-)
+            const getLikertScore = (optionKey, keyed) => {
+                const map = { 'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5 };
+                const raw = map[optionKey] || 0;
+                if (keyed === '-') return 6 - raw;
+                return raw;
+            };
+
+            domainKeys.forEach((domain, di) => {
+                const qs = allQuestions[domain];
+                qs.forEach((item, qi) => {
+                    const globalIndex = domainKeys.slice(0, di).reduce((acc, d) => acc + (allQuestions[d]?.length || 0), 0) + qi;
+                    const selected = document.querySelector(`input[name="q${globalIndex}"]:checked`);
+
+                    if (selected) {
+                        answered++;
+                        const val = selected.value;
+
+                        if (item.keyed) {
+                            // Extract trait from bracketed text e.g. "(Extraversion) ..." or "(Forgetfulness) ..."
+                            const traitMatch = item.text.match(/^\((.*?)\)/);
+                            const trait = traitMatch ? traitMatch[1] : (domain === 'Personality Traits' ? 'Uncategorized' : null);
+
+                            if (trait) {
+                                // Split multi-traits if any (e.g. "Forgetfulness/False Triggering")
+                                const subTraits = trait.split('/');
+                                subTraits.forEach(st => {
+                                    if (!traitScores[st]) {
+                                        traitScores[st] = 0;
+                                        traitCounts[st] = 0;
+                                    }
+                                    const score = getLikertScore(val, item.keyed);
+                                    traitScores[st] += score;
+                                    traitCounts[st]++;
+                                });
+
+                                results.push({
+                                    question: qi + 1,
+                                    domain: domain,
+                                    trait: trait,
+                                    answer: val,
+                                    keyed: item.keyed,
+                                    score: getLikertScore(val, item.keyed)
+                                });
+                            }
+                        } else {
+                            results.push({
+                                question: qi + 1,
+                                domain: domain,
+                                answer: val,
+                                keyed: 'n/a',
+                                score: 'n/a'
+                            });
+                        }
+                    }
+                });
+            });
+
+            if (answered < totalQ) {
+                const proceed = confirm(`You have answered ${answered} of ${totalQ} questions. Submit anyway?`);
+                if (!proceed) return;
+            }
+
+            // Group final data by domain (Personality vs Cognitive)
+            const personalityTraitsList = ["Extraversion", "Agreeableness", "Conscientiousness", "Emotional Stability", "Intellect/Imagination"];
+            const cognitiveTraitsList = ["Forgetfulness", "Distractibility", "False Triggering"];
+
+            const finalPersonalityData = {};
+            const finalCognitiveData = {};
+
+            Object.keys(traitScores).forEach(trait => {
+                const data = {
+                    total: traitScores[trait],
+                    count: traitCounts[trait],
+                    average: (traitScores[trait] / traitCounts[trait]).toFixed(2)
+                };
+                if (personalityTraitsList.includes(trait)) {
+                    finalPersonalityData[trait] = data;
+                } else if (cognitiveTraitsList.includes(trait)) {
+                    finalCognitiveData[trait] = data;
+                }
+            });
+
+            const studentName = prompt("Please enter your full name to submit:") || "Anonymous Student";
+
+            const payload = {
+                student_name: studentName,
+                results: {
+                    personality: finalPersonalityData,
+                    cognitive: finalCognitiveData
+                }
+            };
+
+            // Send to backend
+            fetch('/submit-results', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Store for client-side report view (fallback)
+                    localStorage.setItem('personality_results', JSON.stringify(finalPersonalityData));
+                    localStorage.setItem('cognitive_results', JSON.stringify(finalCognitiveData));
+
+                    clearInterval(interval);
+                    alert("Examination submitted successfully and saved to database. Redirecting to your report...");
+                    setTimeout(() => { window.location.href = "/report"; }, 1000);
+                } else {
+                    alert("Error submitting results: " + data.detail);
+                }
+            })
+            .catch(err => {
+                console.error("Submission failed:", err);
+                alert("Failed to connect to server. Check your connection.");
+            });
+        }
+
+        document.getElementById('final-submit').addEventListener('click', submitExam);
+
+        // Timer
+        let timeLeft = 120 * 60;
+        const timerDisplay = document.getElementById('timer');
+        const interval = setInterval(() => {
+            timeLeft--;
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                alert("Time is up! Submitting your responses.");
+                submitExam();
+            }
+        }, 1000);
+
+        loadQuestions();
+    </script>
+</body>
+
+</html>

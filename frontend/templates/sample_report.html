@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Psychometric Report | SCOE-Psychometrics</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .report-container {
+      max-width: 1200px;
+      margin: 2rem auto 4rem auto;
+      padding: 4rem;
+      border: 2px solid #000;
+      background: #fff;
+    }
+
+    .report-header {
+      border-bottom: 4px solid #000;
+      padding-bottom: 2rem;
+      margin-bottom: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .report-title h1 {
+      font-size: 3rem;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .status-badge {
+      background: #000;
+      color: #fff;
+      padding: 0.5rem 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 4rem;
+    }
+
+    .metric-card {
+      border: 2px solid #000;
+      padding: 1.5rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin: -1px;
+      /* Overlap borders for single-line look */
+    }
+
+    .metric-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #666;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-main {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #000;
+      line-height: 1.1;
+    }
+
+    .metric-sub {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #444;
+      line-height: 1.1;
+    }
+
+    .analysis-section {
+      margin-bottom: 5rem;
+    }
+
+    .analysis-section h2 {
+      font-size: 1.8rem;
+      border-left: 12px solid #000;
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+    }
+
+    .exec-summary-box {
+      background: #f9f9f9;
+      border-left: 4px solid #000;
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .final-improvements {
+      background: #f0f4f8;
+      border: 3px solid #000;
+      padding: 3rem;
+      margin-top: 4rem;
+    }
+
+    .final-improvements h3,
+    .final-improvements h4 {
+      font-size: 2rem !important;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .final-improvements li {
+      font-size: 1.2rem !important;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .final-improvements strong {
+      font-size: 1.3rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .hbar-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hbar-item {
+      width: 100%;
+    }
+
+    .hbar-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .hbar-track {
+      height: 12px;
+      background: #eee;
+      border: 1px solid #000;
+    }
+
+    .hbar-fill {
+      height: 100%;
+      background: #000;
+    }
+
+    .hbar-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: 0.4rem;
+      display: block;
+    }
+
+    .obs-box {
+      background: #f0f0f0;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .obs-box h4 {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .obs-box ul {
+      list-style: none;
+    }
+
+    .obs-box li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .obs-box li::before {
+      content: "■";
+      position: absolute;
+      left: 0;
+      font-size: 0.8rem;
+    }
+
+    .b5-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .b5-card {
+      border: 1px solid #000;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .b5-card.standout {
+      background: #000;
+      color: #fff;
+    }
+
+    .b5-trait {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: #888;
+    }
+
+    .standout .b5-trait {
+      color: #aaa;
+    }
+
+    .b5-score {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .b5-desc {
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .sum-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+
+    .sum-table th,
+    .sum-table td {
+      border: 1px solid #000;
+      padding: 1.2rem;
+      text-align: left;
+    }
+
+    .sum-table th {
+      background: #000;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .rec-card {
+      border: 2px solid #000;
+      padding: 2.5rem;
+    }
+
+    .rec-card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .rec-badge {
+      background: #000;
+      color: #fff;
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .method-footer {
+      margin-top: 6rem;
+      padding-top: 3rem;
+      border-top: 1px solid #000;
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .demo-banner {
+      background: #000 !important;
+      color: #fff !important;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-top: 7rem;
+      position: relative;
+      z-index: 10;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .report-container {
+        padding: 2rem;
+        margin: 4rem 1rem;
+      }
+
+      .report-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .rec-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
+      <span class="logo">ScoePsychometrics</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/exam">Exam</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="demo-banner">
+    SAMPLE REPORT — IRT-Based Assessment Report
+  </div>
+
+  <main class="report-container">
+    <div class="report-header">
+      <div class="report-title">
+        <span class="metric-label">Subject: CANDIDATE_GR_00001</span>
+        <h1>PROFILE_REPORT</h1>
+      </div>
+      <div class="status-badge">Professional</div>
+    </div>
+
+    <!-- Domain Snapshot 3x2 Grid -->
+    <div class="report-grid">
+      <!-- Row 1 -->
+      <div class="metric-card">
+        <div class="metric-header">COGNITIVE</div>
+        <div class="metric-main">+0.95 θ</div>
+        <div class="metric-sub">82nd %ile</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header">PERSONALITY</div>
+        <div class="metric-main">Open: 94%</div>
+        <div class="metric-sub">Agr: 18%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header">INTERESTS</div>
+        <div class="metric-main">I-R-C</div>
+        <div class="metric-sub">High Invest</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="metric-card">
+        <div class="metric-header">APTITUDES</div>
+        <div class="metric-main">38th %ile</div>
+        <div class="metric-sub">Developing</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header">MORALITY</div>
+        <div class="metric-main">Outcome</div>
+        <div class="metric-sub">Focused</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header">OVERALL</div>
+        <div class="metric-main">ARCHITECT</div>
+        <div class="metric-sub">Profile</div>
+      </div>
+    </div>
+
+    <!-- Domain Comparison Chart -->
+    <div style="margin-bottom: 5rem;">
+      <canvas id="domainComparison" height="300"></canvas>
+    </div>
+
+    <div class="exec-summary-box">
+      <strong>Brief Summary:</strong> This report looks at <strong>how you think, your natural talents, your
+        personality, and
+        what motivates you . </strong> Overall, you're a <strong>sharp, analytical thinker</strong> who loves exploring
+      new ideas and
+      designing complex systems, rather than just doing routine tasks.
+    </div>
+
+    <!-- DOMAIN 1 -->
+    <section class="analysis-section">
+      <h2>01.General Aptitude & Logical Reasoning</h2>
+      <p>You're a very quick thinker. You're great at spotting patterns and solving logical puzzles. Sometimes, if
+        you're rushing under a tight deadline, you might forget small details, but overall reasoning is excellent.
+      </p>
+
+      <ul class="hbar-list">
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Analytical Reasoning</span><span>88%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:88%"></div>
+          </div>
+          <span class="hbar-tag">Top-Tier Performance</span>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Problem-Solving</span><span>84%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:84%"></div>
+          </div>
+          <span class="hbar-tag">Above Average Consistency</span>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Information Processing</span><span>74%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:74%; background:#888;"></div>
+          </div>
+          <span class="hbar-tag">Good — slow at times under stress</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- DOMAIN 2 -->
+    <section class="analysis-section">
+      <h2>02. Practical Skills</h2>
+      <p>You have a deep understanding of how things work in theory. However, when it comes to actually building things
+        or writing code, you might find it a bit harder to get the details exactly right. You're better at the "big
+        picture" than the "nitty-gritty" implementation.</p>
+
+      <ul class="hbar-list">
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Knowledge Base</span><span>82%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:82%"></div>
+          </div>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Algorithmic Logic</span><span>34%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:34%; background:#aaa;"></div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="obs-box">
+        <h4>Specific Observations</h4>
+        <ul>
+          <li>Can explain hash tables conceptually but implements them inefficiently</li>
+          <li>Understands recursion theory but struggles with base cases</li>
+          <li>Strong at system design diagrams; weak at syntax-level details</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="analysis-section">
+      <h2>03. Personality Assessment</h2>
+      <div style="max-width: 800px; margin: 0 auto; padding: 1rem;">
+        <canvas id="personalityRadar"></canvas>
+      </div>
+      <div class="obs-box" style="margin-top: 3rem;">
+        <h4>Analytic Narrative</h4>
+        <p style="font-size: 0.95rem; line-height: 1.7;">This chart shows your personality balance. That big spike in
+          <strong>Openness (8.7)</strong> means you're incredibly creative and love abstract ideas. Since you also have
+          a good score in <strong>Reliability (Conscientiousness, 6.8)</strong>, you're able to turn those wild ideas
+          into real results. Your lower <strong>Social Harmony (Agreeableness, 3.1)</strong> score just means you'd
+          rather focus on the facts and data than just being "nice" for no reason.
+        </p>
+      </div>
+    </section>
+
+    <!-- DOMAIN 4 -->
+    <section class="analysis-section">
+      <h2>04. Values & Ethics</h2>
+      <p>You tend to focus on the <strong>end result</strong>. When faced with a tough choice, you'll likely pick the
+        option that does the most good for the most people, rather than just following strict rules or traditions.</p>
+      <table class="sum-table">
+        <thead>
+          <tr>
+            <th>How You Decide</th>
+            <th>Strength</th>
+            <th>Natural Fit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Outcome-Based</td>
+            <td>+1.4</td>
+            <td>High - Primary</td>
+          </tr>
+          <tr>
+            <td>Care-Based</td>
+            <td>+0.3</td>
+            <td>Average</td>
+          </tr>
+          <tr>
+            <td>Rule-Based</td>
+            <td>-1.2</td>
+            <td>Very Low</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- DOMAIN 5 -->
+    <section class="analysis-section">
+      <h2>05. Interests & Preferences</h2>
+      <p>Your interests are strongly aligned with <strong>innovation and inquiry</strong>. You prefer environments where
+        you can tackle complex, theoretical problems and explore new technologies without being bogged down by
+        repetitive
+        day-to-day operations.</p>
+
+      <ul class="hbar-list">
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Theoretical Research</span><span>94%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:94%"></div>
+          </div>
+          <span class="hbar-tag">Primary Interest Area</span>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Strategic Planning</span><span>82%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:82%"></div>
+          </div>
+          <span class="hbar-tag">High Interest</span>
+        </li>
+        <li class="hbar-item">
+          <div class="hbar-info"><span>Routine Operations</span><span>18%</span></div>
+          <div class="hbar-track">
+            <div class="hbar-fill" style="width:18%; background:#ccc;"></div>
+          </div>
+          <span class="hbar-tag">Low Preference</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+    <section class="analysis-section">
+      <h2>Recommendations</h2>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <div class="rec-badge">Primary Fit</div>
+          <h3>Systems Architect</h3>
+          <p>You're perfect for designing big systems. Your love for investigation and "big picture" thinking makes you
+            a natural architect.</p>
+          <a href="https://framework.scaledagile.com/system-architect" target="_blank"
+            style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #000; text-decoration: underline; margin-top: 1rem; display: inline-block;">Learn
+            More &rarr;</a>
+        </div>
+        <div class="rec-card">
+          <div class="rec-badge">Secondary Fit</div>
+          <h3>R&D Engineer</h3>
+          <p>Your curiosity is off the charts (9.1). You're great at exploring new tech and figuring out what's next.
+          </p>
+          <a href="https://softwareengineering.stackexchange.com/questions/10651/how-do-i-get-into-rd" target="_blank"
+            style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #000; text-decoration: underline; margin-top: 1rem; display: inline-block;">Learn
+            More &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONALITY SUMMARY -->
+    <section class="analysis-section">
+      <h2>Personality Summary & Development Insights</h2>
+
+      <div class="exec-summary-box">
+        <strong>Who You Are:</strong> You are a <strong>brilliant, creative problem-solver</strong>. You love to learn
+        and think deeply about complex things. You work best when you have the freedom to think for yourself. Just keep
+        in mind that being blunt or too focused on the "result" might sometimes rub people the wrong way in a team.
+      </div>
+
+      <div class="rec-card final-improvements">
+        <h3> Key Strengths</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>
+            <strong>Incredible Logic:</strong>
+            <span>You're in the top 20% for brain power and spotting patterns.</span>
+          </li>
+          <li>
+            <strong>Wildly Creative:</strong>
+            <span>Your imagination is your superpower (8.7/10).</span>
+          </li>
+          <li>
+            <strong>Very Organized:</strong>
+            <span>You can actually get your big ideas done because you're structured.</span>
+          </li>
+          <li>
+            <strong>Deep Curiosity:</strong>
+            <span>You're always learning and digging into details (9.1/10).</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rec-card final-improvements" style="margin-top: 2rem;">
+        <h3> Areas of Improvement</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>
+            <strong>Closing the "Do" Gap:</strong>
+            <span> The candidate has strong technical knowledge and theoretical understanding, but practicing the
+              actual "building" part will make you unstoppable.</span>
+          </li>
+          <li>
+            <strong>Teamwork & Harmony:</strong>
+            <span>Try to be a bit more patient with others. A little diplomacy goes a long way.</span>
+          </li>
+          <li>
+            <strong>Handling Pressure:</strong>
+            <span>When things get stressful, take a breath. It'll help you remember the small details.</span>
+          </li>
+          <li>
+            <strong>Seeing More Views:</strong>
+            <span>The end goal is important, but sometimes following the rules is just as valuable.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="final-improvements" style="margin-top: 3rem;">
+        <h4>Professional Development Roadmap</h4>
+        <ul class="hbar-list" style="gap: 2rem;">
+          <li><strong>Practical Implementation:</strong> Transition from abstract theoretical analysis to comprehensive
+            hands-on development. Engaging in end-to-end project execution will bridge the gap between conceptual
+            understanding and functional industrial proficiency.</li>
+          <li><strong>Collaborative Communication:</strong> Enhance professional interpersonal dynamics by prioritizing
+            active listening and consultative dialogue. Balancing a strong technical perspective with empathetic inquiry
+            ensures that complex designs are both inclusive and strategically sound.</li>
+          <li><strong>Stress Resilience:</strong> Implement advanced self-regulation strategies to maintain optimal
+            cognitive performance during high-stakes operational cycles. Controlled stress management is essential for
+            preserving accuracy and maintaining a clear architectural vision under pressure.</li>
+          <li><strong>Procedural Alignment:</strong> Recognize that organizational protocols and industry standards are
+            fundamental to maintaining system integrity. Understanding the underlying logic of established rules will
+            allow you to navigate corporate structures more effectively while ensuring project reliability.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="method-footer">
+      <strong>Methodology:</strong> Calibrated via Item Response Theory (IRT) models (2PL/3PL/GRM). Theta (θ) scores
+      represent latent trait estimates (mean=0, SD=1). This is a professional-grade simulation of assessment results.
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ScoePsychometrics. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Standardization</a>
+    </div>
+  </footer>
+
+  <script>
+    // Global Chart Defaults for Minimalist Aesthetic
+    Chart.defaults.font.family = "'Roboto Mono', monospace";
+    Chart.defaults.color = '#000';
+    Chart.defaults.scale.grid.color = '#eee';
+
+    // 1. Personality Radar Chart
+    const radarCtx = document.getElementById('personalityRadar').getContext('2d');
+    new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Extraversion', 'Agreeableness', 'Conscientiousness', 'Emotional Stability', 'Openness/Intellect'],
+        datasets: [{
+          label: 'Latent Trait Score (0-10)',
+          data: [4.2, 3.1, 6.8, 5.5, 8.7],
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          borderColor: '#000',
+          borderWidth: 2,
+          pointBackgroundColor: '#000',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#000'
+        }]
+      },
+      options: {
+        scales: {
+          r: {
+            angleLines: { color: '#eee' },
+            suggestedMin: 0,
+            suggestedMax: 10,
+            ticks: { stepSize: 2, display: false },
+            pointLabels: {
+              font: {
+                size: 14,
+                weight: '700'
+              },
+              padding: 20
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        },
+        layout: {
+          padding: {
+            top: 20,
+            bottom: 20,
+            left: 50,
+            right: 50
+          }
+        }
+      }
+    });
+
+    // 2. Domain Comparison Chart
+    const barCtx = document.getElementById('domainComparison').getContext('2d');
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Cognitive', 'Aptitude', 'Personality', 'Morality', 'Interests'],
+        datasets: [{
+          label: 'Strength (0-100)',
+          data: [82, 38, 75, 88, 91],
+          backgroundColor: '#000',
+          borderWidth: 0,
+          barThickness: 50
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: { display: true, font: { weight: '700' } },
+            grid: { display: true, color: '#eee' }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { font: { weight: '700', size: 14 } }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
