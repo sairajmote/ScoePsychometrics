@@ -1,6 +1,6 @@
 #  ScopePsychometrics
 
-> *Know thyself. For free. All 500 questions of it.*
+> *Know thyself. A comprehensive personality test . FOR FREE*
 
 ---
 
