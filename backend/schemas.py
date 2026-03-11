@@ -5,25 +5,24 @@ from datetime import datetime
 class QuestionBase(BaseModel):
     id: int
     category: str
+    subtest: Optional[str] = None
     text: str
     options: Dict[str, Optional[str]]
     keyed: Optional[str] = None
     correct_answer: Optional[str] = None
 
-class TestResultBase(BaseModel):
+class ResponseItem(BaseModel):
+    question_id: int
+    selected_option: str # "A", "B", "C", "D", "E", "F", "G"
+
+class SubmitExamRequest(BaseModel):
     student_name: str
-    test_type: str
-    score: int
+    email: str
+    education: Optional[str] = None
+    responses: List[ResponseItem]
 
-class TraitScore(BaseModel):
-    total: int
-    count: int
-    average: float
-
-class TraitResults(BaseModel):
-    personality: Dict[str, TraitScore]
-    cognitive: Dict[str, TraitScore]
-
-class SubmitTestRequest(BaseModel):
-    student_name: str
-    results: TraitResults
+class ExamSubmissionResponse(BaseModel):
+    status: str
+    report_id: str
+    user_id: int
+    session_id: int

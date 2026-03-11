@@ -4,12 +4,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 import os
-from . import models, database, schemas
+import uuid
+from datetime import datetime
+from . import models, database, schemas, scoring_mbti
 from .database import engine, get_db
 
-# Tables are managed by Alembic migrations — run: alembic upgrade head
-
 app = FastAPI()
+
+# Tables are managed by Alembic migrations — run: alembic upgrade head
 
 # Get the absolute path of the project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -52,45 +54,168 @@ async def health_db(db: Session = Depends(get_db)):
 @app.get("/questions", response_model=list[schemas.QuestionBase])
 async def get_questions(db: Session = Depends(get_db)):
     questions = db.query(models.Question).all()
-    # Explicitly return dictionaries that match QuestionBase
-    return [
-        {
+    result = []
+    for q in questions:
+        # Build options dict dynamically
+        opts = {
+            "A": q.option_a,
+            "B": q.option_b,
+            "C": q.option_c,
+            "D": q.option_d,
+            "E": q.option_e,
+        }
+        if q.option_f: opts["F"] = q.option_f
+        if q.option_g: opts["G"] = q.option_g
+        
+        result.append({
             "id": q.id,
             "category": q.category,
+            "subtest": q.subtest,
             "text": q.text,
-            "options": {
-                "A": q.option_a,
-                "B": q.option_b,
-                "C": q.option_c,
-                "D": q.option_d,
-                "E": q.option_e,
-            },
+            "options": opts,
             "keyed": q.keyed,
             "correct_answer": q.correct_answer,
-        }
-        for q in questions
-    ]
+        })
+    return result
 
-@app.post("/submit-results")
-async def submit_results(request: schemas.SubmitTestRequest, db: Session = Depends(get_db)):
+@app.post("/submit-exam", response_model=schemas.ExamSubmissionResponse)
+async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(get_db)):
     try:
-        # Calculate a total score (e.g., sum of personality trait scores)
-        total_score = sum(trait.total for trait in request.results.personality.values())
-        
-        # Save to database
-        new_result = models.TestResult(
-            student_name=request.student_name,
-            test_type="Comprehensive Assessment",
-            score=int(total_score)
+        # 1. Get or Create User
+        user = db.query(models.User).filter(models.User.email == request.email).first()
+        if not user:
+            user = models.User(
+                name=request.student_name,
+                email=request.email,
+                education=request.education
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+
+        # 2. Create Quiz Session
+        session = models.QuizSession(
+            user_id=user.id,
+            status="completed",
+            completed_at=func.now()
         )
-        db.add(new_result)
+        db.add(session)
         db.commit()
-        db.refresh(new_result)
+        db.refresh(session)
+
+        # 3. Save Responses and prepare for scoring
+        option_map = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7}
+        scoring_data = []
+
+        for item in request.responses:
+            # Save raw response
+            resp = models.Response(
+                session_id=session.id,
+                question_id=item.question_id,
+                selected_option=item.selected_option
+            )
+            db.add(resp)
+            
+            # Fetch question details for scoring
+            q = db.query(models.Question).filter(models.Question.id == item.question_id).first()
+            if q:
+                scoring_data.append({
+                    "subtest": q.subtest,
+                    "keyed": q.keyed,
+                    "selected_option_index": option_map.get(item.selected_option, 4)
+                })
+
+        db.commit()
+
+        # 4. Score MBTI
+        mbti_results = scoring_mbti.score_mbti(scoring_data)
         
-        return {"status": "success", "result_id": new_result.id}
+        # 5. Build full Report JSON
+        report_id = f"RPT-{datetime.now().strftime('%Y-%m%d')}-{uuid.uuid4().hex[:4].upper()}"
+        
+        # Mocking other subtests since we are only doing MBTI now
+        report_data = {
+            "meta": {
+                "report_id": report_id,
+                "candidate": {
+                    "name": user.name,
+                    "email": user.email,
+                    "education": user.education or "Not Specified"
+                },
+                "generated_at": datetime.now().isoformat(),
+                "quiz_duration_seconds": 1200, # Mocked
+                "total_questions_answered": len(request.responses)
+            },
+            "subtests": {
+                "mbti": {
+                    "label": "Myers-Briggs Type Indicator",
+                    "description": "Assessment of how people perceive the world and make decisions.",
+                    "result_type": mbti_results["result_type"],
+                    "type_label": scoring_mbti.get_mbti_label(mbti_results["result_type"]),
+                    "dichotomies": {
+                        "EI": {
+                            "dimension_a": {"label": "Extraversion", "code": "E", "score": mbti_results["dimensions"]["EI"]["pct_a"]},
+                            "dimension_b": {"label": "Introversion", "code": "I", "score": mbti_results["dimensions"]["EI"]["pct_b"]}
+                        },
+                        "SN": {
+                            "dimension_a": {"label": "Sensing", "code": "S", "score": mbti_results["dimensions"]["SN"]["pct_a"]},
+                            "dimension_b": {"label": "Intuition", "code": "N", "score": mbti_results["dimensions"]["SN"]["pct_b"]}
+                        },
+                        "TF": {
+                            "dimension_a": {"label": "Thinking", "code": "T", "score": mbti_results["dimensions"]["TF"]["pct_a"]},
+                            "dimension_b": {"label": "Feeling", "code": "F", "score": mbti_results["dimensions"]["TF"]["pct_b"]}
+                        },
+                        "JP": {
+                            "dimension_a": {"label": "Judging", "code": "J", "score": mbti_results["dimensions"]["JP"]["pct_a"]},
+                            "dimension_b": {"label": "Perceiving", "code": "P", "score": mbti_results["dimensions"]["JP"]["pct_b"]}
+                        }
+                    },
+                    "cognitive_functions": {
+                        "dominant": {"label": "Mock Function", "code": "Xi", "strength": 80},
+                        "auxiliary": {"label": "Mock Function", "code": "Xe", "strength": 60},
+                        "tertiary": {"label": "Mock Function", "code": "Xi", "strength": 40},
+                        "inferior": {"label": "Mock Function", "code": "Xe", "strength": 20}
+                    },
+                    "interpretation": "Your personality profile suggests a unique way of processing information and interacting with the world."
+                }
+                # Other subtests would be added here as implemented
+            },
+            "composite_insights": {
+                "executive_summary": f"Your dominant result is {mbti_results['result_type']}.",
+                "top_strengths": ["Logical Analysis", "Planning"],
+                "growth_areas": ["Flexibility"],
+                "career_domains": ["Technology", "Engineering"]
+            }
+        }
+
+        # 6. Save Report
+        new_report = models.Report(
+            report_id=report_id,
+            user_id=user.id,
+            session_id=session.id,
+            report_data=report_data
+        )
+        db.add(new_report)
+        db.commit()
+
+        return {
+            "status": "success",
+            "report_id": report_id,
+            "user_id": user.id,
+            "session_id": session.id
+        }
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/report/{report_id}")
+async def get_report(report_id: str, db: Session = Depends(get_db)):
+    report = db.query(models.Report).filter(models.Report.report_id == report_id).first()
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return report.report_data
+
+from sqlalchemy.sql import func # Fix for func usage in session creation
 
 if __name__ == "__main__":
     import uvicorn

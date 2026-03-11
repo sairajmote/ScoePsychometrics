@@ -1035,11 +1035,34 @@
         Chart.defaults.color = '#000';
 
         async function loadReport() {
-            // In production, this would be fetched from an API endpoint.
-            // For now, load the static JSON file.
-            const res = await fetch('/static/data/sample_report_data.json');
-            const data = await res.json();
-            renderReport(data);
+            // Get the report ID from the URL query string (e.g., /report?id=RPT-XXX)
+            const urlParams = new URLSearchParams(window.location.search);
+            const reportId = urlParams.get('id');
+            
+            if (!reportId) {
+                // Fallback to sample data for preview if no ID provided
+                console.warn("No report ID provided in URL. Falling back to sample data.");
+                const res = await fetch('/static/data/sample_report_data.json');
+                const data = await res.json();
+                renderReport(data);
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/report/${reportId}`);
+                if (!res.ok) throw new Error("Report not found");
+                const data = await res.json();
+                renderReport(data);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('report-root').innerHTML = `
+                    <div style="text-align:center;padding:4rem;">
+                        <h2 style="color:#e74c3c;">Report Not Found</h2>
+                        <p style="color:#666;">The report ID <strong>${reportId}</strong> could not be located in our system.</p>
+                        <a href="/" style="display:inline-block;margin-top:1rem;color:var(--c-teal);">Return to Home</a>
+                    </div>
+                `;
+            }
         }
 
         function levelClass(level) {
