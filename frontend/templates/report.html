@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychometric Report | SCOE-Psychometrics</title>
+    <title>Psychometric Report | ScoePsychometrics</title>
     <meta name="description"
         content="Comprehensive psychometric assessment report with personality, intelligence, and behavioral analysis.">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -78,6 +78,7 @@
             margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
+            background: #fff;
         }
 
         .report-cover::after {
@@ -100,664 +101,265 @@
             font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 1.2rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
         }
 
         .cover-title {
-            font-size: 2.8rem;
-            line-height: 1.05;
-            margin: 0 0 0.5rem 0;
-            text-transform: uppercase;
+            font-size: 3.5rem;
+            line-height: 1;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
         }
 
         .cover-subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #555;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            line-height: 1.5;
         }
 
         .cover-meta {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             flex-wrap: wrap;
-            border-top: 2px solid #000;
-            padding-top: 1.5rem;
-            margin-top: 1.5rem;
+            border-top: 1px solid #eee;
+            padding-top: 2rem;
         }
 
         .cover-meta-item {
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 0.3rem;
         }
 
         .cover-meta-label {
             font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #888;
+            letter-spacing: 0.1em;
             font-weight: 700;
+            color: #999;
         }
 
         .cover-meta-value {
             font-size: 1rem;
             font-weight: 700;
+            color: #000;
         }
 
         /* ── Snapshot Grid ── */
         .snapshot-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
             margin-bottom: 3rem;
         }
 
         .snap-card {
-            border: 2px solid #000;
-            padding: 1.8rem 1.4rem;
-            margin: -1px;
-            text-align: center;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .snap-card:hover {
-            background: #000;
-            color: #fff;
-        }
-
-        .snap-card:hover .snap-label,
-        .snap-card:hover .snap-sub {
-            color: #aaa;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            transition: transform 0.3s;
         }
 
         .snap-label {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.1em;
+            font-weight: 800;
             color: #888;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-            transition: color 0.3s;
+            margin-bottom: 0.8rem;
         }
 
         .snap-value {
-            font-size: 1.6rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 0.3rem;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #000;
+            line-height: 1;
+            margin-bottom: 0.4rem;
         }
 
         .snap-sub {
             font-size: 0.8rem;
-            color: #555;
-            transition: color 0.3s;
+            font-weight: 700;
+            color: var(--c-teal);
         }
 
         /* ── Section Blocks ── */
         .section-block {
             margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.6s ease forwards;
-        }
-
-        .section-block:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .section-block:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .section-block:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .section-block:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .section-block:nth-child(5) {
-            animation-delay: 0.5s;
-        }
-
-        .section-block:nth-child(6) {
-            animation-delay: 0.6s;
-        }
-
-        .section-block:nth-child(7) {
-            animation-delay: 0.7s;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-num {
-            display: inline-block;
-            background: var(--c-teal);
-            color: #fff;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-right: 1rem;
-            flex-shrink: 0;
-            border-radius: 4px;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 3rem;
         }
 
         .section-heading {
             display: flex;
             align-items: center;
-            margin-bottom: 0.4rem;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-num {
+            font-size: 1rem;
+            font-weight: 900;
+            background: #000;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .section-heading h2 {
-            font-size: 1.6rem;
+            font-size: 2rem;
+            font-weight: 800;
             margin: 0;
-            text-transform: uppercase;
+            letter-spacing: -0.01em;
         }
 
         .section-desc {
-            font-size: 0.85rem;
+            font-size: 1.05rem;
             color: #666;
-            margin-bottom: 2rem;
-            padding-left: 52px;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            line-height: 1.6;
         }
 
-        .section-body {
-            border: 2px solid #000;
-            padding: 2.5rem;
-            background: #fff;
-        }
-
-        /* ── Interpretation Box ── */
-        .interp-box {
-            background: #f8f8f8;
-            border-left: 5px solid #000;
-            padding: 1.5rem 2rem;
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #333;
-        }
-
-        .interp-box strong {
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #888;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ── Horizontal Bars ── */
-        .hbar-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .hbar-item {
-            width: 100%;
-        }
-
-        .hbar-info {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.4rem;
-        }
-
-        .hbar-track {
-            height: 10px;
-            background: #eee;
-            border: 1px solid #ccc;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hbar-fill {
-            height: 100%;
-            background: var(--c-teal);
-            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-            border-radius: 2px;
-        }
-
-        .hbar-tag {
-            font-size: 0.7rem;
-            color: #888;
-            margin-top: 0.3rem;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* ── Level Badge ── */
-        .level-badge {
-            display: inline-block;
-            padding: 0.2rem 0.7rem;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border: 1px solid #000;
-            margin-left: 0.5rem;
-        }
-
-        .level-badge.high {
-            background: var(--c-green);
-            color: #fff;
-            border-color: var(--c-green);
-        }
-
-        .level-badge.very-high {
-            background: var(--c-blue);
-            color: #fff;
-            border-color: var(--c-blue);
-        }
-
-        .level-badge.moderate {
-            background: var(--c-yellow-light);
-            color: #8a7600;
-            border-color: var(--c-yellow);
-        }
-
-        .level-badge.moderate-high {
-            background: var(--c-green-light);
-            color: #1a7a3a;
-            border-color: var(--c-green);
-        }
-
-        .level-badge.low {
-            background: var(--c-red-light);
-            color: var(--c-red);
-            border-color: var(--c-red);
-        }
-
-        /* ── MBTI Dichotomy Bars ── */
+        /* ── MBTI Specific ── */
         .mbti-type-display {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            padding: 3rem;
+            background: #f0fcf9;
+            border: 1px solid #d1f2eb;
         }
 
         .mbti-type-code {
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
+            font-size: 5rem;
+            font-weight: 950;
+            letter-spacing: -0.05em;
+            color: #000;
             line-height: 1;
         }
 
         .mbti-type-name {
-            font-size: 1rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.3rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--c-teal);
+            margin-top: 0.5rem;
         }
 
         .dichotomy-row {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
+            gap: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .dich-label {
-            width: 120px;
-            font-size: 0.7rem;
+            width: 150px;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
+        }
+
+        .dich-label-right {
+            width: 150px;
             text-align: right;
-            letter-spacing: 0.05em;
-            flex-shrink: 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .dich-bar-wrap {
             flex: 1;
-            display: flex;
             height: 28px;
-            border: 1px solid #000;
-            overflow: hidden;
+            background: #eee;
+            display: flex;
+            position: relative;
         }
 
         .dich-bar-a {
-            background: #ccc;
+            background: var(--c-teal);
+            height: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
+            padding-left: 10px;
+            color: #fff;
             font-size: 0.7rem;
-            font-weight: 700;
-            transition: width 1s ease;
+            font-weight: 800;
+            transition: width 1s;
         }
 
         .dich-bar-b {
-            background: var(--c-teal);
-            color: #fff;
+            background: #eee;
+            height: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            transition: width 1s ease;
-        }
-
-        .dich-label-right {
-            width: 120px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            flex-shrink: 0;
-        }
-
-        /* ── Cognitive Stack ── */
-        .cog-stack {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .cog-card {
-            border: 1px solid #000;
-            padding: 1.2rem;
-            text-align: center;
-        }
-
-        .cog-role {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+            justify-content: flex-end;
+            padding-right: 10px;
             color: #888;
-            margin-bottom: 0.5rem;
-        }
-
-        .cog-code {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .cog-name {
             font-size: 0.7rem;
-            color: #555;
-            margin-top: 0.3rem;
+            font-weight: 800;
+            flex: 1;
         }
 
-        .cog-strength {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
-        }
-
-        /* ── Temperament ── */
-        .temp-blend {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .temp-blend-label {
-            font-size: 2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .temp-chart-row {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .temp-traits-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .temp-trait-card {
-            border: 1px solid #ddd;
-            padding: 1rem;
-        }
-
-        .temp-trait-name {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 700;
-            color: #888;
-            margin-bottom: 0.5rem;
-        }
-
-        .temp-trait-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-        }
-
-        .temp-tag {
-            font-size: 0.65rem;
-            padding: 0.2rem 0.5rem;
-            border: 1px solid #000;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* ── Brain Hemispheres ── */
-        .brain-display {
-            display: grid;
-            grid-template-columns: 1fr 80px 1fr;
-            gap: 0;
-            align-items: stretch;
-            margin-bottom: 2rem;
-        }
-
-        .brain-side {
-            padding: 2rem;
-            border: 2px solid #000;
-        }
-
-        .brain-side.left {
-            border-right: none;
-        }
-
-        .brain-side.right {
-            border-left: none;
-        }
-
-        .brain-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #000;
-            background: linear-gradient(180deg, var(--c-blue), var(--c-purple));
-            color: #fff;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-weight: 700;
-        }
-
-        .brain-pct {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .brain-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #888;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .brain-traits {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-        }
-
-        .brain-trait-tag {
-            font-size: 0.6rem;
-            padding: 0.15rem 0.5rem;
-            border: 1px solid currentColor;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* ── Enneagram ── */
-        .ennea-hero {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .ennea-type-num {
-            font-size: 5rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .ennea-type-name {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #555;
-        }
-
-        .ennea-wing {
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            color: #888;
-        }
-
-        .ennea-meta-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .ennea-meta-card {
-            border: 1px solid #000;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .ennea-meta-label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #888;
-            margin-bottom: 0.4rem;
-            font-weight: 700;
-        }
-
-        .ennea-meta-value {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .ennea-directions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .dir-card {
+        .interp-box {
+            background: #f8f9fa;
+            border-left: 4px solid var(--c-teal);
             padding: 1.5rem;
-            border: 2px solid #000;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #444;
+            margin-top: 2rem;
         }
 
-        .dir-card.growth {
-            background: #f0f8f0;
-        }
-
-        .dir-card.stress {
-            background: #f8f0f0;
-        }
-
-        .dir-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-weight: 700;
+        .interp-box strong {
+            display: block;
             margin-bottom: 0.5rem;
+            color: #000;
+            font-size: 1rem;
         }
 
-        .dir-card.growth .dir-label {
-            color: #2a7a2a;
-        }
-
-        .dir-card.stress .dir-label {
-            color: #7a2a2a;
-        }
-
-        .dir-type {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .dir-desc {
-            font-size: 0.85rem;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        /* ── Composite Insights ── */
+        /* ── Insights Block ── */
         .insights-block {
-            border: 3px solid #000;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            background: #fafafa;
+            background: #000;
+            color: #fff;
+            padding: 4rem 3rem;
+            margin-bottom: 5rem;
         }
 
         .insights-block h2 {
-            font-size: 1.6rem;
+            font-size: 2.5rem;
+            font-weight: 850;
             margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            border-bottom: 3px solid #000;
-            padding-bottom: 1rem;
         }
 
         .insights-summary {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #333;
-            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            max-width: 900px;
         }
 
         .insights-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2.5rem;
+            gap: 4rem;
         }
 
         .insight-col h3 {
             font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 1rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .insight-col ul {
@@ -766,130 +368,65 @@
         }
 
         .insight-col li {
-            padding: 0.6rem 0 0.6rem 1.2rem;
-            position: relative;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .insight-col li::before {
-            content: '■';
-            position: absolute;
-            left: 0;
-            font-size: 0.6rem;
-            top: 0.75rem;
-        }
-
-        .insight-col.strengths li::before {
-            color: #000;
-        }
-
-        .insight-col.growth li::before {
-            color: #888;
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--c-teal);
         }
 
         .career-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
+            gap: 0.8rem;
+            margin-top: 2rem;
         }
 
         .career-tag {
             padding: 0.5rem 1rem;
-            border: 2px solid #000;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .career-tag:hover {
+        /* ── Footer ── */
+        .report-footer-bar {
             background: #000;
             color: #fff;
-        }
-
-        .compat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-
-        .compat-card {
-            border: 1px solid #000;
-            padding: 1.2rem;
-        }
-
-        .compat-label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #888;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .compat-value {
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #333;
-        }
-
-        /* ── Report Footer ── */
-        .report-footer-bar {
-            border-top: 3px solid #000;
-            padding-top: 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .report-footer-bar span {
-            font-size: 0.75rem;
-            color: #888;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            font-weight: 700;
         }
 
         .print-btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border: 2px solid #000;
-            background: #000;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .print-btn:hover {
             background: #fff;
             color: #000;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
         }
 
-        /* ── Chart containers ── */
-        .chart-wrap {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .chart-wrap-wide {
-            max-width: 100%;
-        }
-
-        /* ── Print Styles ── */
         @media print {
 
-            header,
-            footer,
+            .section-nav,
+            .report-footer-bar,
             .print-btn {
                 display: none !important;
             }
@@ -897,88 +434,11 @@
             .report-shell {
                 margin: 0;
                 padding: 0;
+                max-width: 100%;
             }
 
-            .section-block {
-                break-inside: avoid;
-                animation: none;
-                opacity: 1;
-                transform: none;
-            }
-
-            .section-body {
-                border: 1px solid #000;
-            }
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 768px) {
-            .snapshot-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cover-title {
-                font-size: 1.8rem;
-            }
-
-            .mbti-type-code {
-                font-size: 2.5rem;
-            }
-
-            .cog-stack {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .temp-chart-row {
-                grid-template-columns: 1fr;
-            }
-
-            .brain-display {
-                grid-template-columns: 1fr;
-            }
-
-            .brain-center {
-                writing-mode: horizontal-tb;
-                padding: 0.5rem;
-            }
-
-            .brain-side.left,
-            .brain-side.right {
-                border: 2px solid #000;
-            }
-
-            .ennea-meta-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .ennea-directions {
-                grid-template-columns: 1fr;
-            }
-
-            .insights-columns {
-                grid-template-columns: 1fr;
-            }
-
-            .compat-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .dichotomy-row {
-                flex-wrap: wrap;
-            }
-
-            .dich-label,
-            .dich-label-right {
-                width: 100%;
-                text-align: left;
-            }
-
-            .section-body {
-                padding: 1.5rem;
-            }
-
-            .report-cover {
-                padding: 2rem;
+            body {
+                background: white;
             }
         }
     </style>
@@ -988,7 +448,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
+            <img src="/static/img/SCOE_logo.png" alt="ScoePsychometrics Logo" class="nav-logo">
             <span class="logo">ScoePsychometrics</span>
         </div>
         <nav>
@@ -999,49 +459,24 @@
         </nav>
     </header>
 
-    <div style="height:90px;"></div>
-
     <div class="section-nav" id="section-nav">
         <a href="#sec-overview" class="nav-active">Overview</a>
-        <a href="#sec-big5">Big Five</a>
-        <a href="#sec-mbti">Personality Type</a>
-        <a href="#sec-temperament">Temperament</a>
-        <a href="#sec-mi">Multiple Intelligences</a>
-        <a href="#sec-learning">Learning Styles</a>
-        <a href="#sec-brain">Brain Hemispheres</a>
-        <a href="#sec-enneagram">Enneagram</a>
+        <a href="#sec-results">Results</a>
+        <a href="#sec-insights">Insights</a>
     </div>
 
     <main class="report-shell" id="report-root">
-        <p style="text-align:center;padding:4rem;color:#888;font-size:1.1rem;">Loading report data…</p>
+        <div style="text-align:center;padding:5rem;">
+            <p>Loading report data...</p>
+        </div>
     </main>
 
-    <footer>
-        <div class="logo-container">
-            <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo" style="filter:invert(1);">
-            <span class="logo" style="color:#fff;">ScoePsychometrics</span>
-        </div>
-        <div class="footer-links">
-            <span>© 2026 InnovateX</span>
-        </div>
-    </footer>
-
     <script>
-        // ───────────────────────────────────────────
-        //  REPORT RENDERER — reads JSON, builds HTML
-        // ───────────────────────────────────────────
-
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = '#000';
-
         async function loadReport() {
-            // Get the report ID from the URL query string (e.g., /report?id=RPT-XXX)
             const urlParams = new URLSearchParams(window.location.search);
             const reportId = urlParams.get('id');
-            
+
             if (!reportId) {
-                // Fallback to sample data for preview if no ID provided
-                console.warn("No report ID provided in URL. Falling back to sample data.");
                 const res = await fetch('/static/data/sample_report_data.json');
                 const data = await res.json();
                 renderReport(data);
@@ -1054,19 +489,13 @@
                 const data = await res.json();
                 renderReport(data);
             } catch (err) {
-                console.error(err);
                 document.getElementById('report-root').innerHTML = `
                     <div style="text-align:center;padding:4rem;">
                         <h2 style="color:#e74c3c;">Report Not Found</h2>
-                        <p style="color:#666;">The report ID <strong>${reportId}</strong> could not be located in our system.</p>
-                        <a href="/" style="display:inline-block;margin-top:1rem;color:var(--c-teal);">Return to Home</a>
+                        <a href="/">Return to Home</a>
                     </div>
                 `;
             }
-        }
-
-        function levelClass(level) {
-            return (level || 'moderate').replace(/\s+/g, '-').toLowerCase();
         }
 
         function formatDuration(seconds) {
@@ -1085,547 +514,102 @@
 
             // ── COVER ──
             html += `
-      <div class="report-cover" id="sec-overview">
-        <div class="cover-badge">Psychometric Assessment Report</div>
-        <h1 class="cover-title">${meta.candidate.name.toUpperCase()}</h1>
-        <div class="cover-subtitle">Comprehensive Multi-Dimensional Personality & Intelligence Profile</div>
-        <div class="cover-meta">
-          <div class="cover-meta-item">
-            <span class="cover-meta-label">Report ID</span>
-            <span class="cover-meta-value">${meta.report_id}</span>
-          </div>
-          <div class="cover-meta-item">
-            <span class="cover-meta-label">Generated</span>
-            <span class="cover-meta-value">${new Date(meta.generated_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-          </div>
-          <div class="cover-meta-item">
-            <span class="cover-meta-label">Duration</span>
-            <span class="cover-meta-value">${formatDuration(meta.quiz_duration_seconds)}</span>
-          </div>
-          <div class="cover-meta-item">
-            <span class="cover-meta-label">Questions</span>
-            <span class="cover-meta-value">${meta.total_questions_answered}</span>
-          </div>
-          <div class="cover-meta-item">
-            <span class="cover-meta-label">Education</span>
-            <span class="cover-meta-value">${meta.candidate.education}</span>
-          </div>
-        </div>
-      </div>`;
+                <div class="report-cover" id="sec-overview">
+                    <div class="cover-badge">Psychometric Assessment Report</div>
+                    <h1 class="cover-title">${meta.candidate.name.toUpperCase()}</h1>
+                    <div class="cover-subtitle">Targeted Personality Analysis: Myers-Briggs Type Indicator (MBTI) Profile</div>
+                    <div class="cover-meta">
+                        <div class="cover-meta-item">
+                            <span class="cover-meta-label">Report ID</span>
+                            <span class="cover-meta-value">${meta.report_id}</span>
+                        </div>
+                        <div class="cover-meta-item">
+                            <span class="cover-meta-label">Generated</span>
+                            <span class="cover-meta-value">${new Date(meta.generated_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        </div>
+                        <div class="cover-meta-item">
+                            <span class="cover-meta-label">Education</span>
+                            <span class="cover-meta-value">${meta.candidate.education}</span>
+                        </div>
+                    </div>
+                </div>`;
 
-            // ── SNAPSHOT GRID ──
-            const bf = sub.big_five.traits;
-            html += `
-      <div class="snapshot-grid">
-        <div class="snap-card">
-          <div class="snap-label">MBTI Type</div>
-          <div class="snap-value">${sub.mbti.result_type}</div>
-          <div class="snap-sub">${sub.mbti.type_label}</div>
-        </div>
-        <div class="snap-card">
-          <div class="snap-label">Enneagram</div>
-          <div class="snap-value">Type ${sub.enneagram.primary_type.number}</div>
-          <div class="snap-sub">${sub.enneagram.primary_type.wing_label}</div>
-        </div>
-        <div class="snap-card">
-          <div class="snap-label">Temperament</div>
-          <div class="snap-value">${sub.temperament.blend_label}</div>
-          <div class="snap-sub">Primary: ${sub.temperament.primary.charAt(0).toUpperCase() + sub.temperament.primary.slice(1)}</div>
-        </div>
-        <div class="snap-card">
-          <div class="snap-label">Brain Dominance</div>
-          <div class="snap-value">${sub.brain_hemispheres.scores.left.percentage}% L</div>
-          <div class="snap-sub">${sub.brain_hemispheres.dominant_hemisphere === 'left' ? 'Left-Brain Dominant' : 'Right-Brain Dominant'}</div>
-        </div>
-      </div>`;
+            // ── MBTI SNIPPET ──
+            if (sub.mbti) {
+                html += `
+                <div class="snapshot-grid" id="sec-results">
+                    <div class="snap-card">
+                        <div class="snap-label">MBTI Type</div>
+                        <div class="snap-value">${sub.mbti.result_type}</div>
+                        <div class="snap-sub">${sub.mbti.type_label}</div>
+                    </div>
+                </div>`;
 
-            // ── SECTION 1: BIG FIVE ──
-            const b5 = sub.big_five;
-            let b5Bars = '';
-            for (const [key, trait] of Object.entries(b5.traits)) {
-                b5Bars += `
-        <li class="hbar-item">
-          <div class="hbar-info">
-            <span>${trait.label} <span class="level-badge ${levelClass(trait.level)}">${trait.level}</span></span>
-            <span>${trait.score}%</span>
-          </div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:0%" data-target="${trait.score}"></div></div>
-          <span class="hbar-tag">${trait.percentile}th percentile</span>
-        </li>`;
+                const mbti = sub.mbti;
+                const dichRows = Object.values(mbti.dichotomies).map(d => `
+                    <div class="dichotomy-row">
+                        <div class="dich-label">${d.dimension_a.label} (${d.dimension_a.code})</div>
+                        <div class="dich-bar-wrap">
+                            <div class="dich-bar-a" style="width:${d.dimension_a.score}%">${Math.round(d.dimension_a.score)}%</div>
+                            <div class="dich-bar-b" style="width:${d.dimension_b.score}%">${Math.round(d.dimension_b.score)}%</div>
+                        </div>
+                        <div class="dich-label-right">${d.dimension_b.label} (${d.dimension_b.code})</div>
+                    </div>
+                `).join('');
+
+                html += `
+                <div class="section-block">
+                    <div class="section-heading">
+                        <span class="section-num">01</span>
+                        <h2>${mbti.label}</h2>
+                    </div>
+                    <div class="section-desc">${mbti.description}</div>
+                    <div class="section-body">
+                        <div class="mbti-type-display">
+                            <div class="mbti-type-code">${mbti.result_type}</div>
+                            <div class="mbti-type-name">${mbti.type_label}</div>
+                        </div>
+                        ${dichRows}
+                        <div class="interp-box">
+                            <strong>Interpretation</strong>
+                            ${mbti.interpretation}
+                        </div>
+                    </div>
+                </div>`;
             }
-
-            html += `
-      <div class="section-block" id="sec-big5">
-        <div class="section-heading">
-          <span class="section-num">01</span>
-          <h2>${b5.label}</h2>
-        </div>
-        <div class="section-desc">${b5.description}</div>
-        <div class="section-body">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
-            <div><canvas id="chart-big5"></canvas></div>
-            <ul class="hbar-list">${b5Bars}</ul>
-          </div>
-          ${Object.entries(b5.traits).map(([k, t]) => `
-          <div class="interp-box" style="margin-top:1rem;">
-            <strong>${t.label}</strong>
-            ${t.interpretation}
-          </div>`).join('')}
-        </div>
-      </div>`;
-
-            // ── SECTION 2: MBTI ──
-            const mbti = sub.mbti;
-            const dichs = Object.values(mbti.dichotomies);
-            let dichRows = dichs.map(d => {
-                const aWin = d.dimension_a.score > d.dimension_b.score;
-                return `
-        <div class="dichotomy-row">
-          <div class="dich-label">${d.dimension_a.label} (${d.dimension_a.code})</div>
-          <div class="dich-bar-wrap">
-            <div class="dich-bar-a" style="width:${d.dimension_a.score}%">${d.dimension_a.score}%</div>
-            <div class="dich-bar-b" style="width:${d.dimension_b.score}%">${d.dimension_b.score}%</div>
-          </div>
-          <div class="dich-label-right">${d.dimension_b.label} (${d.dimension_b.code})</div>
-        </div>`;
-            }).join('');
-
-            const cogFns = mbti.cognitive_functions;
-            let cogCards = ['dominant', 'auxiliary', 'tertiary', 'inferior'].map(role => {
-                const fn = cogFns[role];
-                return `
-        <div class="cog-card">
-          <div class="cog-role">${role}</div>
-          <div class="cog-code">${fn.code}</div>
-          <div class="cog-name">${fn.label}</div>
-          <div class="cog-strength">${fn.strength}%</div>
-        </div>`;
-            }).join('');
-
-            html += `
-      <div class="section-block" id="sec-mbti">
-        <div class="section-heading">
-          <span class="section-num">02</span>
-          <h2>${mbti.label}</h2>
-        </div>
-        <div class="section-desc">${mbti.description}</div>
-        <div class="section-body">
-          <div class="mbti-type-display">
-            <div class="mbti-type-code">${mbti.result_type}</div>
-            <div class="mbti-type-name">${mbti.type_label}</div>
-          </div>
-          ${dichRows}
-          <div style="margin-top:2rem;">
-            <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:1rem;">Cognitive Function Stack</div>
-            <div class="cog-stack">${cogCards}</div>
-          </div>
-          <div class="interp-box">
-            <strong>Interpretation</strong>
-            ${mbti.interpretation}
-          </div>
-        </div>
-      </div>`;
-
-            // ── SECTION 3: TEMPERAMENT ──
-            const temp = sub.temperament;
-            let tempTraits = Object.entries(temp.scores).map(([k, v]) => `
-        <div class="temp-trait-card">
-          <div class="temp-trait-name">${v.label} — ${v.percentage}%</div>
-          <div class="temp-trait-tags">
-            ${v.traits.map(t => `<span class="temp-tag">${t}</span>`).join('')}
-          </div>
-        </div>`).join('');
-
-            html += `
-      <div class="section-block" id="sec-temperament">
-        <div class="section-heading">
-          <span class="section-num">03</span>
-          <h2>${temp.label}</h2>
-        </div>
-        <div class="section-desc">${temp.description}</div>
-        <div class="section-body">
-          <div class="temp-blend">
-            <div class="temp-blend-label">${temp.blend_label}</div>
-          </div>
-          <div class="temp-chart-row">
-            <div class="chart-wrap"><canvas id="chart-temp"></canvas></div>
-            <div class="temp-traits-grid">${tempTraits}</div>
-          </div>
-          <div class="interp-box">
-            <strong>Interpretation</strong>
-            ${temp.interpretation}
-          </div>
-        </div>
-      </div>`;
-
-            // ── SECTION 4: MULTIPLE INTELLIGENCES ──
-            const mi = sub.multiple_intelligences;
-            let miBars = Object.entries(mi.intelligences).map(([k, intel]) => `
-        <li class="hbar-item">
-          <div class="hbar-info">
-            <span>${intel.label} <span class="level-badge ${levelClass(intel.level)}">${intel.level}</span></span>
-            <span>${intel.score}%</span>
-          </div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:0%" data-target="${intel.score}"></div></div>
-          <span class="hbar-tag">${intel.percentile}th percentile · ${intel.career_hints.join(', ')}</span>
-        </li>`).join('');
-
-            html += `
-      <div class="section-block" id="sec-mi">
-        <div class="section-heading">
-          <span class="section-num">04</span>
-          <h2>${mi.label}</h2>
-        </div>
-        <div class="section-desc">${mi.description}</div>
-        <div class="section-body">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
-            <div><canvas id="chart-mi"></canvas></div>
-            <ul class="hbar-list">${miBars}</ul>
-          </div>
-        </div>
-      </div>`;
-
-            // ── SECTION 5: LEARNING STYLES ──
-            const ls = sub.learning_styles;
-            let lsCards = Object.entries(ls.styles).map(([k, s]) => `
-        <div style="border:1px solid #000;padding:1.2rem;${k === ls.primary_style ? 'background:#000;color:#fff;' : ''}">
-          <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;${k === ls.primary_style ? 'color:#aaa;' : 'color:#888;'}margin-bottom:0.3rem;">${k === ls.primary_style ? '★ Primary' : k === ls.secondary_style ? '● Secondary' : ''}</div>
-          <div style="font-size:1.4rem;font-weight:700;">${s.label}</div>
-          <div style="font-size:1.8rem;font-weight:700;margin:0.3rem 0;">${s.percentage}%</div>
-          <div style="font-size:0.75rem;${k === ls.primary_style ? 'color:#ccc;' : 'color:#666;'}margin-top:0.5rem;">
-            ${s.study_tips.map(tip => `<div style="margin-bottom:0.3rem;">→ ${tip}</div>`).join('')}
-          </div>
-        </div>`).join('');
-
-            html += `
-      <div class="section-block" id="sec-learning">
-        <div class="section-heading">
-          <span class="section-num">05</span>
-          <h2>${ls.label}</h2>
-        </div>
-        <div class="section-desc">${ls.description}</div>
-        <div class="section-body">
-          <div style="display:grid;grid-template-columns:240px 1fr;gap:2.5rem;align-items:start;">
-            <div class="chart-wrap"><canvas id="chart-ls"></canvas></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">${lsCards}</div>
-          </div>
-          <div class="interp-box">
-            <strong>Interpretation</strong>
-            ${ls.interpretation}
-          </div>
-        </div>
-      </div>`;
-
-            // ── SECTION 6: BRAIN HEMISPHERES ──
-            const bh = sub.brain_hemispheres;
-            html += `
-      <div class="section-block" id="sec-brain">
-        <div class="section-heading">
-          <span class="section-num">06</span>
-          <h2>${bh.label}</h2>
-        </div>
-        <div class="section-desc">${bh.description}</div>
-        <div class="section-body">
-          <div class="brain-display">
-            <div class="brain-side left">
-              <div class="brain-label">Left Hemisphere</div>
-              <div class="brain-pct">${bh.scores.left.percentage}%</div>
-              <div class="brain-traits">
-                ${bh.scores.left.associated_traits.map(t => `<span class="brain-trait-tag">${t}</span>`).join('')}
-              </div>
-              <ul style="margin-top:1rem;padding-left:1rem;font-size:0.8rem;color:#555;">
-                ${bh.scores.left.strengths.map(s => `<li style="margin-bottom:0.3rem;">${s}</li>`).join('')}
-              </ul>
-            </div>
-            <div class="brain-center">BRAIN</div>
-            <div class="brain-side right" style="text-align:right;">
-              <div class="brain-label">Right Hemisphere</div>
-              <div class="brain-pct">${bh.scores.right.percentage}%</div>
-              <div class="brain-traits" style="justify-content:flex-end;">
-                ${bh.scores.right.associated_traits.map(t => `<span class="brain-trait-tag">${t}</span>`).join('')}
-              </div>
-              <ul style="margin-top:1rem;padding-left:1rem;font-size:0.8rem;color:#555;text-align:left;">
-                ${bh.scores.right.strengths.map(s => `<li style="margin-bottom:0.3rem;">${s}</li>`).join('')}
-              </ul>
-            </div>
-          </div>
-          <div class="interp-box">
-            <strong>Interpretation</strong>
-            ${bh.interpretation}
-          </div>
-        </div>
-      </div>`;
-
-            // ── SECTION 7: ENNEAGRAM ──
-            const en = sub.enneagram;
-            html += `
-      <div class="section-block" id="sec-enneagram">
-        <div class="section-heading">
-          <span class="section-num">07</span>
-          <h2>${en.label}</h2>
-        </div>
-        <div class="section-desc">${en.description}</div>
-        <div class="section-body">
-          <div class="ennea-hero">
-            <div class="ennea-type-num">${en.primary_type.number}</div>
-            <div class="ennea-type-name">${en.primary_type.label}</div>
-            <div class="ennea-wing">Wing: ${en.primary_type.wing} — ${en.primary_type.wing_label}</div>
-          </div>
-          <div class="ennea-meta-grid">
-            <div class="ennea-meta-card">
-              <div class="ennea-meta-label">Tritype</div>
-              <div class="ennea-meta-value">${en.tritype}</div>
-            </div>
-            <div class="ennea-meta-card">
-              <div class="ennea-meta-label">Instinctual Variant</div>
-              <div class="ennea-meta-value">${en.instinctual_variant.label}</div>
-            </div>
-            <div class="ennea-meta-card">
-              <div class="ennea-meta-label">Center</div>
-              <div class="ennea-meta-value">${en.center.label}</div>
-            </div>
-          </div>
-          <div class="chart-wrap" style="margin-bottom:2rem;max-width:450px;"><canvas id="chart-ennea"></canvas></div>
-          <div class="ennea-directions">
-            <div class="dir-card growth">
-              <div class="dir-label">↑ Growth Direction</div>
-              <div class="dir-type">Type ${en.integration_direction.growth.type} — ${en.integration_direction.growth.label}</div>
-              <div class="dir-desc">${en.integration_direction.growth.description}</div>
-            </div>
-            <div class="dir-card stress">
-              <div class="dir-label">↓ Stress Direction</div>
-              <div class="dir-type">Type ${en.integration_direction.stress.type} — ${en.integration_direction.stress.label}</div>
-              <div class="dir-desc">${en.integration_direction.stress.description}</div>
-            </div>
-          </div>
-          <div class="interp-box">
-            <strong>Interpretation</strong>
-            ${en.interpretation}
-          </div>
-        </div>
-      </div>`;
 
             // ── COMPOSITE INSIGHTS ──
             html += `
-      <div class="insights-block">
-        <h2>Composite Insights</h2>
-        <div class="insights-summary">${insights.personality_summary}</div>
-        <div class="insights-columns">
-          <div class="insight-col strengths">
-            <h3>Top Strengths</h3>
-            <ul>${insights.top_strengths.map(s => `<li>${s}</li>`).join('')}</ul>
-          </div>
-          <div class="insight-col growth">
-            <h3>Growth Areas</h3>
-            <ul>${insights.growth_areas.map(g => `<li>${g}</li>`).join('')}</ul>
-          </div>
-        </div>
-        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:1rem;">Recommended Career Domains</div>
-        <div class="career-tags">
-          ${insights.recommended_career_domains.map(c => `<span class="career-tag">${c}</span>`).join('')}
-        </div>
-        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:1rem;">Workplace Compatibility</div>
-        <div class="compat-grid">
-          <div class="compat-card">
-            <div class="compat-label">Work Environment</div>
-            <div class="compat-value">${insights.compatibility_notes.work_environment}</div>
-          </div>
-          <div class="compat-card">
-            <div class="compat-label">Team Role</div>
-            <div class="compat-value">${insights.compatibility_notes.team_role}</div>
-          </div>
-          <div class="compat-card">
-            <div class="compat-label">Leadership Style</div>
-            <div class="compat-value">${insights.compatibility_notes.leadership_style}</div>
-          </div>
-        </div>
-      </div>`;
+                <div class="insights-block" id="sec-insights">
+                    <h2>Composite Insights</h2>
+                    <div class="insights-summary">${insights.personality_summary || insights.executive_summary || ""}</div>
+                    <div class="insights-columns">
+                        <div class="insight-col strengths">
+                            <h3>Top Strengths</h3>
+                            <ul>${insights.top_strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+                        </div>
+                        <div class="insight-col growth">
+                            <h3>Growth Areas</h3>
+                            <ul>${insights.growth_areas.map(g => `<li>${g}</li>`).join('')}</ul>
+                        </div>
+                    </div>
+                    <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-top:2rem;margin-bottom:1rem;">Recommended Careers</div>
+                    <div class="career-tags">
+                        ${(insights.recommended_career_domains || insights.career_domains || []).map(c => `<span class="career-tag">${c}</span>`).join('')}
+                    </div>
+                </div>`;
 
-            // ── FOOTER BAR ──
+            // ── FOOTER ──
             html += `
-      <div class="report-footer-bar">
-        <span>Report ID: ${meta.report_id}</span>
-        <span>Version ${meta.version} · ${meta.total_questions_answered} Questions</span>
-        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
-      </div>`;
+                <div class="report-footer-bar">
+                    <span>${meta.report_id}</span>
+                    <span>Psychometric Assessment · ${meta.total_questions_answered} Points</span>
+                    <button class="print-btn" onclick="window.print()">Save PDF</button>
+                </div>`;
 
             root.innerHTML = html;
-
-            // ── RENDER CHARTS ──
-            renderCharts(D);
-
-            // ── ANIMATE BARS ──
-            setTimeout(animateBars, 300);
         }
 
-        function animateBars() {
-            document.querySelectorAll('.hbar-fill[data-target]').forEach(bar => {
-                bar.style.width = bar.dataset.target + '%';
-            });
-        }
-
-        function renderCharts(D) {
-            const sub = D.subtests;
-
-            // ── Color palette for charts ──
-            const C = {
-                green: '#2ecc71', red: '#e74c3c', blue: '#3498db',
-                yellow: '#f1c40f', purple: '#9b59b6', orange: '#e67e22',
-                teal: '#1abc9c', pink: '#e91e63'
-            };
-
-            // Chart 1: Big Five Radar
-            const b5 = sub.big_five.traits;
-            const b5Colors = [C.green, C.blue, C.orange, C.teal, C.red];
-            new Chart(document.getElementById('chart-big5'), {
-                type: 'radar',
-                data: {
-                    labels: Object.values(b5).map(t => t.label.replace(' to Experience', '')),
-                    datasets: [{
-                        data: Object.values(b5).map(t => t.score),
-                        backgroundColor: 'rgba(26,188,156,0.15)',
-                        borderColor: C.teal,
-                        borderWidth: 2.5,
-                        pointBackgroundColor: b5Colors,
-                        pointBorderColor: '#fff',
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    }]
-                },
-                options: {
-                    layout: { padding: 40 },
-                    scales: {
-                        r: {
-                            beginAtZero: true, max: 100,
-                            ticks: { stepSize: 20, display: false },
-                            grid: { color: '#e0e0e0' },
-                            angleLines: { color: '#e0e0e0' },
-                            pointLabels: { font: { size: 11, weight: '700' }, padding: 25 }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Chart 2: Temperament Doughnut
-            const tempScores = sub.temperament.scores;
-            new Chart(document.getElementById('chart-temp'), {
-                type: 'doughnut',
-                data: {
-                    labels: Object.values(tempScores).map(t => t.label),
-                    datasets: [{
-                        data: Object.values(tempScores).map(t => t.percentage),
-                        backgroundColor: [C.yellow, C.red, C.blue, C.green],
-                        borderWidth: 3,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    cutout: '55%',
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { font: { size: 10, weight: '700' }, padding: 15, usePointStyle: true }
-                        }
-                    }
-                }
-            });
-
-            // Chart 3: Multiple Intelligences Bar
-            const mi = sub.multiple_intelligences.intelligences;
-            const miColors = [C.blue, C.green, C.purple, C.orange, C.teal, C.red];
-            new Chart(document.getElementById('chart-mi'), {
-                type: 'bar',
-                data: {
-                    labels: Object.values(mi).map(i => i.label.replace(' Intelligence', '')),
-                    datasets: [{
-                        data: Object.values(mi).map(i => i.score),
-                        backgroundColor: miColors,
-                        borderWidth: 0,
-                        barThickness: 24,
-                        borderRadius: 3
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    scales: {
-                        x: { beginAtZero: true, max: 100, grid: { color: '#eee' }, ticks: { font: { weight: '700' } } },
-                        y: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' } } }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Chart 4: Learning Styles Pie
-            const ls = sub.learning_styles.styles;
-            new Chart(document.getElementById('chart-ls'), {
-                type: 'pie',
-                data: {
-                    labels: Object.values(ls).map(s => s.label),
-                    datasets: [{
-                        data: Object.values(ls).map(s => s.percentage),
-                        backgroundColor: [C.blue, C.orange, C.green, C.yellow],
-                        borderWidth: 3,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { font: { size: 9, weight: '700' }, padding: 12, usePointStyle: true }
-                        }
-                    }
-                }
-            });
-
-            // Chart 5: Enneagram Radar
-            const enScores = sub.enneagram.type_scores;
-            const enColors = [C.red, C.green, C.yellow, C.purple, C.blue, C.orange, C.teal, C.pink, C.green];
-            new Chart(document.getElementById('chart-ennea'), {
-                type: 'radar',
-                data: {
-                    labels: Object.values(enScores).map(t => `T${t.label.split(' ')[1] || ''} ${t.label.split(' ').slice(1).join(' ')}`),
-                    datasets: [{
-                        data: Object.values(enScores).map(t => t.score),
-                        backgroundColor: 'rgba(155,89,182,0.12)',
-                        borderColor: C.purple,
-                        borderWidth: 2.5,
-                        pointBackgroundColor: enColors,
-                        pointRadius: Object.values(enScores).map((t, i) =>
-                            (i + 1) === sub.enneagram.primary_type.number ? 8 : 5
-                        )
-                    }]
-                },
-                options: {
-                    scales: {
-                        r: {
-                            beginAtZero: true, max: 100,
-                            ticks: { display: false },
-                            grid: { color: '#e0e0e0' },
-                            angleLines: { color: '#e0e0e0' },
-                            pointLabels: { font: { size: 9, weight: '600' }, padding: 15 }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // ── Section Nav highlight on scroll ──
-            const sections = document.querySelectorAll('[id^="sec-"]');
-            const navLinks = document.querySelectorAll('.section-nav a');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(s => {
-                    if (window.scrollY >= s.offsetTop - 200) current = s.id;
-                });
-                navLinks.forEach(a => {
-                    a.classList.toggle('nav-active', a.getAttribute('href') === '#' + current);
-                });
-            });
-        }
-
-        // ── BOOT ──
         loadReport();
     </script>
 </body>

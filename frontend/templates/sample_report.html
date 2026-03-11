@@ -2,763 +2,493 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sample Psychometric Report | SCOE-Psychometrics</title>
-  <link rel="stylesheet" href="/static/css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    .report-container {
-      max-width: 1200px;
-      margin: 2rem auto 4rem auto;
-      padding: 4rem;
-      border: 2px solid #000;
-      background: #fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Report | ScoePsychometrics</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --c-green: #2ecc71; --c-red: #e74c3c; --c-blue: #3498db;
+            --c-yellow: #f1c40f; --c-purple: #9b59b6; --c-orange: #e67e22;
+            --c-teal: #1abc9c; --c-pink: #e91e63;
+        }
 
-    .report-header {
-      border-bottom: 4px solid #000;
-      padding-bottom: 2rem;
-      margin-bottom: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
+        .section-nav {
+            max-width: 1100px; margin: 0 auto; padding: 0 2rem 1.5rem;
+            overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+        }
+        .section-nav::-webkit-scrollbar { display: none; }
+        .section-nav a {
+            display: inline-block; padding: 0.6rem 1.1rem;
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; text-decoration: none; color: #666;
+            transition: all 0.3s; border-radius: 4px; margin-right: 0.3rem;
+        }
+        .section-nav a:hover { color: #000; background: #f0f0f0; }
+        .section-nav a.active { color: #fff; background: #000; }
 
-    .report-title h1 {
-      font-size: 3rem;
-      margin: 0;
-      line-height: 1.1;
-    }
+        .report-shell { max-width: 1100px; margin: 0 auto 5rem; padding: 0 2rem; }
 
-    .status-badge {
-      background: #000;
-      color: #fff;
-      padding: 0.5rem 1.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-    }
+        /* Cover */
+        .report-cover {
+            border: 3px solid #000; padding: 3.5rem 3rem; margin-bottom: 3rem;
+            position: relative; overflow: hidden; background: #fff;
+        }
+        .report-cover::before {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 180px; height: 180px; background: var(--c-teal);
+            clip-path: polygon(100% 0, 0 0, 100% 100%); opacity: 0.08;
+        }
+        .cover-badge {
+            display: inline-block; background: var(--c-teal); color: #fff;
+            padding: 0.35rem 1.2rem; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+        }
+        .cover-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 0.8rem; letter-spacing: -0.02em; }
+        .cover-subtitle { font-size: 1.05rem; color: #555; margin-bottom: 2.5rem; line-height: 1.5; }
+        .cover-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; border-top: 1px solid #eee; padding-top: 2rem; }
+        .cover-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .cover-meta-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: #999; }
+        .cover-meta-value { font-size: 1rem; font-weight: 700; }
 
-    .report-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin-bottom: 4rem;
-    }
+        /* Snapshot */
+        .snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
+        .snap-card { background: #f9f9f9; padding: 1.5rem; border: 1px solid #eee; }
+        .snap-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; color: #888; margin-bottom: 0.8rem; }
+        .snap-value { font-size: 2.2rem; font-weight: 900; line-height: 1; margin-bottom: 0.4rem; }
+        .snap-sub { font-size: 0.8rem; font-weight: 700; color: var(--c-teal); }
 
-    .metric-card {
-      border: 2px solid #000;
-      padding: 1.5rem;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin: -1px;
-      /* Overlap borders for single-line look */
-    }
+        /* Section blocks */
+        .section-block { margin-bottom: 4rem; background: #fff; border: 1px solid #eee; padding: 3rem; }
+        .section-heading { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .section-num { font-size: 1rem; font-weight: 900; background: #000; color: #fff; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .section-heading h2 { font-size: 2rem; font-weight: 800; margin: 0; }
+        .section-desc { font-size: 1rem; color: #666; margin-bottom: 2.5rem; line-height: 1.6; max-width: 800px; }
 
-    .metric-header {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #666;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 0.4rem;
-      margin-bottom: 0.4rem;
-    }
+        /* H-bars */
+        .hbar-list { list-style: none; padding: 0; margin: 0; }
+        .hbar-item { margin-bottom: 1.2rem; }
+        .hbar-info { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .hbar-track { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; }
+        .hbar-fill { height: 100%; background: var(--c-teal); border-radius: 4px; transition: width 1.2s ease; width: 0%; }
+        .hbar-tag { font-size: 0.7rem; color: #888; display: block; margin-top: 0.3rem; }
 
-    .metric-main {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #000;
-      line-height: 1.1;
-    }
+        /* Level badges */
+        .level-badge { display: inline-block; font-size: 0.6rem; padding: 2px 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 2px; margin-left: 6px; }
+        .level-badge.high, .level-badge.very-high { background: #d5f5e3; color: #1e8449; }
+        .level-badge.moderate, .level-badge.moderate-high { background: #fef9e7; color: #d4ac0d; }
+        .level-badge.low { background: #fadbd8; color: #922b21; }
 
-    .metric-sub {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #444;
-      line-height: 1.1;
-    }
+        /* MBTI */
+        .mbti-type-display { text-align: center; padding: 3rem; background: #f0fcf9; border: 1px solid #d1f2eb; margin-bottom: 2.5rem; }
+        .mbti-type-code { font-size: 5rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+        .mbti-type-name { font-size: 1.4rem; font-weight: 700; color: var(--c-teal); margin-top: 0.5rem; }
+        .dichotomy-row { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
+        .dich-label { width: 170px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .dich-label-right { width: 170px; text-align: right; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .dich-bar-wrap { flex: 1; height: 26px; background: #eee; display: flex; }
+        .dich-bar-a { background: var(--c-teal); height: 100%; display: flex; align-items: center; padding-left: 8px; color: #fff; font-size: 0.68rem; font-weight: 800; }
+        .dich-bar-b { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: #aaa; font-size: 0.68rem; font-weight: 800; flex: 1; }
 
-    .analysis-section {
-      margin-bottom: 5rem;
-    }
+        /* Cognitive functions */
+        .cog-stack { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+        .cog-card { border: 1px solid #eee; padding: 1.2rem; text-align: center; }
+        .cog-role { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: #888; margin-bottom: 0.5rem; }
+        .cog-code { font-size: 2rem; font-weight: 900; }
+        .cog-name { font-size: 0.75rem; color: #555; margin: 0.3rem 0; }
+        .cog-strength { font-size: 0.8rem; font-weight: 700; color: var(--c-teal); }
 
-    .analysis-section h2 {
-      font-size: 1.8rem;
-      border-left: 12px solid #000;
-      padding-left: 1.5rem;
-      margin-bottom: 2rem;
-      text-transform: uppercase;
-    }
+        /* Temperament */
+        .temp-blend { text-align: center; margin-bottom: 2rem; }
+        .temp-blend-label { font-size: 2rem; font-weight: 900; }
+        .temp-traits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .temp-trait-card { border: 1px solid #eee; padding: 1rem; }
+        .temp-trait-name { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.6rem; }
+        .temp-tag { display: inline-block; background: #f0f0f0; font-size: 0.65rem; padding: 3px 8px; margin: 2px; font-weight: 600; border-radius: 2px; }
 
-    .exec-summary-box {
-      background: #f9f9f9;
-      border-left: 4px solid #000;
-      padding: 2.5rem;
-      margin-bottom: 4rem;
-      font-size: 1.25rem;
-      line-height: 1.8;
-      color: #333;
-    }
+        /* Learning styles */
+        .ls-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .ls-card { border: 1px solid #ddd; padding: 1.2rem; }
+        .ls-card.primary { background: #000; color: #fff; }
+        .ls-pct { font-size: 2rem; font-weight: 900; margin: 0.3rem 0; }
+        .ls-label { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.08em; opacity: 0.6; }
+        .ls-tips { margin-top: 0.8rem; font-size: 0.75rem; opacity: 0.75; }
+        .ls-tips div { margin-bottom: 0.3rem; }
 
-    .final-improvements {
-      background: #f0f4f8;
-      border: 3px solid #000;
-      padding: 3rem;
-      margin-top: 4rem;
-    }
+        /* Brain */
+        .brain-display { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: center; margin-bottom: 2rem; }
+        .brain-center { font-weight: 900; font-size: 1.2rem; text-align: center; writing-mode: vertical-rl; letter-spacing: 0.15em; opacity: 0.15; }
+        .brain-pct { font-size: 3rem; font-weight: 900; margin: 0.5rem 0; }
+        .brain-trait-tag { display: inline-block; background: #f0f0f0; font-size: 0.65rem; padding: 3px 8px; margin: 2px; font-weight: 600; }
 
-    .final-improvements h3,
-    .final-improvements h4 {
-      font-size: 2rem !important;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+        /* Enneagram */
+        .ennea-hero { text-align: center; padding: 3rem; background: var(--c-purple); color: #fff; margin-bottom: 2rem; }
+        .ennea-type-num { font-size: 5rem; font-weight: 900; line-height: 1; }
+        .ennea-type-name { font-size: 1.4rem; font-weight: 700; opacity: 0.9; }
+        .ennea-wing { font-size: 0.8rem; opacity: 0.75; margin-top: 0.5rem; }
+        .ennea-meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .ennea-meta-card { border: 1px solid #eee; padding: 1rem; text-align: center; }
+        .ennea-meta-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; color: #888; margin-bottom: 0.5rem; }
+        .ennea-meta-value { font-size: 1rem; font-weight: 700; }
+        .ennea-directions { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .dir-card { padding: 1.5rem; }
+        .dir-card.growth { background: #eafaf1; border-left: 4px solid var(--c-green); }
+        .dir-card.stress { background: #fdf2f8; border-left: 4px solid var(--c-red); }
+        .dir-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; color: #888; margin-bottom: 0.5rem; }
+        .dir-type { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .dir-desc { font-size: 0.82rem; color: #555; }
 
-    .final-improvements li {
-      font-size: 1.2rem !important;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
+        /* Interpretation box */
+        .interp-box { background: #f8f9fa; border-left: 4px solid var(--c-teal); padding: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: #444; margin-top: 2rem; }
+        .interp-box strong { display: block; margin-bottom: 0.5rem; color: #000; }
 
-    .final-improvements strong {
-      font-size: 1.3rem;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
+        /* Insights */
+        .insights-block { background: #000; color: #fff; padding: 4rem 3rem; margin-bottom: 5rem; }
+        .insights-block h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1.5rem; }
+        .insights-summary { font-size: 1.15rem; line-height: 1.7; opacity: 0.9; margin-bottom: 3rem; max-width: 900px; }
+        .insights-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 2.5rem; }
+        .insight-col h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .insight-col ul { list-style: none; padding: 0; }
+        .insight-col li { font-size: 1rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 1rem; }
+        .insight-col li::before { content: ''; width: 8px; height: 8px; background: var(--c-teal); flex-shrink: 0; }
+        .career-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
+        .career-tag { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; font-weight: 600; }
+        .compat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+        .compat-card { border: 1px solid rgba(255,255,255,0.15); padding: 1.2rem; }
+        .compat-label { font-size: 0.62rem; text-transform: uppercase; font-weight: 700; color: #aaa; margin-bottom: 0.5rem; }
+        .compat-value { font-size: 0.85rem; line-height: 1.4; }
 
-    .hbar-list {
-      list-style: none;
-      padding: 0;
-      margin: 2rem 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
+        /* Footer */
+        .report-footer-bar { background: #000; color: #fff; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .print-btn { background: #fff; color: #000; border: none; padding: 0.6rem 1.2rem; font-size: 0.7rem; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: 'Inter', sans-serif; }
 
-    .hbar-item {
-      width: 100%;
-    }
-
-    .hbar-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-    }
-
-    .hbar-track {
-      height: 12px;
-      background: #eee;
-      border: 1px solid #000;
-    }
-
-    .hbar-fill {
-      height: 100%;
-      background: #000;
-    }
-
-    .hbar-tag {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #666;
-      margin-top: 0.4rem;
-      display: block;
-    }
-
-    .obs-box {
-      background: #f0f0f0;
-      padding: 2rem;
-      margin-top: 2rem;
-    }
-
-    .obs-box h4 {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      margin-bottom: 1rem;
-      letter-spacing: 0.1em;
-    }
-
-    .obs-box ul {
-      list-style: none;
-    }
-
-    .obs-box li {
-      position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
-    }
-
-    .obs-box li::before {
-      content: "■";
-      position: absolute;
-      left: 0;
-      font-size: 0.8rem;
-    }
-
-    .b5-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .b5-card {
-      border: 1px solid #000;
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .b5-card.standout {
-      background: #000;
-      color: #fff;
-    }
-
-    .b5-trait {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-      color: #888;
-    }
-
-    .standout .b5-trait {
-      color: #aaa;
-    }
-
-    .b5-score {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-
-    .b5-desc {
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-
-    .sum-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-    }
-
-    .sum-table th,
-    .sum-table td {
-      border: 1px solid #000;
-      padding: 1.2rem;
-      text-align: left;
-    }
-
-    .sum-table th {
-      background: #000;
-      color: #fff;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-    }
-
-    .rec-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .rec-card {
-      border: 2px solid #000;
-      padding: 2.5rem;
-    }
-
-    .rec-card h3 {
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-    }
-
-    .rec-badge {
-      background: #000;
-      color: #fff;
-      display: inline-block;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .method-footer {
-      margin-top: 6rem;
-      padding-top: 3rem;
-      border-top: 1px solid #000;
-      font-size: 0.85rem;
-      color: #666;
-      line-height: 1.8;
-    }
-
-    .demo-banner {
-      background: #000 !important;
-      color: #fff !important;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      margin-top: 7rem;
-      position: relative;
-      z-index: 10;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 768px) {
-      .report-container {
-        padding: 2rem;
-        margin: 4rem 1rem;
-      }
-
-      .report-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .rec-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .chart-wrap { position: relative; }
+        @media print {
+            .section-nav, .report-footer-bar { display: none !important; }
+            .report-shell { margin: 0; padding: 0; max-width: 100%; }
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <div class="logo-container">
-      <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
-      <span class="logo">ScoePsychometrics</span>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/exam">Exam</a></li>
-      </ul>
+    <header>
+        <div class="logo-container">
+            <img src="/static/img/SCOE_logo.png" alt="ScoePsychometrics Logo" class="nav-logo">
+            <span class="logo">ScoePsychometrics</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/exam">Exam</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav class="section-nav">
+        <a href="#sec-overview" class="active">Overview</a>
+        <a href="#sec-big5">Big Five</a>
+        <a href="#sec-mbti">MBTI</a>
+        <a href="#sec-temperament">Temperament</a>
+        <a href="#sec-mi">Multiple Intelligences</a>
+        <a href="#sec-learning">Learning Styles</a>
+        <a href="#sec-brain">Brain</a>
+        <a href="#sec-enneagram">Enneagram</a>
+        <a href="#sec-insights">Insights</a>
     </nav>
-  </header>
 
-  <div class="demo-banner">
-    SAMPLE REPORT — IRT-Based Assessment Report
-  </div>
+    <main class="report-shell" id="report-root">
+        <div style="text-align:center;padding:5rem;"><p>Loading sample report...</p></div>
+    </main>
 
-  <main class="report-container">
-    <div class="report-header">
-      <div class="report-title">
-        <span class="metric-label">Subject: CANDIDATE_GR_00001</span>
-        <h1>PROFILE_REPORT</h1>
-      </div>
-      <div class="status-badge">Professional</div>
-    </div>
-
-    <!-- Domain Snapshot 3x2 Grid -->
-    <div class="report-grid">
-      <!-- Row 1 -->
-      <div class="metric-card">
-        <div class="metric-header">COGNITIVE</div>
-        <div class="metric-main">+0.95 θ</div>
-        <div class="metric-sub">82nd %ile</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-header">PERSONALITY</div>
-        <div class="metric-main">Open: 94%</div>
-        <div class="metric-sub">Agr: 18%</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-header">INTERESTS</div>
-        <div class="metric-main">I-R-C</div>
-        <div class="metric-sub">High Invest</div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="metric-card">
-        <div class="metric-header">APTITUDES</div>
-        <div class="metric-main">38th %ile</div>
-        <div class="metric-sub">Developing</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-header">MORALITY</div>
-        <div class="metric-main">Outcome</div>
-        <div class="metric-sub">Focused</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-header">OVERALL</div>
-        <div class="metric-main">ARCHITECT</div>
-        <div class="metric-sub">Profile</div>
-      </div>
-    </div>
-
-    <!-- Domain Comparison Chart -->
-    <div style="margin-bottom: 5rem;">
-      <canvas id="domainComparison" height="300"></canvas>
-    </div>
-
-    <div class="exec-summary-box">
-      <strong>Brief Summary:</strong> This report looks at <strong>how you think, your natural talents, your
-        personality, and
-        what motivates you . </strong> Overall, you're a <strong>sharp, analytical thinker</strong> who loves exploring
-      new ideas and
-      designing complex systems, rather than just doing routine tasks.
-    </div>
-
-    <!-- DOMAIN 1 -->
-    <section class="analysis-section">
-      <h2>01.General Aptitude & Logical Reasoning</h2>
-      <p>You're a very quick thinker. You're great at spotting patterns and solving logical puzzles. Sometimes, if
-        you're rushing under a tight deadline, you might forget small details, but overall reasoning is excellent.
-      </p>
-
-      <ul class="hbar-list">
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Analytical Reasoning</span><span>88%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:88%"></div>
-          </div>
-          <span class="hbar-tag">Top-Tier Performance</span>
-        </li>
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Problem-Solving</span><span>84%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:84%"></div>
-          </div>
-          <span class="hbar-tag">Above Average Consistency</span>
-        </li>
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Information Processing</span><span>74%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:74%; background:#888;"></div>
-          </div>
-          <span class="hbar-tag">Good — slow at times under stress</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- DOMAIN 2 -->
-    <section class="analysis-section">
-      <h2>02. Practical Skills</h2>
-      <p>You have a deep understanding of how things work in theory. However, when it comes to actually building things
-        or writing code, you might find it a bit harder to get the details exactly right. You're better at the "big
-        picture" than the "nitty-gritty" implementation.</p>
-
-      <ul class="hbar-list">
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Knowledge Base</span><span>82%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:82%"></div>
-          </div>
-        </li>
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Algorithmic Logic</span><span>34%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:34%; background:#aaa;"></div>
-          </div>
-        </li>
-      </ul>
-
-      <div class="obs-box">
-        <h4>Specific Observations</h4>
-        <ul>
-          <li>Can explain hash tables conceptually but implements them inefficiently</li>
-          <li>Understands recursion theory but struggles with base cases</li>
-          <li>Strong at system design diagrams; weak at syntax-level details</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="analysis-section">
-      <h2>03. Personality Assessment</h2>
-      <div style="max-width: 800px; margin: 0 auto; padding: 1rem;">
-        <canvas id="personalityRadar"></canvas>
-      </div>
-      <div class="obs-box" style="margin-top: 3rem;">
-        <h4>Analytic Narrative</h4>
-        <p style="font-size: 0.95rem; line-height: 1.7;">This chart shows your personality balance. That big spike in
-          <strong>Openness (8.7)</strong> means you're incredibly creative and love abstract ideas. Since you also have
-          a good score in <strong>Reliability (Conscientiousness, 6.8)</strong>, you're able to turn those wild ideas
-          into real results. Your lower <strong>Social Harmony (Agreeableness, 3.1)</strong> score just means you'd
-          rather focus on the facts and data than just being "nice" for no reason.
-        </p>
-      </div>
-    </section>
-
-    <!-- DOMAIN 4 -->
-    <section class="analysis-section">
-      <h2>04. Values & Ethics</h2>
-      <p>You tend to focus on the <strong>end result</strong>. When faced with a tough choice, you'll likely pick the
-        option that does the most good for the most people, rather than just following strict rules or traditions.</p>
-      <table class="sum-table">
-        <thead>
-          <tr>
-            <th>How You Decide</th>
-            <th>Strength</th>
-            <th>Natural Fit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Outcome-Based</td>
-            <td>+1.4</td>
-            <td>High - Primary</td>
-          </tr>
-          <tr>
-            <td>Care-Based</td>
-            <td>+0.3</td>
-            <td>Average</td>
-          </tr>
-          <tr>
-            <td>Rule-Based</td>
-            <td>-1.2</td>
-            <td>Very Low</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- DOMAIN 5 -->
-    <section class="analysis-section">
-      <h2>05. Interests & Preferences</h2>
-      <p>Your interests are strongly aligned with <strong>innovation and inquiry</strong>. You prefer environments where
-        you can tackle complex, theoretical problems and explore new technologies without being bogged down by
-        repetitive
-        day-to-day operations.</p>
-
-      <ul class="hbar-list">
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Theoretical Research</span><span>94%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:94%"></div>
-          </div>
-          <span class="hbar-tag">Primary Interest Area</span>
-        </li>
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Strategic Planning</span><span>82%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:82%"></div>
-          </div>
-          <span class="hbar-tag">High Interest</span>
-        </li>
-        <li class="hbar-item">
-          <div class="hbar-info"><span>Routine Operations</span><span>18%</span></div>
-          <div class="hbar-track">
-            <div class="hbar-fill" style="width:18%; background:#ccc;"></div>
-          </div>
-          <span class="hbar-tag">Low Preference</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- RECOMMENDATIONS -->
-    <section class="analysis-section">
-      <h2>Recommendations</h2>
-      <div class="rec-grid">
-        <div class="rec-card">
-          <div class="rec-badge">Primary Fit</div>
-          <h3>Systems Architect</h3>
-          <p>You're perfect for designing big systems. Your love for investigation and "big picture" thinking makes you
-            a natural architect.</p>
-          <a href="https://framework.scaledagile.com/system-architect" target="_blank"
-            style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #000; text-decoration: underline; margin-top: 1rem; display: inline-block;">Learn
-            More &rarr;</a>
-        </div>
-        <div class="rec-card">
-          <div class="rec-badge">Secondary Fit</div>
-          <h3>R&D Engineer</h3>
-          <p>Your curiosity is off the charts (9.1). You're great at exploring new tech and figuring out what's next.
-          </p>
-          <a href="https://softwareengineering.stackexchange.com/questions/10651/how-do-i-get-into-rd" target="_blank"
-            style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #000; text-decoration: underline; margin-top: 1rem; display: inline-block;">Learn
-            More &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PERSONALITY SUMMARY -->
-    <section class="analysis-section">
-      <h2>Personality Summary & Development Insights</h2>
-
-      <div class="exec-summary-box">
-        <strong>Who You Are:</strong> You are a <strong>brilliant, creative problem-solver</strong>. You love to learn
-        and think deeply about complex things. You work best when you have the freedom to think for yourself. Just keep
-        in mind that being blunt or too focused on the "result" might sometimes rub people the wrong way in a team.
-      </div>
-
-      <div class="rec-card final-improvements">
-        <h3> Key Strengths</h3>
-        <ul style="list-style: none; padding: 0;">
-          <li>
-            <strong>Incredible Logic:</strong>
-            <span>You're in the top 20% for brain power and spotting patterns.</span>
-          </li>
-          <li>
-            <strong>Wildly Creative:</strong>
-            <span>Your imagination is your superpower (8.7/10).</span>
-          </li>
-          <li>
-            <strong>Very Organized:</strong>
-            <span>You can actually get your big ideas done because you're structured.</span>
-          </li>
-          <li>
-            <strong>Deep Curiosity:</strong>
-            <span>You're always learning and digging into details (9.1/10).</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="rec-card final-improvements" style="margin-top: 2rem;">
-        <h3> Areas of Improvement</h3>
-        <ul style="list-style: none; padding: 0;">
-          <li>
-            <strong>Closing the "Do" Gap:</strong>
-            <span> The candidate has strong technical knowledge and theoretical understanding, but practicing the
-              actual "building" part will make you unstoppable.</span>
-          </li>
-          <li>
-            <strong>Teamwork & Harmony:</strong>
-            <span>Try to be a bit more patient with others. A little diplomacy goes a long way.</span>
-          </li>
-          <li>
-            <strong>Handling Pressure:</strong>
-            <span>When things get stressful, take a breath. It'll help you remember the small details.</span>
-          </li>
-          <li>
-            <strong>Seeing More Views:</strong>
-            <span>The end goal is important, but sometimes following the rules is just as valuable.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="final-improvements" style="margin-top: 3rem;">
-        <h4>Professional Development Roadmap</h4>
-        <ul class="hbar-list" style="gap: 2rem;">
-          <li><strong>Practical Implementation:</strong> Transition from abstract theoretical analysis to comprehensive
-            hands-on development. Engaging in end-to-end project execution will bridge the gap between conceptual
-            understanding and functional industrial proficiency.</li>
-          <li><strong>Collaborative Communication:</strong> Enhance professional interpersonal dynamics by prioritizing
-            active listening and consultative dialogue. Balancing a strong technical perspective with empathetic inquiry
-            ensures that complex designs are both inclusive and strategically sound.</li>
-          <li><strong>Stress Resilience:</strong> Implement advanced self-regulation strategies to maintain optimal
-            cognitive performance during high-stakes operational cycles. Controlled stress management is essential for
-            preserving accuracy and maintaining a clear architectural vision under pressure.</li>
-          <li><strong>Procedural Alignment:</strong> Recognize that organizational protocols and industry standards are
-            fundamental to maintaining system integrity. Understanding the underlying logic of established rules will
-            allow you to navigate corporate structures more effectively while ensuring project reliability.</li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="method-footer">
-      <strong>Methodology:</strong> Calibrated via Item Response Theory (IRT) models (2PL/3PL/GRM). Theta (θ) scores
-      represent latent trait estimates (mean=0, SD=1). This is a professional-grade simulation of assessment results.
-    </div>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 ScoePsychometrics. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Standardization</a>
-    </div>
-  </footer>
-
-  <script>
-    // Global Chart Defaults for Minimalist Aesthetic
-    Chart.defaults.font.family = "'Inter', sans-serif";
-    Chart.defaults.color = '#000';
-    Chart.defaults.scale.grid.color = '#eee';
-
-    // 1. Personality Radar Chart
-    const radarCtx = document.getElementById('personalityRadar').getContext('2d');
-    new Chart(radarCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Extraversion', 'Agreeableness', 'Conscientiousness', 'Emotional Stability', 'Openness/Intellect'],
-        datasets: [{
-          label: 'Latent Trait Score (0-10)',
-          data: [4.2, 3.1, 6.8, 5.5, 8.7],
-          backgroundColor: 'rgba(0, 0, 0, 0.05)',
-          borderColor: '#000',
-          borderWidth: 2,
-          pointBackgroundColor: '#000',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: '#000'
-        }]
-      },
-      options: {
-        scales: {
-          r: {
-            angleLines: { color: '#eee' },
-            suggestedMin: 0,
-            suggestedMax: 10,
-            ticks: { stepSize: 2, display: false },
-            pointLabels: {
-              font: {
-                size: 14,
-                weight: '700'
-              },
-              padding: 20
-            }
-          }
-        },
-        plugins: {
-          legend: { display: false }
-        },
-        layout: {
-          padding: {
-            top: 20,
-            bottom: 20,
-            left: 50,
-            right: 50
-          }
+    <script>
+        async function loadReport() {
+            const res = await fetch('/static/data/sample_report_data.json');
+            const D = await res.json();
+            renderReport(D);
         }
-      }
-    });
 
-    // 2. Domain Comparison Chart
-    const barCtx = document.getElementById('domainComparison').getContext('2d');
-    new Chart(barCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Cognitive', 'Aptitude', 'Personality', 'Morality', 'Interests'],
-        datasets: [{
-          label: 'Strength (0-100)',
-          data: [82, 38, 75, 88, 91],
-          backgroundColor: '#000',
-          borderWidth: 0,
-          barThickness: 50
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-            ticks: { display: true, font: { weight: '700' } },
-            grid: { display: true, color: '#eee' }
-          },
-          x: {
-            grid: { display: false },
-            ticks: { font: { weight: '700', size: 14 } }
-          }
-        },
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: true }
+        function levelClass(l) { return (l || 'moderate').replace(/\s+/g, '-').toLowerCase(); }
+
+        function renderReport(D) {
+            const root = document.getElementById('report-root');
+            const meta = D.meta;
+            const sub = D.subtests;
+            const ins = D.composite_insights;
+            let html = '';
+
+            // COVER
+            html += `
+            <div class="report-cover" id="sec-overview">
+                <div class="cover-badge">Sample Psychometric Assessment Report</div>
+                <h1 class="cover-title">${meta.candidate.name.toUpperCase()}</h1>
+                <div class="cover-subtitle">Comprehensive Multi-Dimensional Personality &amp; Intelligence Profile</div>
+                <div class="cover-meta">
+                    <div class="cover-meta-item"><span class="cover-meta-label">Report ID</span><span class="cover-meta-value">${meta.report_id}</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-label">Generated</span><span class="cover-meta-value">${new Date(meta.generated_at).toLocaleDateString('en-IN', {year:'numeric',month:'long',day:'numeric'})}</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-label">Duration</span><span class="cover-meta-value">${Math.floor(meta.quiz_duration_seconds/60)}m ${meta.quiz_duration_seconds%60}s</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-label">Questions</span><span class="cover-meta-value">${meta.total_questions_answered}</span></div>
+                    <div class="cover-meta-item"><span class="cover-meta-label">Education</span><span class="cover-meta-value">${meta.candidate.education}</span></div>
+                </div>
+            </div>`;
+
+            // SNAPSHOT
+            const mbti = sub.mbti; const en = sub.enneagram; const bh = sub.brain_hemispheres; const temp = sub.temperament;
+            html += `
+            <div class="snapshot-grid">
+                <div class="snap-card"><div class="snap-label">MBTI Type</div><div class="snap-value">${mbti.result_type}</div><div class="snap-sub">${mbti.type_label}</div></div>
+                <div class="snap-card"><div class="snap-label">Enneagram</div><div class="snap-value">Type ${en.primary_type.number}</div><div class="snap-sub">${en.primary_type.wing_label}</div></div>
+                <div class="snap-card"><div class="snap-label">Temperament</div><div class="snap-value">${temp.blend_label}</div><div class="snap-sub">Primary: ${temp.primary.charAt(0).toUpperCase()+temp.primary.slice(1)}</div></div>
+                <div class="snap-card"><div class="snap-label">Brain Dominance</div><div class="snap-value">${bh.scores.left.percentage}% L</div><div class="snap-sub">${bh.dominant_hemisphere==='left'?'Left-Brain Dominant':'Right-Brain Dominant'}</div></div>
+            </div>`;
+
+            // SECTION 1: BIG FIVE
+            const b5 = sub.big_five;
+            let b5Bars = Object.entries(b5.traits).map(([k,t]) => `
+                <li class="hbar-item">
+                    <div class="hbar-info"><span>${t.label} <span class="level-badge ${levelClass(t.level)}">${t.level}</span></span><span>${t.score}%</span></div>
+                    <div class="hbar-track"><div class="hbar-fill" data-target="${t.score}"></div></div>
+                    <span class="hbar-tag">${t.percentile}th percentile</span>
+                </li>`).join('');
+            html += `
+            <div class="section-block" id="sec-big5">
+                <div class="section-heading"><span class="section-num">01</span><h2>${b5.label}</h2></div>
+                <div class="section-desc">${b5.description}</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
+                    <canvas id="chart-big5"></canvas>
+                    <ul class="hbar-list">${b5Bars}</ul>
+                </div>
+                ${Object.entries(b5.traits).map(([k,t])=>`<div class="interp-box" style="margin-top:1rem"><strong>${t.label}</strong>${t.interpretation}</div>`).join('')}
+            </div>`;
+
+            // SECTION 2: MBTI
+            const dichRows = Object.values(mbti.dichotomies).map(d => `
+                <div class="dichotomy-row">
+                    <div class="dich-label">${d.dimension_a.label} (${d.dimension_a.code})</div>
+                    <div class="dich-bar-wrap">
+                        <div class="dich-bar-a" style="width:${d.dimension_a.score}%">${d.dimension_a.score}%</div>
+                        <div class="dich-bar-b">${d.dimension_b.score}%</div>
+                    </div>
+                    <div class="dich-label-right">${d.dimension_b.label} (${d.dimension_b.code})</div>
+                </div>`).join('');
+            const cogCards = ['dominant','auxiliary','tertiary','inferior'].map(r => {
+                const fn = mbti.cognitive_functions[r];
+                return `<div class="cog-card"><div class="cog-role">${r}</div><div class="cog-code">${fn.code}</div><div class="cog-name">${fn.label}</div><div class="cog-strength">${fn.strength}%</div></div>`;
+            }).join('');
+            html += `
+            <div class="section-block" id="sec-mbti">
+                <div class="section-heading"><span class="section-num">02</span><h2>${mbti.label}</h2></div>
+                <div class="section-desc">${mbti.description}</div>
+                <div class="mbti-type-display"><div class="mbti-type-code">${mbti.result_type}</div><div class="mbti-type-name">${mbti.type_label}</div></div>
+                ${dichRows}
+                <div style="margin-top:2rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:1rem;">Cognitive Function Stack</div>
+                <div class="cog-stack">${cogCards}</div>
+                <div class="interp-box"><strong>Interpretation</strong>${mbti.interpretation}</div>
+            </div>`;
+
+            // SECTION 3: TEMPERAMENT
+            const tempCards = Object.entries(temp.scores).map(([k,v]) => `
+                <div class="temp-trait-card"><div class="temp-trait-name">${v.label} — ${v.percentage}%</div><div>${v.traits.map(t=>`<span class="temp-tag">${t}</span>`).join('')}</div></div>`).join('');
+            html += `
+            <div class="section-block" id="sec-temperament">
+                <div class="section-heading"><span class="section-num">03</span><h2>${temp.label}</h2></div>
+                <div class="section-desc">${temp.description}</div>
+                <div class="temp-blend"><div class="temp-blend-label">${temp.blend_label}</div></div>
+                <div style="display:grid;grid-template-columns:260px 1fr;gap:2.5rem;align-items:start;">
+                    <canvas id="chart-temp"></canvas>
+                    <div class="temp-traits-grid">${tempCards}</div>
+                </div>
+                <div class="interp-box"><strong>Interpretation</strong>${temp.interpretation}</div>
+            </div>`;
+
+            // SECTION 4: MULTIPLE INTELLIGENCES
+            const mi = sub.multiple_intelligences;
+            const miBars = Object.entries(mi.intelligences).map(([k,i]) => `
+                <li class="hbar-item">
+                    <div class="hbar-info"><span>${i.label} <span class="level-badge ${levelClass(i.level)}">${i.level}</span></span><span>${i.score}%</span></div>
+                    <div class="hbar-track"><div class="hbar-fill" data-target="${i.score}" style="background:var(--c-blue)"></div></div>
+                    <span class="hbar-tag">${i.percentile}th percentile · ${i.career_hints.join(', ')}</span>
+                </li>`).join('');
+            html += `
+            <div class="section-block" id="sec-mi">
+                <div class="section-heading"><span class="section-num">04</span><h2>${mi.label}</h2></div>
+                <div class="section-desc">${mi.description}</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
+                    <canvas id="chart-mi"></canvas>
+                    <ul class="hbar-list">${miBars}</ul>
+                </div>
+            </div>`;
+
+            // SECTION 5: LEARNING STYLES
+            const ls = sub.learning_styles;
+            const lsCards = Object.entries(ls.styles).map(([k,s]) => `
+                <div class="ls-card ${k===ls.primary_style?'primary':''}">
+                    <div class="ls-label">${k===ls.primary_style?'★ Primary':k===ls.secondary_style?'● Secondary':''} ${s.label}</div>
+                    <div class="ls-pct">${s.percentage}%</div>
+                    <div class="ls-tips">${s.study_tips.map(t=>`<div>→ ${t}</div>`).join('')}</div>
+                </div>`).join('');
+            html += `
+            <div class="section-block" id="sec-learning">
+                <div class="section-heading"><span class="section-num">05</span><h2>${ls.label}</h2></div>
+                <div class="section-desc">${ls.description}</div>
+                <div style="display:grid;grid-template-columns:240px 1fr;gap:2.5rem;align-items:start;">
+                    <canvas id="chart-ls"></canvas>
+                    <div class="ls-grid">${lsCards}</div>
+                </div>
+                <div class="interp-box"><strong>Interpretation</strong>${ls.interpretation}</div>
+            </div>`;
+
+            // SECTION 6: BRAIN HEMISPHERES
+            html += `
+            <div class="section-block" id="sec-brain">
+                <div class="section-heading"><span class="section-num">06</span><h2>${bh.label}</h2></div>
+                <div class="section-desc">${bh.description}</div>
+                <div class="brain-display">
+                    <div>
+                        <div style="font-size:0.7rem;text-transform:uppercase;font-weight:700;color:#888;margin-bottom:0.5rem;">Left Hemisphere</div>
+                        <div class="brain-pct">${bh.scores.left.percentage}%</div>
+                        <div>${bh.scores.left.associated_traits.map(t=>`<span class="brain-trait-tag">${t}</span>`).join('')}</div>
+                        <ul style="margin-top:1rem;padding-left:1rem;font-size:0.8rem;color:#555;">${bh.scores.left.strengths.map(s=>`<li style="margin-bottom:0.3rem">${s}</li>`).join('')}</ul>
+                    </div>
+                    <div class="brain-center">BRAIN</div>
+                    <div style="text-align:right;">
+                        <div style="font-size:0.7rem;text-transform:uppercase;font-weight:700;color:#888;margin-bottom:0.5rem;">Right Hemisphere</div>
+                        <div class="brain-pct">${bh.scores.right.percentage}%</div>
+                        <div style="display:flex;flex-wrap:wrap;justify-content:flex-end;">${bh.scores.right.associated_traits.map(t=>`<span class="brain-trait-tag">${t}</span>`).join('')}</div>
+                        <ul style="margin-top:1rem;padding-left:1rem;font-size:0.8rem;color:#555;text-align:left;">${bh.scores.right.strengths.map(s=>`<li style="margin-bottom:0.3rem">${s}</li>`).join('')}</ul>
+                    </div>
+                </div>
+                <div class="interp-box"><strong>Interpretation</strong>${bh.interpretation}</div>
+            </div>`;
+
+            // SECTION 7: ENNEAGRAM
+            html += `
+            <div class="section-block" id="sec-enneagram">
+                <div class="section-heading"><span class="section-num">07</span><h2>${en.label}</h2></div>
+                <div class="section-desc">${en.description}</div>
+                <div class="ennea-hero">
+                    <div class="ennea-type-num">${en.primary_type.number}</div>
+                    <div class="ennea-type-name">${en.primary_type.label}</div>
+                    <div class="ennea-wing">Wing: ${en.primary_type.wing} — ${en.primary_type.wing_label}</div>
+                </div>
+                <div class="ennea-meta-grid">
+                    <div class="ennea-meta-card"><div class="ennea-meta-label">Tritype</div><div class="ennea-meta-value">${en.tritype}</div></div>
+                    <div class="ennea-meta-card"><div class="ennea-meta-label">Instinctual Variant</div><div class="ennea-meta-value">${en.instinctual_variant.label}</div></div>
+                    <div class="ennea-meta-card"><div class="ennea-meta-label">Center</div><div class="ennea-meta-value">${en.center.label}</div></div>
+                </div>
+                <div class="chart-wrap" style="max-width:420px;margin-bottom:2rem;"><canvas id="chart-ennea"></canvas></div>
+                <div class="ennea-directions">
+                    <div class="dir-card growth">
+                        <div class="dir-label">↑ Growth</div>
+                        <div class="dir-type">Type ${en.integration_direction.growth.type} — ${en.integration_direction.growth.label}</div>
+                        <div class="dir-desc">${en.integration_direction.growth.description}</div>
+                    </div>
+                    <div class="dir-card stress">
+                        <div class="dir-label">↓ Stress</div>
+                        <div class="dir-type">Type ${en.integration_direction.stress.type} — ${en.integration_direction.stress.label}</div>
+                        <div class="dir-desc">${en.integration_direction.stress.description}</div>
+                    </div>
+                </div>
+                <div class="interp-box"><strong>Interpretation</strong>${en.interpretation}</div>
+            </div>`;
+
+            // COMPOSITE INSIGHTS
+            html += `
+            <div class="insights-block" id="sec-insights">
+                <h2>Composite Insights</h2>
+                <div class="insights-summary">${ins.personality_summary}</div>
+                <div class="insights-columns">
+                    <div class="insight-col">
+                        <h3>Top Strengths</h3>
+                        <ul>${ins.top_strengths.map(s=>`<li>${s}</li>`).join('')}</ul>
+                    </div>
+                    <div class="insight-col">
+                        <h3>Growth Areas</h3>
+                        <ul>${ins.growth_areas.map(g=>`<li>${g}</li>`).join('')}</ul>
+                    </div>
+                </div>
+                <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:0.8rem;">Recommended Career Domains</div>
+                <div class="career-tags">${ins.recommended_career_domains.map(c=>`<span class="career-tag">${c}</span>`).join('')}</div>
+                <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-top:2rem;margin-bottom:0.8rem;">Workplace Compatibility</div>
+                <div class="compat-grid">
+                    <div class="compat-card"><div class="compat-label">Work Environment</div><div class="compat-value">${ins.compatibility_notes.work_environment}</div></div>
+                    <div class="compat-card"><div class="compat-label">Team Role</div><div class="compat-value">${ins.compatibility_notes.team_role}</div></div>
+                    <div class="compat-card"><div class="compat-label">Leadership Style</div><div class="compat-value">${ins.compatibility_notes.leadership_style}</div></div>
+                </div>
+            </div>`;
+
+            html += `
+            <div class="report-footer-bar">
+                <span>Report ID: ${meta.report_id}</span>
+                <span>Version ${meta.version} · ${meta.total_questions_answered} Questions · Sample Report</span>
+                <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+            </div>`;
+
+            root.innerHTML = html;
+            renderCharts(D);
+            setTimeout(() => document.querySelectorAll('.hbar-fill[data-target]').forEach(b => b.style.width = b.dataset.target + '%'), 300);
         }
-      }
-    });
-  </script>
+
+        function renderCharts(D) {
+            const sub = D.subtests;
+            const C = { green:'#2ecc71', red:'#e74c3c', blue:'#3498db', yellow:'#f1c40f', purple:'#9b59b6', orange:'#e67e22', teal:'#1abc9c', pink:'#e91e63' };
+
+            // Big Five Radar
+            const b5 = sub.big_five.traits;
+            new Chart(document.getElementById('chart-big5'), {
+                type: 'radar',
+                data: {
+                    labels: Object.values(b5).map(t => t.label.replace(' to Experience', '')),
+                    datasets: [{ data: Object.values(b5).map(t => t.score), backgroundColor:'rgba(26,188,156,0.15)', borderColor:C.teal, borderWidth:2.5, pointBackgroundColor:[C.green,C.blue,C.orange,C.teal,C.red], pointRadius:6 }]
+                },
+                options: { layout:{padding:40}, scales:{ r:{ beginAtZero:true, max:100, ticks:{display:false}, grid:{color:'#e0e0e0'}, pointLabels:{font:{size:11,weight:'700'},padding:25} } }, plugins:{legend:{display:false}} }
+            });
+
+            // Temperament Doughnut
+            const ts = sub.temperament.scores;
+            new Chart(document.getElementById('chart-temp'), {
+                type: 'doughnut',
+                data: { labels: Object.values(ts).map(t=>t.label), datasets:[{ data:Object.values(ts).map(t=>t.percentage), backgroundColor:[C.yellow,C.red,C.purple,C.blue], borderWidth:3, borderColor:'#fff' }] },
+                options: { cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{font:{size:10,weight:'700'},padding:15,usePointStyle:true} } } }
+            });
+
+            // MI Horizontal Bar
+            const mi = sub.multiple_intelligences.intelligences;
+            new Chart(document.getElementById('chart-mi'), {
+                type: 'bar',
+                data: { labels: Object.values(mi).map(i=>i.label.replace(' Intelligence','')), datasets:[{ data:Object.values(mi).map(i=>i.score), backgroundColor:[C.blue,C.green,C.purple,C.orange,C.teal,C.red], borderWidth:0, barThickness:22, borderRadius:3 }] },
+                options: { indexAxis:'y', scales:{ x:{beginAtZero:true,max:100,grid:{color:'#eee'},ticks:{font:{weight:'700'}}}, y:{grid:{display:false},ticks:{font:{size:10,weight:'700'}}} }, plugins:{legend:{display:false}} }
+            });
+
+            // Learning Styles Pie
+            const ls = sub.learning_styles.styles;
+            new Chart(document.getElementById('chart-ls'), {
+                type: 'pie',
+                data: { labels:Object.values(ls).map(s=>s.label), datasets:[{ data:Object.values(ls).map(s=>s.percentage), backgroundColor:[C.blue,C.orange,C.green,C.yellow], borderWidth:3, borderColor:'#fff' }] },
+                options: { plugins:{ legend:{ position:'bottom', labels:{font:{size:9,weight:'700'},padding:12,usePointStyle:true} } } }
+            });
+
+            // Enneagram Radar
+            const ens = sub.enneagram.type_scores;
+            new Chart(document.getElementById('chart-ennea'), {
+                type: 'radar',
+                data: {
+                    labels: Object.values(ens).map(t => t.label),
+                    datasets: [{ data:Object.values(ens).map(t=>t.score), backgroundColor:'rgba(155,89,182,0.12)', borderColor:C.purple, borderWidth:2.5, pointBackgroundColor:Object.values(ens).map((_,i)=>[C.red,C.orange,C.yellow,C.purple,C.blue,C.green,C.teal,C.pink,C.green][i]), pointRadius:5 }]
+                },
+                options: { scales:{ r:{ beginAtZero:true, max:100, ticks:{display:false}, grid:{color:'#e0e0e0'}, pointLabels:{font:{size:9,weight:'600'},padding:12} } }, plugins:{legend:{display:false}} }
+            });
+
+            // Scroll spy
+            const navLinks = document.querySelectorAll('.section-nav a');
+            window.addEventListener('scroll', () => {
+                let cur = '';
+                document.querySelectorAll('[id^="sec-"]').forEach(s => { if (window.scrollY >= s.offsetTop - 160) cur = s.id; });
+                navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+            });
+        }
+
+        loadReport();
+    </script>
 </body>
-
 </html>

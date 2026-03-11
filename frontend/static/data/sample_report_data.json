@@ -505,87 +505,87 @@
             "description": "Identifies core personality type from nine interconnected types.",
             "chart_type": "radar",
             "primary_type": {
-                "number": 5,
-                "label": "The Investigator",
-                "wing": "5w4",
-                "wing_label": "The Iconoclast"
+                "number": 3,
+                "label": "The Achiever",
+                "wing": "3w2",
+                "wing_label": "The Charmer"
             },
-            "tritype": "549",
+            "tritype": "317",
             "instinctual_variant": {
-                "primary": "sp",
-                "label": "Self-Preservation",
-                "stack": "sp/so/sx"
+                "primary": "so",
+                "label": "Social",
+                "stack": "so/sp/sx"
             },
             "center": {
-                "type": "head",
-                "label": "Head Center (Thinking)",
-                "core_emotion": "fear"
+                "type": "heart",
+                "label": "Heart Center (Feeling)",
+                "core_emotion": "shame"
             },
             "integration_direction": {
                 "growth": {
-                    "type": 8,
-                    "label": "The Challenger",
-                    "description": "In growth, you become more assertive, confident, and action-oriented."
+                    "type": 6,
+                    "label": "The Loyalist",
+                    "description": "In growth, you become more cooperative, committed, and willing to be vulnerable with trusted others."
                 },
                 "stress": {
-                    "type": 7,
-                    "label": "The Enthusiast",
-                    "description": "Under stress, you may become scattered, escapist, and overly indulgent."
+                    "type": 9,
+                    "label": "The Peacemaker",
+                    "description": "Under stress, you may become disengaged, apathetic, and lose your drive to achieve."
                 }
             },
             "type_scores": {
                 "type_1": {
                     "label": "The Reformer",
-                    "score": 35,
+                    "score": 55,
                     "max_score": 100
                 },
                 "type_2": {
                     "label": "The Helper",
-                    "score": 28,
+                    "score": 62,
                     "max_score": 100
                 },
                 "type_3": {
                     "label": "The Achiever",
-                    "score": 40,
+                    "score": 88,
                     "max_score": 100
                 },
                 "type_4": {
                     "label": "The Individualist",
-                    "score": 62,
+                    "score": 40,
                     "max_score": 100
                 },
                 "type_5": {
                     "label": "The Investigator",
-                    "score": 88,
+                    "score": 35,
                     "max_score": 100
                 },
                 "type_6": {
                     "label": "The Loyalist",
-                    "score": 45,
+                    "score": 50,
                     "max_score": 100
                 },
                 "type_7": {
                     "label": "The Enthusiast",
-                    "score": 30,
+                    "score": 45,
                     "max_score": 100
                 },
                 "type_8": {
                     "label": "The Challenger",
-                    "score": 25,
+                    "score": 38,
                     "max_score": 100
                 },
                 "type_9": {
                     "label": "The Peacemaker",
-                    "score": 50,
+                    "score": 28,
                     "max_score": 100
                 }
             },
             "levels_of_development": {
-                "current_level": 4,
-                "level_label": "Healthy (Level 4)",
-                "description": "You are at a healthy level of development — perceptive, innovative, and able to observe the world with clarity and insight."
+                "current_level": 3,
+                "level_label": "Healthy (Level 3)",
+                "description": "You are at a healthy level of development — outstanding, authentic, and deeply committed to meaningful achievement."
             },
-            "interpretation": "As a Type 5 (The Investigator) with a 4-wing, you are intensely curious, independent, and deeply introspective. You seek knowledge and understanding, often immersing yourself in complex subjects. Your 4-wing adds a creative and emotionally sensitive dimension to your analytical nature."
+            "interpretation": "As a Type 3 (The Achiever) with a 2-wing, you are The Success-Oriented, Pragmatic Type: Adaptive, Excelling, Driven, and Image-Conscious. You are highly motivated to succeed and excel, constantly setting and reaching ambitious goals. Your 2-wing adds warmth and charm, making you naturally charismatic. You care deeply about how you are perceived and use your interpersonal skills to build networks that support your ambitions."
         }
     },
     "composite_insights": {

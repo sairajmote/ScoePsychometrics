@@ -18,7 +18,7 @@ We have implemented five core tables in `backend/models.py`:
 | Table | Purpose | Key Columns |
 | :--- | :--- | :--- |
 | **Users** | Identity & Demographics | `id`, `name`, `email`, `education` |
-| **Questions** | The 142-question bank | `id`, `category`, `subtest`, `text`, `options` |
+| **Questions** | The 98-question MBTI bank | `id`, `category`, `subtest`, `text`, `options` |
 | **QuizSessions** | Tracking a single test attempt | `id`, `user_id`, `status` (in_progress/completed) |
 | **Responses** | Individual answers (the "Raw" data) | `id`, `session_id`, `question_id`, `selected_option` |
 | **Reports** | The finalized Psychometric Report | `id`, `user_id`, `report_data` (Full JSON Blob) |

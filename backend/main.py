@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import func
 import os
 import uuid
 from datetime import datetime
@@ -181,10 +182,29 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                 # Other subtests would be added here as implemented
             },
             "composite_insights": {
-                "executive_summary": f"Your dominant result is {mbti_results['result_type']}.",
-                "top_strengths": ["Logical Analysis", "Planning"],
-                "growth_areas": ["Flexibility"],
-                "career_domains": ["Technology", "Engineering"]
+                "personality_summary": (
+                    f"Your MBTI personality type is **{mbti_results['result_type']}** — "
+                    f"{scoring_mbti.get_mbti_label(mbti_results['result_type'])}. "
+                    "This profile reflects your natural preferences for how you perceive the world and make decisions. "
+                    "Use the dichotomy breakdown below to understand the clarity of each dimension."
+                ),
+                "top_strengths": [
+                    f"Strong {mbti_results['result_type'][0]} preference (Energy dimension)",
+                    "Analytical decision-making",
+                    "Consistent personal values",
+                    "Structured thinking"
+                ],
+                "growth_areas": [
+                    "Balancing opposing preferences",
+                    "Adapting to new perspectives",
+                    "Exploring less dominant traits"
+                ],
+                "recommended_career_domains": [
+                    "Research & Strategy",
+                    "Technology & Engineering",
+                    "Counseling & Psychology",
+                    "Writing & Communication"
+                ]
             }
         }
 
@@ -214,8 +234,6 @@ async def get_report(report_id: str, db: Session = Depends(get_db)):
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
     return report.report_data
-
-from sqlalchemy.sql import func # Fix for func usage in session creation
 
 if __name__ == "__main__":
     import uvicorn

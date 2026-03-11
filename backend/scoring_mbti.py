@@ -32,7 +32,13 @@ def score_mbti(responses: List[Dict[str, Any]]) -> Dict[str, Any]:
     for dim in dimensions:
         items = np.array(dim_items[dim])
         if len(items) == 0:
-            dim_details[dim] = {"score": 50, "letter": first_letters[dim][0]} # Default
+            dim_details[dim] = {
+                "mean": 4.0,
+                "letter": first_letters[dim],
+                "clarity": 0.0,
+                "pct_a": 50.0,
+                "pct_b": 50.0
+            }
             continue
             
         mean_score = items.mean()

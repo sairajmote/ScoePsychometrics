@@ -307,19 +307,33 @@
         const progressFill = document.getElementById('progress-fill');
 
         async function loadData() {
+            if (window.location.protocol === 'file:') {
+                alert("Error: This page must be served through the FastAPI server (e.g., http://localhost:8000/session) to load questions. Please do not open the HTML file directly.");
+                return;
+            }
             try {
+                console.log("Fetching questions from /questions...");
                 const res = await fetch('/questions');
-                if (!res.ok) throw new Error('Failed to fetch questions');
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    console.error("Fetch failed:", res.status, errorText);
+                    alert(`Failed to load questions from server (Status: ${res.status}). See console for details.`);
+                    throw new Error(`Failed to fetch questions: ${res.status} ${res.statusText}`);
+                }
                 allQuestions = await res.json();
+                console.log("Questions loaded:", allQuestions.length);
                 
                 if (allQuestions.length === 0) {
-                    panelsContainer.innerHTML = '<p style="text-align:center;padding:5rem;color:#888;">No questions found in the database. Please seed the database first.</p>';
+                    console.warn("No questions found in database.");
+                    panelsContainer.innerHTML = '<p style="text-align:center;padding:5rem;color:#888;">No questions found in the database. Please seed the database first by running <code>python backend/seed_mbti.py</code>.</p>';
                     return;
                 }
 
                 // Group questions by category (domain)
+                questionsByDomain = {};
+                domainList = [];
                 allQuestions.forEach(q => {
-                    const domain = q.category.toUpperCase();
+                    const domain = (q.category || "General").toUpperCase();
                     if (!questionsByDomain[domain]) {
                         questionsByDomain[domain] = [];
                         domainList.push(domain);
@@ -330,7 +344,8 @@
                 renderStructure();
                 updateNav();
             } catch (err) {
-                panelsContainer.innerHTML = `<p style="color:red;text-align:center;padding:5rem;">Error: ${err.message}</p>`;
+                console.error("loadData Error:", err);
+                panelsContainer.innerHTML = `<p style="color:red;text-align:center;padding:5rem;">Error loading questions: ${err.message}<br><br>Check if the backend server is running and the database is connected.</p>`;
             }
         }
 
@@ -370,7 +385,8 @@
                                     ${opts.map((key, idx) => `
                                         <label class="likert-option" title="${q.options[key]}">
                                             <input type="radio" name="q${q.id}" value="${key}" required>
-                                            <span class="likert-option-label">${q.options[key]}</span>
+                                            <span class="likert-option-num" style="font-size:0.75rem;font-weight:700;margin-top:0.3rem;">${idx + 1}</span>
+                                            <span class="likert-option-label" style="display:none;">${q.options[key]}</span>
                                         </label>
                                     `).join('')}
                                 </div>
