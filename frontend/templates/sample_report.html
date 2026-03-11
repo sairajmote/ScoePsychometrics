@@ -254,8 +254,8 @@
             <div class="section-block" id="sec-big5">
                 <div class="section-heading"><span class="section-num">01</span><h2>${b5.label}</h2></div>
                 <div class="section-desc">${b5.description}</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
-                    <canvas id="chart-big5"></canvas>
+                <div style="display:grid;grid-template-columns:280px 1fr;gap:2.5rem;align-items:start;">
+                    <div style="max-width:280px;"><canvas id="chart-big5"></canvas></div>
                     <ul class="hbar-list">${b5Bars}</ul>
                 </div>
                 ${Object.entries(b5.traits).map(([k,t])=>`<div class="interp-box" style="margin-top:1rem"><strong>${t.label}</strong>${t.interpretation}</div>`).join('')}
@@ -294,8 +294,8 @@
                 <div class="section-heading"><span class="section-num">03</span><h2>${temp.label}</h2></div>
                 <div class="section-desc">${temp.description}</div>
                 <div class="temp-blend"><div class="temp-blend-label">${temp.blend_label}</div></div>
-                <div style="display:grid;grid-template-columns:260px 1fr;gap:2.5rem;align-items:start;">
-                    <canvas id="chart-temp"></canvas>
+                <div style="display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:start;">
+                    <div style="max-width:220px;"><canvas id="chart-temp"></canvas></div>
                     <div class="temp-traits-grid">${tempCards}</div>
                 </div>
                 <div class="interp-box"><strong>Interpretation</strong>${temp.interpretation}</div>
@@ -313,8 +313,8 @@
             <div class="section-block" id="sec-mi">
                 <div class="section-heading"><span class="section-num">04</span><h2>${mi.label}</h2></div>
                 <div class="section-desc">${mi.description}</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
-                    <canvas id="chart-mi"></canvas>
+                <div style="display:grid;grid-template-columns:320px 1fr;gap:2.5rem;align-items:start;">
+                    <div style="max-width:320px;"><canvas id="chart-mi"></canvas></div>
                     <ul class="hbar-list">${miBars}</ul>
                 </div>
             </div>`;
@@ -331,8 +331,8 @@
             <div class="section-block" id="sec-learning">
                 <div class="section-heading"><span class="section-num">05</span><h2>${ls.label}</h2></div>
                 <div class="section-desc">${ls.description}</div>
-                <div style="display:grid;grid-template-columns:240px 1fr;gap:2.5rem;align-items:start;">
-                    <canvas id="chart-ls"></canvas>
+                <div style="display:grid;grid-template-columns:200px 1fr;gap:2.5rem;align-items:start;">
+                    <div style="max-width:200px;"><canvas id="chart-ls"></canvas></div>
                     <div class="ls-grid">${lsCards}</div>
                 </div>
                 <div class="interp-box"><strong>Interpretation</strong>${ls.interpretation}</div>
@@ -376,7 +376,7 @@
                     <div class="ennea-meta-card"><div class="ennea-meta-label">Instinctual Variant</div><div class="ennea-meta-value">${en.instinctual_variant.label}</div></div>
                     <div class="ennea-meta-card"><div class="ennea-meta-label">Center</div><div class="ennea-meta-value">${en.center.label}</div></div>
                 </div>
-                <div class="chart-wrap" style="max-width:420px;margin-bottom:2rem;"><canvas id="chart-ennea"></canvas></div>
+                <div class="chart-wrap" style="max-width:320px;margin-bottom:2rem;"><canvas id="chart-ennea"></canvas></div>
                 <div class="ennea-directions">
                     <div class="dir-card growth">
                         <div class="dir-label">↑ Growth</div>
@@ -438,34 +438,45 @@
             new Chart(document.getElementById('chart-big5'), {
                 type: 'radar',
                 data: {
-                    labels: Object.values(b5).map(t => t.label.replace(' to Experience', '')),
-                    datasets: [{ data: Object.values(b5).map(t => t.score), backgroundColor:'rgba(26,188,156,0.15)', borderColor:C.teal, borderWidth:2.5, pointBackgroundColor:[C.green,C.blue,C.orange,C.teal,C.red], pointRadius:6 }]
+                    labels: Object.values(b5).map(t => t.label.replace('Openness to Experience','Openness').replace('Conscientiousness','Conscient.')),
+                    datasets: [{
+                        data: Object.values(b5).map(t => t.score),
+                        backgroundColor: 'rgba(26,188,156,0.15)',
+                        borderColor: C.teal, borderWidth: 2,
+                        pointBackgroundColor: [C.green,C.blue,C.orange,C.teal,C.red],
+                        pointRadius: 4, pointHoverRadius: 6
+                    }]
                 },
-                options: { layout:{padding:40}, scales:{ r:{ beginAtZero:true, max:100, ticks:{display:false}, grid:{color:'#e0e0e0'}, pointLabels:{font:{size:11,weight:'700'},padding:25} } }, plugins:{legend:{display:false}} }
+                options: {
+                    responsive: true, maintainAspectRatio: true,
+                    layout: { padding: 10 },
+                    scales: { r: { beginAtZero: true, max: 100, ticks: { display: false, stepSize: 25 }, grid: { color: '#e8e8e8' }, angleLines: { color: '#e8e8e8' }, pointLabels: { font: { size: 10, weight: '700' }, padding: 12 } } },
+                    plugins: { legend: { display: false } }
+                }
             });
 
             // Temperament Doughnut
             const ts = sub.temperament.scores;
             new Chart(document.getElementById('chart-temp'), {
                 type: 'doughnut',
-                data: { labels: Object.values(ts).map(t=>t.label), datasets:[{ data:Object.values(ts).map(t=>t.percentage), backgroundColor:[C.yellow,C.red,C.purple,C.blue], borderWidth:3, borderColor:'#fff' }] },
-                options: { cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{font:{size:10,weight:'700'},padding:15,usePointStyle:true} } } }
+                data: { labels: Object.values(ts).map(t=>t.label), datasets:[{ data: Object.values(ts).map(t=>t.percentage), backgroundColor:[C.yellow,C.red,C.purple,C.blue], borderWidth: 2, borderColor:'#fff' }] },
+                options: { responsive: true, maintainAspectRatio: true, cutout: '55%', plugins: { legend: { position: 'bottom', labels: { font: { size: 9, weight: '700' }, padding: 10, usePointStyle: true, boxWidth: 8 } } } }
             });
 
             // MI Horizontal Bar
             const mi = sub.multiple_intelligences.intelligences;
             new Chart(document.getElementById('chart-mi'), {
                 type: 'bar',
-                data: { labels: Object.values(mi).map(i=>i.label.replace(' Intelligence','')), datasets:[{ data:Object.values(mi).map(i=>i.score), backgroundColor:[C.blue,C.green,C.purple,C.orange,C.teal,C.red], borderWidth:0, barThickness:22, borderRadius:3 }] },
-                options: { indexAxis:'y', scales:{ x:{beginAtZero:true,max:100,grid:{color:'#eee'},ticks:{font:{weight:'700'}}}, y:{grid:{display:false},ticks:{font:{size:10,weight:'700'}}} }, plugins:{legend:{display:false}} }
+                data: { labels: Object.values(mi).map(i=>i.label.replace(' Intelligence','').replace('Logical-Mathematical','Logic-Math').replace('Visual-Spatial','Visual').replace('Bodily-Kinesthetic','Kinesthetic')), datasets:[{ data: Object.values(mi).map(i=>i.score), backgroundColor:[C.blue,C.green,C.purple,C.orange,C.teal,C.red], borderWidth:0, barThickness: 16, borderRadius: 3 }] },
+                options: { responsive: true, maintainAspectRatio: true, indexAxis: 'y', scales: { x: { beginAtZero:true, max:100, grid:{color:'#eee'}, ticks:{font:{size:9,weight:'700'}} }, y: { grid:{display:false}, ticks:{font:{size:9,weight:'700'}} } }, plugins: { legend: { display: false } } }
             });
 
             // Learning Styles Pie
             const ls = sub.learning_styles.styles;
             new Chart(document.getElementById('chart-ls'), {
                 type: 'pie',
-                data: { labels:Object.values(ls).map(s=>s.label), datasets:[{ data:Object.values(ls).map(s=>s.percentage), backgroundColor:[C.blue,C.orange,C.green,C.yellow], borderWidth:3, borderColor:'#fff' }] },
-                options: { plugins:{ legend:{ position:'bottom', labels:{font:{size:9,weight:'700'},padding:12,usePointStyle:true} } } }
+                data: { labels: Object.values(ls).map(s=>s.label), datasets:[{ data: Object.values(ls).map(s=>s.percentage), backgroundColor:[C.blue,C.orange,C.green,C.yellow], borderWidth: 2, borderColor:'#fff' }] },
+                options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 8, weight: '700' }, padding: 8, usePointStyle: true, boxWidth: 8 } } } }
             });
 
             // Enneagram Radar
@@ -473,10 +484,21 @@
             new Chart(document.getElementById('chart-ennea'), {
                 type: 'radar',
                 data: {
-                    labels: Object.values(ens).map(t => t.label),
-                    datasets: [{ data:Object.values(ens).map(t=>t.score), backgroundColor:'rgba(155,89,182,0.12)', borderColor:C.purple, borderWidth:2.5, pointBackgroundColor:Object.values(ens).map((_,i)=>[C.red,C.orange,C.yellow,C.purple,C.blue,C.green,C.teal,C.pink,C.green][i]), pointRadius:5 }]
+                    labels: Object.values(ens).map(t => t.label.replace('The ','')),
+                    datasets: [{
+                        data: Object.values(ens).map(t=>t.score),
+                        backgroundColor: 'rgba(155,89,182,0.12)',
+                        borderColor: C.purple, borderWidth: 2,
+                        pointBackgroundColor: Object.values(ens).map((_,i)=>[C.red,C.orange,C.yellow,C.purple,C.blue,C.green,C.teal,C.pink,C.green][i]),
+                        pointRadius: 4
+                    }]
                 },
-                options: { scales:{ r:{ beginAtZero:true, max:100, ticks:{display:false}, grid:{color:'#e0e0e0'}, pointLabels:{font:{size:9,weight:'600'},padding:12} } }, plugins:{legend:{display:false}} }
+                options: {
+                    responsive: true, maintainAspectRatio: true,
+                    layout: { padding: 5 },
+                    scales: { r: { beginAtZero: true, max: 100, ticks: { display: false }, grid: { color: '#e0e0e0' }, angleLines: { color: '#e0e0e0' }, pointLabels: { font: { size: 9, weight: '600' }, padding: 8 } } },
+                    plugins: { legend: { display: false } }
+                }
             });
 
             // Scroll spy
