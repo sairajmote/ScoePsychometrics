@@ -10,10 +10,62 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* ── Color Palette ── */
+        :root {
+            --c-green: #2ecc71;
+            --c-red: #e74c3c;
+            --c-blue: #3498db;
+            --c-yellow: #f1c40f;
+            --c-purple: #9b59b6;
+            --c-orange: #e67e22;
+            --c-teal: #1abc9c;
+            --c-green-light: rgba(46, 204, 113, 0.12);
+            --c-blue-light: rgba(52, 152, 219, 0.12);
+            --c-red-light: rgba(231, 76, 60, 0.12);
+            --c-yellow-light: rgba(241, 196, 15, 0.12);
+        }
+
+        /* ── Section Nav Tabs ── */
+        .section-nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .section-nav a {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            margin-bottom: -2px;
+        }
+
+        .section-nav a:hover {
+            color: #000;
+            border-bottom-color: #ccc;
+        }
+
+        .section-nav a.nav-active {
+            color: #fff;
+            background: var(--c-teal);
+            border-bottom-color: var(--c-teal);
+        }
+
         /* ── Report Shell ── */
         .report-shell {
             max-width: 1100px;
-            margin: 2rem auto 5rem auto;
+            margin: 0 auto 5rem auto;
             padding: 0 2rem;
         }
 
@@ -40,7 +92,7 @@
 
         .cover-badge {
             display: inline-block;
-            background: #000;
+            background: var(--c-teal);
             color: #fff;
             padding: 0.4rem 1.2rem;
             font-size: 0.7rem;
@@ -184,7 +236,7 @@
 
         .section-num {
             display: inline-block;
-            background: #000;
+            background: var(--c-teal);
             color: #fff;
             width: 36px;
             height: 36px;
@@ -194,6 +246,7 @@
             font-size: 0.85rem;
             margin-right: 1rem;
             flex-shrink: 0;
+            border-radius: 4px;
         }
 
         .section-heading {
@@ -275,8 +328,9 @@
 
         .hbar-fill {
             height: 100%;
-            background: #000;
+            background: var(--c-teal);
             transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            border-radius: 2px;
         }
 
         .hbar-tag {
@@ -301,28 +355,33 @@
         }
 
         .level-badge.high {
-            background: #000;
+            background: var(--c-green);
             color: #fff;
+            border-color: var(--c-green);
         }
 
         .level-badge.very-high {
-            background: #000;
+            background: var(--c-blue);
             color: #fff;
+            border-color: var(--c-blue);
         }
 
         .level-badge.moderate {
-            background: #f0f0f0;
-            color: #000;
+            background: var(--c-yellow-light);
+            color: #8a7600;
+            border-color: var(--c-yellow);
         }
 
         .level-badge.moderate-high {
-            background: #ddd;
-            color: #000;
+            background: var(--c-green-light);
+            color: #1a7a3a;
+            border-color: var(--c-green);
         }
 
         .level-badge.low {
-            background: #fff;
-            color: #000;
+            background: var(--c-red-light);
+            color: var(--c-red);
+            border-color: var(--c-red);
         }
 
         /* ── MBTI Dichotomy Bars ── */
@@ -382,7 +441,7 @@
         }
 
         .dich-bar-b {
-            background: #000;
+            background: var(--c-teal);
             color: #fff;
             display: flex;
             align-items: center;
@@ -520,7 +579,7 @@
             align-items: center;
             justify-content: center;
             border: 2px solid #000;
-            background: #000;
+            background: linear-gradient(180deg, var(--c-blue), var(--c-purple));
             color: #fff;
             font-size: 0.6rem;
             text-transform: uppercase;
@@ -800,7 +859,7 @@
             border: 2px solid #000;
             background: #000;
             color: #fff;
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Inter', sans-serif;
             font-weight: 700;
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -940,6 +999,17 @@
 
     <div style="height:90px;"></div>
 
+    <div class="section-nav" id="section-nav">
+        <a href="#sec-overview" class="nav-active">Overview</a>
+        <a href="#sec-big5">Big Five</a>
+        <a href="#sec-mbti">Personality Type</a>
+        <a href="#sec-temperament">Temperament</a>
+        <a href="#sec-mi">Multiple Intelligences</a>
+        <a href="#sec-learning">Learning Styles</a>
+        <a href="#sec-brain">Brain Hemispheres</a>
+        <a href="#sec-enneagram">Enneagram</a>
+    </div>
+
     <main class="report-shell" id="report-root">
         <p style="text-align:center;padding:4rem;color:#888;font-size:1.1rem;">Loading report data…</p>
     </main>
@@ -959,7 +1029,7 @@
         //  REPORT RENDERER — reads JSON, builds HTML
         // ───────────────────────────────────────────
 
-        Chart.defaults.font.family = "'Roboto Mono', monospace";
+        Chart.defaults.font.family = "'Inter', sans-serif";
         Chart.defaults.color = '#000';
 
         async function loadReport() {
@@ -990,7 +1060,7 @@
 
             // ── COVER ──
             html += `
-      <div class="report-cover">
+      <div class="report-cover" id="sec-overview">
         <div class="cover-badge">Psychometric Assessment Report</div>
         <h1 class="cover-title">${meta.candidate.name.toUpperCase()}</h1>
         <div class="cover-subtitle">Comprehensive Multi-Dimensional Personality & Intelligence Profile</div>
@@ -1060,7 +1130,7 @@
             }
 
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-big5">
         <div class="section-heading">
           <span class="section-num">01</span>
           <h2>${b5.label}</h2>
@@ -1108,7 +1178,7 @@
             }).join('');
 
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-mbti">
         <div class="section-heading">
           <span class="section-num">02</span>
           <h2>${mbti.label}</h2>
@@ -1142,7 +1212,7 @@
         </div>`).join('');
 
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-temperament">
         <div class="section-heading">
           <span class="section-num">03</span>
           <h2>${temp.label}</h2>
@@ -1176,7 +1246,7 @@
         </li>`).join('');
 
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-mi">
         <div class="section-heading">
           <span class="section-num">04</span>
           <h2>${mi.label}</h2>
@@ -1203,7 +1273,7 @@
         </div>`).join('');
 
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-learning">
         <div class="section-heading">
           <span class="section-num">05</span>
           <h2>${ls.label}</h2>
@@ -1224,7 +1294,7 @@
             // ── SECTION 6: BRAIN HEMISPHERES ──
             const bh = sub.brain_hemispheres;
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-brain">
         <div class="section-heading">
           <span class="section-num">06</span>
           <h2>${bh.label}</h2>
@@ -1264,7 +1334,7 @@
             // ── SECTION 7: ENNEAGRAM ──
             const en = sub.enneagram;
             html += `
-      <div class="section-block">
+      <div class="section-block" id="sec-enneagram">
         <div class="section-heading">
           <span class="section-num">07</span>
           <h2>${en.label}</h2>
@@ -1372,32 +1442,40 @@
         function renderCharts(D) {
             const sub = D.subtests;
 
+            // ── Color palette for charts ──
+            const C = {
+                green: '#2ecc71', red: '#e74c3c', blue: '#3498db',
+                yellow: '#f1c40f', purple: '#9b59b6', orange: '#e67e22',
+                teal: '#1abc9c', pink: '#e91e63'
+            };
+
             // Chart 1: Big Five Radar
             const b5 = sub.big_five.traits;
+            const b5Colors = [C.green, C.blue, C.orange, C.teal, C.red];
             new Chart(document.getElementById('chart-big5'), {
                 type: 'radar',
                 data: {
                     labels: Object.values(b5).map(t => t.label.replace(' to Experience', '')),
                     datasets: [{
                         data: Object.values(b5).map(t => t.score),
-                        backgroundColor: 'rgba(0,0,0,0.06)',
-                        borderColor: '#000',
-                        borderWidth: 2,
-                        pointBackgroundColor: '#000',
+                        backgroundColor: 'rgba(26,188,156,0.15)',
+                        borderColor: C.teal,
+                        borderWidth: 2.5,
+                        pointBackgroundColor: b5Colors,
                         pointBorderColor: '#fff',
-                        pointRadius: 5,
-                        pointHoverRadius: 7
+                        pointRadius: 6,
+                        pointHoverRadius: 8
                     }]
                 },
                 options: {
+                    layout: { padding: 20 },
                     scales: {
                         r: {
-                            beginAtZero: true,
-                            max: 100,
+                            beginAtZero: true, max: 100,
                             ticks: { stepSize: 20, display: false },
                             grid: { color: '#e0e0e0' },
                             angleLines: { color: '#e0e0e0' },
-                            pointLabels: { font: { size: 10, weight: '700' }, padding: 15 }
+                            pointLabels: { font: { size: 11, weight: '700' }, padding: 25 }
                         }
                     },
                     plugins: { legend: { display: false } }
@@ -1412,8 +1490,8 @@
                     labels: Object.values(tempScores).map(t => t.label),
                     datasets: [{
                         data: Object.values(tempScores).map(t => t.percentage),
-                        backgroundColor: ['#ddd', '#aaa', '#000', '#666'],
-                        borderWidth: 2,
+                        backgroundColor: [C.yellow, C.red, C.blue, C.green],
+                        borderWidth: 3,
                         borderColor: '#fff'
                     }]
                 },
@@ -1430,17 +1508,17 @@
 
             // Chart 3: Multiple Intelligences Bar
             const mi = sub.multiple_intelligences.intelligences;
+            const miColors = [C.blue, C.green, C.purple, C.orange, C.teal, C.red];
             new Chart(document.getElementById('chart-mi'), {
                 type: 'bar',
                 data: {
                     labels: Object.values(mi).map(i => i.label.replace(' Intelligence', '')),
                     datasets: [{
                         data: Object.values(mi).map(i => i.score),
-                        backgroundColor: Object.keys(mi).map(k =>
-                            sub.multiple_intelligences.dominant_intelligences.includes(k) ? '#000' : '#ccc'
-                        ),
+                        backgroundColor: miColors,
                         borderWidth: 0,
-                        barThickness: 24
+                        barThickness: 24,
+                        borderRadius: 3
                     }]
                 },
                 options: {
@@ -1461,8 +1539,8 @@
                     labels: Object.values(ls).map(s => s.label),
                     datasets: [{
                         data: Object.values(ls).map(s => s.percentage),
-                        backgroundColor: ['#000', '#888', '#444', '#ccc'],
-                        borderWidth: 2,
+                        backgroundColor: [C.blue, C.orange, C.green, C.yellow],
+                        borderWidth: 3,
                         borderColor: '#fff'
                     }]
                 },
@@ -1478,28 +1556,26 @@
 
             // Chart 5: Enneagram Radar
             const enScores = sub.enneagram.type_scores;
+            const enColors = [C.red, C.green, C.yellow, C.purple, C.blue, C.orange, C.teal, C.pink, C.green];
             new Chart(document.getElementById('chart-ennea'), {
                 type: 'radar',
                 data: {
                     labels: Object.values(enScores).map(t => `T${t.label.split(' ')[1] || ''} ${t.label.split(' ').slice(1).join(' ')}`),
                     datasets: [{
                         data: Object.values(enScores).map(t => t.score),
-                        backgroundColor: 'rgba(0,0,0,0.06)',
-                        borderColor: '#000',
-                        borderWidth: 2,
-                        pointBackgroundColor: Object.values(enScores).map((t, i) =>
-                            (i + 1) === sub.enneagram.primary_type.number ? '#000' : '#aaa'
-                        ),
+                        backgroundColor: 'rgba(155,89,182,0.12)',
+                        borderColor: C.purple,
+                        borderWidth: 2.5,
+                        pointBackgroundColor: enColors,
                         pointRadius: Object.values(enScores).map((t, i) =>
-                            (i + 1) === sub.enneagram.primary_type.number ? 7 : 4
+                            (i + 1) === sub.enneagram.primary_type.number ? 8 : 5
                         )
                     }]
                 },
                 options: {
                     scales: {
                         r: {
-                            beginAtZero: true,
-                            max: 100,
+                            beginAtZero: true, max: 100,
                             ticks: { display: false },
                             grid: { color: '#e0e0e0' },
                             angleLines: { color: '#e0e0e0' },
@@ -1508,6 +1584,19 @@
                     },
                     plugins: { legend: { display: false } }
                 }
+            });
+
+            // ── Section Nav highlight on scroll ──
+            const sections = document.querySelectorAll('[id^="sec-"]');
+            const navLinks = document.querySelectorAll('.section-nav a');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(s => {
+                    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+                });
+                navLinks.forEach(a => {
+                    a.classList.toggle('nav-active', a.getAttribute('href') === '#' + current);
+                });
             });
         }
 
