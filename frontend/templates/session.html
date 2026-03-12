@@ -312,8 +312,8 @@
                 return;
             }
             try {
-                console.log("Fetching questions from /questions...");
-                const res = await fetch('/questions');
+                console.log("Fetching questions from /questions?category=mbti...");
+                const res = await fetch('/questions?category=mbti');
                 if (!res.ok) {
                     const errorText = await res.text();
                     console.error("Fetch failed:", res.status, errorText);

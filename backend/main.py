@@ -52,9 +52,14 @@ async def health_db(db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+from typing import Optional
+
 @app.get("/questions", response_model=list[schemas.QuestionBase])
-async def get_questions(db: Session = Depends(get_db)):
-    questions = db.query(models.Question).all()
+async def get_questions(category: Optional[str] = None, db: Session = Depends(get_db)):
+    query = db.query(models.Question)
+    if category:
+        query = query.filter(models.Question.category == category)
+    questions = query.all()
     result = []
     for q in questions:
         # Build options dict dynamically

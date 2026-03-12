@@ -12,11 +12,12 @@ from backend import models
 def seed_mbti_questions():
     db = SessionLocal()
     
-    # Check if questions already exist to avoid duplicates
-    existing_count = db.query(models.Question).filter(models.Question.category == "mbti").count()
-    if existing_count > 0:
-        print(f"MBTI questions already seeded ({existing_count} found). Skipping.")
-        return
+    # Clear existing mbti questions so we can re-seed fresh data
+    mbti_question_ids = db.query(models.Question.id).filter(models.Question.category == "mbti")
+    db.query(models.Response).filter(models.Response.question_id.in_(mbti_question_ids)).delete(synchronize_session=False)
+    deleted_count = db.query(models.Question).filter(models.Question.category == "mbti").delete(synchronize_session=False)
+    if deleted_count > 0:
+        print(f"Cleared {deleted_count} existing MBTI questions.")
 
     # Data from mbit_tester.py
     questions_list = [
