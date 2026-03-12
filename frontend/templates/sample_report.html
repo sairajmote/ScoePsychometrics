@@ -173,6 +173,10 @@
         .insight-col li::before { content: ''; width: 8px; height: 8px; background: var(--c-teal); flex-shrink: 0; }
         .career-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
         .career-tag { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.88rem; font-weight: 600; }
+        .career-paths-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .career-path-card { border: 1px solid rgba(255,255,255,0.15); padding: 1.2rem 1.4rem; background: rgba(255,255,255,0.04); }
+        .career-path-name { font-size: 0.9rem; font-weight: 800; color: #1abc9c; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .career-path-reason { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
         .compat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
         .compat-card { border: 1px solid rgba(255,255,255,0.15); padding: 1.2rem; }
         .compat-label { font-size: 0.68rem; text-transform: uppercase; font-weight: 700; color: #aaa; margin-bottom: 0.5rem; }
@@ -185,40 +189,130 @@
         /* ---- CERTIFICATE CARD ---- */
         .cert-section { margin-bottom: 4rem; }
         .cert-section h3 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: #888; margin-bottom: 1.5rem; }
+
         .cert-card {
-            width: 680px; border: 3px solid #000; background: #fff;
-            padding: 0; overflow: hidden; position: relative;
-            font-family: 'Inter', 'Roboto', sans-serif;
+            width: 100%; max-width: 760px;
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.08);
+            font-family: 'Inter', sans-serif;
+            position: relative;
         }
-        .cert-top-bar { background: #000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .cert-logo-text { color: #fff; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-        .cert-issued { color: rgba(255,255,255,0.55); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
-        .cert-body { padding: 2.5rem 2rem 1.8rem; position: relative; }
-        .cert-body::after { content: ''; position: absolute; bottom: 0; right: 0; width: 200px; height: 200px; background: var(--c-teal); clip-path: polygon(100% 100%, 0 100%, 100% 0); opacity: 0.05; pointer-events: none; }
-        .cert-presenting { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; color: #aaa; margin-bottom: 0.5rem; }
-        .cert-name { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.4rem; }
-        .cert-tagline { font-size: 0.85rem; color: #666; margin-bottom: 2rem; }
-        .cert-types { display: flex; gap: 1.5rem; margin-bottom: 2rem; }
+
+        /* Top gradient banner */
+        .cert-top-bar {
+            background: linear-gradient(120deg, #0d1117 60%, #1abc9c 160%);
+            padding: 1.4rem 2.2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cert-logo-text {
+            color: #fff; font-size: 1rem; font-weight: 900;
+            letter-spacing: 0.05em; text-transform: uppercase;
+        }
+        .cert-logo-text span { color: #1abc9c; }
+        .cert-issued {
+            color: rgba(255,255,255,0.5); font-size: 0.68rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        /* Body */
+        .cert-body {
+            padding: 2.8rem 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Watermark */
+        .cert-body::before {
+            content: 'PSYCHOMETRICS';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 5rem; font-weight: 900; color: rgba(0,0,0,0.03);
+            white-space: nowrap; pointer-events: none; letter-spacing: 0.1em;
+        }
+        /* Corner accent */
+        .cert-body::after {
+            content: '';
+            position: absolute; top: 0; right: 0;
+            width: 140px; height: 140px;
+            background: linear-gradient(135deg, transparent 50%, rgba(26,188,156,0.06) 50%);
+            pointer-events: none;
+        }
+
+        .cert-presenting {
+            font-size: 0.65rem; text-transform: uppercase;
+            letter-spacing: 0.2em; font-weight: 700; color: #bbb;
+            margin-bottom: 0.6rem;
+        }
+        .cert-name {
+            font-size: 2.8rem; font-weight: 900;
+            letter-spacing: -0.03em; line-height: 1;
+            margin-bottom: 0.5rem; color: #0d1117;
+        }
+        .cert-tagline {
+            font-size: 0.9rem; color: #777; margin-bottom: 2.2rem;
+            font-weight: 500;
+        }
+
+        /* Type pills */
+        .cert-types { display: flex; gap: 1rem; margin-bottom: 0; flex-wrap: wrap; }
         .cert-type-pill {
-            padding: 0.6rem 1.5rem; font-weight: 800; font-size: 0.9rem;
-            display: flex; flex-direction: column; gap: 0.2rem; border: 2px solid #000;
+            padding: 0.9rem 1.6rem;
+            display: flex; flex-direction: column; gap: 0.25rem;
+            border-radius: 3px; min-width: 150px;
         }
-        .cert-type-pill.mbti { background: var(--c-teal); color: #fff; border-color: var(--c-teal); }
-        .cert-type-pill.ennea { background: var(--c-purple); color: #fff; border-color: var(--c-purple); }
-        .cert-pill-label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.8; font-weight: 700; }
-        .cert-pill-value { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; }
-        .cert-pill-sub { font-size: 0.7rem; opacity: 0.9; font-weight: 600; }
-        .cert-bottom { border-top: 1px solid #eee; padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .cert-bottom-left { font-size: 0.65rem; color: #aaa; }
-        .cert-stamp { width: 44px; height: 44px; border: 2px solid var(--c-teal); display: flex; align-items: center; justify-content: center; }
-        .cert-stamp span { font-size: 0.5rem; font-weight: 900; color: var(--c-teal); text-transform: uppercase; letter-spacing: 0.04em; text-align: center; }
+        .cert-type-pill.mbti {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(26,188,156,0.35);
+        }
+        .cert-type-pill.ennea {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(155,89,182,0.35);
+        }
+        .cert-pill-label {
+            font-size: 0.58rem; text-transform: uppercase;
+            letter-spacing: 0.14em; opacity: 0.85; font-weight: 700;
+        }
+        .cert-pill-value {
+            font-size: 1.6rem; font-weight: 900;
+            letter-spacing: -0.03em; line-height: 1;
+        }
+        .cert-pill-sub { font-size: 0.72rem; opacity: 0.9; font-weight: 600; }
+
+        /* Footer strip */
+        .cert-bottom {
+            background: #f7f8fa;
+            border-top: 1px solid #eaecef;
+            padding: 0.9rem 2.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cert-bottom-left { font-size: 0.65rem; color: #aaa; letter-spacing: 0.05em; }
+        .cert-stamp {
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 2px solid #1abc9c;
+            display: flex; align-items: center; justify-content: center;
+            background: #fff;
+        }
+        .cert-stamp span {
+            font-size: 0.42rem; font-weight: 900; color: #1abc9c;
+            text-transform: uppercase; letter-spacing: 0.04em; text-align: center;
+            line-height: 1.3;
+        }
+
+        /* Download button */
         .cert-download-btn {
-            margin-top: 1rem; padding: 0.8rem 2rem; background: #000; color: #fff;
-            border: none; font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.08em; cursor: pointer; font-family: 'Inter', sans-serif;
-            display: inline-flex; align-items: center; gap: 0.6rem; transition: background 0.2s;
+            margin-top: 1.2rem; padding: 0.85rem 2rem;
+            background: #0d1117; color: #fff; border: none;
+            font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            transition: background 0.2s, transform 0.15s;
+            border-radius: 2px;
         }
-        .cert-download-btn:hover { background: #333; }
+        .cert-download-btn:hover { background: #1abc9c; transform: translateY(-1px); }
         .cert-download-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
 
         /* Page switching — sections start visible so Chart.js can size canvases, then JS hides non-active */
@@ -312,13 +406,13 @@
                 <h3>Your Personality Card — Download as a Certificate</h3>
                 <div class="cert-card" id="cert-card-el">
                     <div class="cert-top-bar">
-                        <span class="cert-logo-text">ScoePsychometrics</span>
-                        <span class="cert-issued">Personality Profile · ${certDate}</span>
+                        <span class="cert-logo-text">Scoe<span>Psychometrics</span></span>
+                        <span class="cert-issued">Personality Profile &middot; ${certDate}</span>
                     </div>
                     <div class="cert-body">
-                        <div class="cert-presenting">Personality Profile of</div>
+                        <div class="cert-presenting">This profile belongs to</div>
                         <div class="cert-name">${meta.candidate.name}</div>
-                        <div class="cert-tagline">${meta.candidate.education || 'Psychometric Assessment Participant'}</div>
+                        <div class="cert-tagline">${meta.candidate.education || 'Psychometric Assessment Participant'} &nbsp;&bull;&nbsp; ${new Date(meta.generated_at).toLocaleDateString('en-IN',{year:'numeric',month:'long'})}</div>
                         <div class="cert-types">
                             <div class="cert-type-pill mbti">
                                 <span class="cert-pill-label">MBTI Type</span>
@@ -328,12 +422,17 @@
                             <div class="cert-type-pill ennea">
                                 <span class="cert-pill-label">Enneagram</span>
                                 <span class="cert-pill-value">Type ${en.primary_type.number}</span>
-                                <span class="cert-pill-sub">${en.primary_type.label} · ${en.primary_type.wing}</span>
+                                <span class="cert-pill-sub">${en.primary_type.label} &middot; ${en.primary_type.wing}</span>
+                            </div>
+                            <div class="cert-type-pill" style="background:linear-gradient(135deg,#34495e,#2c3e50);color:#fff;box-shadow:0 4px 15px rgba(52,73,94,0.35);">
+                                <span class="cert-pill-label">Temperament</span>
+                                <span class="cert-pill-value" style="font-size:1rem;">${temp.blend_label}</span>
+                                <span class="cert-pill-sub">Primary: ${temp.primary.charAt(0).toUpperCase()+temp.primary.slice(1)}</span>
                             </div>
                         </div>
                     </div>
                     <div class="cert-bottom">
-                        <div class="cert-bottom-left">scoepsychometrics.com · Sample Report</div>
+                        <div class="cert-bottom-left">scoepsychometrics.com &nbsp;&bull;&nbsp; Sample Report</div>
                         <div class="cert-stamp"><span>MBTI<br>Assessed</span></div>
                     </div>
                 </div>
@@ -509,8 +608,12 @@
                         <ul>${ins.growth_areas.map(g=>`<li>${g}</li>`).join('')}</ul>
                     </div>
                 </div>
-                <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:0.8rem;">Recommended Career Domains</div>
-                <div class="career-tags">${ins.recommended_career_domains.map(c=>`<span class="career-tag">${c}</span>`).join('')}</div>
+                <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:1.2rem;">Recommended Career Domains</div>
+                <div class="career-paths-grid">${ins.recommended_career_domains.map(c=>`
+                    <div class="career-path-card">
+                        <div class="career-path-name">${c.name}</div>
+                        <div class="career-path-reason">${c.reason}</div>
+                    </div>`).join('')}</div>
                 <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-top:2rem;margin-bottom:0.8rem;">Workplace Compatibility</div>
                 <div class="compat-grid">
                     <div class="compat-card"><div class="compat-label">Work Environment</div><div class="compat-value">${ins.compatibility_notes.work_environment}</div></div>

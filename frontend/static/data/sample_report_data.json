@@ -16,7 +16,7 @@
     "subtests": {
         "big_five": {
             "label": "Big Five Personality Traits",
-            "description": "Measures five broad dimensions of personality.",
+            "description": "The Big Five is one of the most trusted ways to understand personality. It breaks down who you are into five key areas: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism. Together, these five traits paint a clear picture of how you think, feel, act, and relate to the people around you. This is not a label — it is a map of your strengths and areas where you can grow.",
             "chart_type": "radar",
             "traits": {
                 "openness": {
@@ -33,7 +33,7 @@
                         "intellect": 90,
                         "liberalism": 73
                     },
-                    "interpretation": "You are highly open to new experiences, intellectually curious, and appreciate art and beauty. You tend to think creatively and are willing to explore unconventional ideas."
+                    "interpretation": "You are highly open to new experiences, ideas, and ways of thinking. You love learning, enjoy creative work, and often see the world differently from others. You are the kind of person who asks 'why' and 'what if' a lot. You like exploring new topics even if they seem strange at first. Your curiosity is one of your biggest strengths — it helps you come up with fresh ideas and solve problems in creative ways. This also means you enjoy variety and can get bored easily if things stay the same for too long."
                 },
                 "conscientiousness": {
                     "label": "Conscientiousness",
@@ -49,7 +49,7 @@
                         "self_discipline": 60,
                         "cautiousness": 62
                     },
-                    "interpretation": "You have a moderate level of conscientiousness. You balance between being organized and being spontaneous, and you can be disciplined when motivated."
+                    "interpretation": "You have a moderate level of conscientiousness, which means you are neither too rigid nor too careless. You can be very organized and focused when a task matters to you, but you also allow yourself to be flexible and go with the flow when needed. You are reliable in most situations and usually follow through on your commitments. At times, you might delay starting tasks that feel overwhelming — that is something you can work on. Overall, you are capable and dependable once you set your mind on a goal."
                 },
                 "extraversion": {
                     "label": "Extraversion",
@@ -65,7 +65,7 @@
                         "excitement_seeking": 38,
                         "cheerfulness": 45
                     },
-                    "interpretation": "You tend to be more introverted and reserved. You prefer smaller social gatherings and need time alone to recharge. You are thoughtful and reflective in group settings."
+                    "interpretation": "You lean more towards introversion, which means you gain energy from quiet time and reflection rather than from being around large groups of people. You are thoughtful before you speak, and you listen more than you talk. Small, close friendships mean more to you than having a wide social circle. You may feel drained after long social events and need time alone to recharge. This is a strength — introverts are often great listeners, deep thinkers, and loyal friends. You do well in environments where you can focus and think things through carefully."
                 },
                 "agreeableness": {
                     "label": "Agreeableness",
@@ -81,7 +81,7 @@
                         "modesty": 60,
                         "sympathy": 75
                     },
-                    "interpretation": "You are generally cooperative and considerate of others. You value harmony and tend to be empathetic, though you can assert yourself when necessary."
+                    "interpretation": "You are a warm and caring person who genuinely wants good things for others. You find it easy to cooperate with people and are often seen as kind, fair, and easy to get along with. You care about doing the right thing and will often put others' feelings before your own. However, you are not a pushover — you can stand your ground when it truly matters. You are the kind of person others turn to when they need support, and you take that responsibility seriously."
                 },
                 "neuroticism": {
                     "label": "Neuroticism",
@@ -97,13 +97,13 @@
                         "immoderation": 48,
                         "vulnerability": 58
                     },
-                    "interpretation": "You experience a typical range of emotional responses. You can feel stressed under pressure but generally manage your emotions effectively."
+                    "interpretation": "You experience a normal range of emotions — sometimes calm, sometimes stressed, depending on what is happening around you. You are not overly anxious, but you do feel pressure when things get difficult. You tend to be self-aware and notice when your mood changes, which is actually a useful skill. When life gets tough, you may need a little extra time to process before bouncing back — and that is completely okay. Building simple habits like journaling, exercise, or talking to someone you trust can help you stay balanced during stressful times."
                 }
             }
         },
         "mbti": {
-            "label": "Myers-Briggs Type Indicator",
-            "description": "Identifies personality type based on four dichotomies.",
+            "label": "Myers-Briggs Type Indicator (MBTI)",
+            "description": "The MBTI is one of the most widely used personality tools in the world. It identifies your personality type based on four key choices: how you get your energy (Introvert or Extrovert), how you take in information (Sensing or Intuition), how you make decisions (Thinking or Feeling), and how you live your life (Judging or Perceiving). Your combination of these four gives you a four-letter type — like INFJ — which describes your natural way of seeing and responding to the world.",
             "chart_type": "horizontal_bar",
             "result_type": "INFJ",
             "type_label": "The Advocate",
@@ -187,11 +187,11 @@
                     "strength": 30
                 }
             },
-            "interpretation": "As an INFJ, you are idealistic, empathetic, and driven by a strong sense of purpose. You combine intuitive understanding with a desire to help others, often seeking meaning in relationships and ideas."
+            "interpretation": "As an INFJ — The Advocate — you are one of the rarest personality types in the world. You feel things deeply and often sense what others are going through before they even say it. You are driven by your values and care deeply about making a positive difference — not just in your own life, but in the lives of people around you. You are a natural planner who likes to have a clear direction, yet you also stay open to new ideas and perspectives. While you are introverted by nature, you have a powerful ability to connect with people who share your values. Your biggest challenge is learning to take care of yourself as well as you take care of others — you can easily burn out by giving too much. Setting clear personal limits and protecting your energy is not selfishness; it is what keeps you effective and fulfilled in the long run."
         },
         "temperament": {
             "label": "Temperament Analysis",
-            "description": "Assesses the four classical temperaments and their blend.",
+            "description": "Temperament refers to your natural, built-in personality style — the way you were wired from the start. Unlike other personality models, temperament focuses on innate behavioral patterns that show up in how you react to the world. The four classical temperaments — Sanguine, Choleric, Phlegmatic, and Melancholic — each describe a different way of feeling, acting, and relating to people. Most people are a blend of two or more, and yours shows your unique mix.",
             "chart_type": "doughnut",
             "primary": "melancholic",
             "secondary": "phlegmatic",
@@ -246,11 +246,11 @@
                 }
             },
             "blend_label": "Melancholic-Phlegmatic",
-            "interpretation": "Your dominant Melancholic temperament combined with Phlegmatic traits makes you thoughtful, analytical, and empathetic. You value deep connections and prefer to think before acting. You may struggle with overthinking but excel in tasks requiring precision and patience."
+            "interpretation": "Your dominant Melancholic temperament combined with Phlegmatic traits makes you thoughtful, careful, and deeply empathetic. You value quality over speed and tend to think things through before acting. You set high standards for yourself and take your work seriously. The Phlegmatic side brings a sense of calm and patience — you rarely lose your cool and tend to be a steady, calming presence for those around you. You may sometimes overthink or worry too much, and you might struggle to say no to people you care about. Working on setting healthy limits and giving yourself credit for your efforts will help you thrive."
         },
         "multiple_intelligences": {
             "label": "Multiple Intelligences",
-            "description": "Based on Howard Gardner's theory of multiple intelligences.",
+            "description": "Howard Gardner's theory of Multiple Intelligences says that people are not just 'smart' or 'not smart' — instead, everyone has a unique mix of different types of intelligence. This test looks at six kinds: Linguistic (words), Logical-Mathematical (numbers and patterns), Visual-Spatial (pictures and space), Bodily-Kinesthetic (movement), Interpersonal (understanding others), and Intrapersonal (understanding yourself). Your scores show where your natural strengths lie, and where you can grow with practice.",
             "chart_type": "bar",
             "dominant_intelligences": [
                 "logical_mathematical",
@@ -450,11 +450,11 @@
                 }
             },
             "multimodal": false,
-            "interpretation": "You are predominantly a Reading/Writing learner with strong Visual tendencies. You absorb information best through written material and benefit from organized notes, lists, and structured text. Supplementing with diagrams and visual aids enhances your retention."
+            "interpretation": "You are primarily a Reading/Writing learner with strong Visual tendencies. You absorb information best through written material and benefit from organised lists, notes, and structured text. Supplementing with diagrams and visual aids further improves your understanding and memory. When studying, try rewriting key ideas in your own words — this forces your brain to truly understand rather than just memorise. For topics you find difficult, drawing a simple diagram or creating a table can make complex ideas much easier to grasp."
         },
         "brain_hemispheres": {
             "label": "Brain Hemisphere Dominance",
-            "description": "Assesses relative dominance of left vs right brain processing.",
+            "description": "Your brain has two halves — the left hemisphere and the right hemisphere. The left side handles logical thinking, language, numbers, and step-by-step reasoning. The right side is linked to creativity, intuition, spatial awareness, and emotional understanding. Most people lean towards one side, though the best thinkers use both. This test shows which side you naturally rely on more, and how you can use both sides together to become a more complete thinker.",
             "chart_type": "gauge",
             "dominant_hemisphere": "left",
             "scores": {
@@ -498,11 +498,11 @@
                 }
             },
             "balance_index": 0.62,
-            "interpretation": "You show a moderate left-brain dominance, indicating strong analytical and logical thinking abilities. However, your right-brain score is significant enough to support creative pursuits. This balance makes you well-suited for roles requiring both structured thinking and creative problem-solving."
+            "interpretation": "Your left brain is stronger, which means you naturally excel at logical thinking, structured reasoning, and working with language and numbers. You are good at breaking big problems into smaller steps and following a clear plan. You may find creative or abstract work a little more challenging, but your right hemisphere score shows you still have meaningful creative and intuitive abilities. The best approach is to use your logical strengths while actively practicing more open-ended, creative thinking — this makes you a much more well-rounded problem solver and communicator."
         },
         "enneagram": {
             "label": "Enneagram Personality Type",
-            "description": "Identifies core personality type from nine interconnected types.",
+            "description": "The Enneagram is an ancient system of understanding personality through nine distinct types, each with its own core desires, fears, and motivations. Unlike other personality tests, the Enneagram focuses on the deeper 'why' behind your behaviour — why you do what you do, not just what you do. Understanding your Enneagram type can bring powerful insight into your relationships, your work style, and the inner patterns that drive your choices without you even noticing.",
             "chart_type": "radar",
             "primary_type": {
                 "number": 3,
@@ -585,35 +585,68 @@
                 "level_label": "Healthy (Level 3)",
                 "description": "You are at a healthy level of development — outstanding, authentic, and deeply committed to meaningful achievement."
             },
-            "interpretation": "As a Type 3 (The Achiever) with a 2-wing, you are The Success-Oriented, Pragmatic Type: Adaptive, Excelling, Driven, and Image-Conscious. You are highly motivated to succeed and excel, constantly setting and reaching ambitious goals. Your 2-wing adds warmth and charm, making you naturally charismatic. You care deeply about how you are perceived and use your interpersonal skills to build networks that support your ambitions."
+            "interpretation": "As a Type 3 (The Achiever) with a 2-wing, you are The Success-Oriented, Pragmatic Type: Adaptive, Excelling, Driven, and Image-Conscious. You are highly motivated to succeed and push yourself hard to reach your goals. You know how to read a room and adjust your style to match what is needed — which makes you naturally good at leadership and teamwork. Your 2-wing adds warmth and real care for others, so you are not just chasing success for yourself — you want to bring people along with you. Your greatest challenge is to remember that your worth is not tied to your achievements. You are valuable simply because of who you are, not just what you accomplish. Learning to be still, to be honest about your feelings, and to let people see the 'real you' behind the results will bring you deeper relationships and a stronger sense of inner peace."
         }
     },
     "composite_insights": {
-        "personality_summary": "You are an analytically-minded, introspective individual with strong intellectual curiosity and a preference for depth over breadth. Your combination of INFJ, Melancholic temperament, and Enneagram Type 5 paints a picture of someone who seeks meaning, values knowledge, and approaches the world with thoughtful precision.",
+        "personality_summary": "Chat GPT presents a rich and layered personality profile that combines rare depth of feeling with a strong drive for achievement. As an INFJ at heart and a Type 3 Achiever in motivation, this profile shows someone who cares deeply about meaning while also pushing hard for results. The Melancholic-Phlegmatic temperament adds thoughtfulness, care, and emotional sensitivity — making this person someone others trust with their problems. Strong logical intelligence and a Reading/Writing learning style point to someone who thinks carefully and communicates clearly. The left-brain dominance supports structured planning and analytical thinking, while the right-brain score means creative and intuitive thinking are also available when needed. Overall, this is a highly capable, values-driven, and emotionally aware individual who has the tools to succeed in demanding, people-focused roles where both empathy and results matter.",
         "top_strengths": [
-            "Logical and analytical thinking",
-            "Strong self-awareness and introspection",
-            "Creative problem-solving",
-            "Empathy and emotional depth",
-            "Preference for structured, deep learning"
+            "Deep empathy — naturally understands how others feel and what they need",
+            "Creative and logical thinking combined — can handle both ideas and details",
+            "Strong moral values — driven by doing what is right, not just what is popular",
+            "Calm and steady under pressure — rarely panics, thinks before reacting",
+            "Excellent written communication — ideas are clear, organised, and persuasive",
+            "Long-term vision — thinks ahead and plans carefully instead of rushing"
         ],
         "growth_areas": [
-            "Building assertiveness and social confidence",
-            "Balancing overthinking with action",
-            "Expanding comfort zone in group settings",
-            "Developing kinesthetic and hands-on skills"
+            "Tendency to overthink — learning to trust your gut can save time and stress",
+            "Difficulty saying no — setting healthy limits protects your energy and wellbeing",
+            "Takes criticism personally — building resilience helps you grow faster",
+            "Perfectionistic streak — good enough done today is often better than perfect done never",
+            "Holds emotions inside — opening up to trusted people reduces inner pressure"
         ],
         "recommended_career_domains": [
-            "Technology & Software Development",
-            "Research & Academia",
-            "Data Science & Analytics",
-            "Psychology & Counseling",
-            "Writing & Content Strategy"
+            {
+                "name": "Psychology and Counselling",
+                "reason": "Your deep empathy, strong listening ability, and natural understanding of human emotion make you exceptionally well-suited to helping others work through personal challenges. You do not just hear what people say — you understand what they mean."
+            },
+            {
+                "name": "Research and Data Science",
+                "reason": "Your high Logical-Mathematical intelligence and left-brain dominance give you the patience and precision needed for deep research work. You enjoy finding patterns in complex information and turning raw data into meaningful conclusions."
+            },
+            {
+                "name": "Education and Teaching",
+                "reason": "Your INFJ drive to make a meaningful impact, combined with your clear written communication and high Intrapersonal intelligence, makes you a naturally inspiring teacher. You understand how people learn and can adjust your approach to reach different kinds of students."
+            },
+            {
+                "name": "Writing and Content Strategy",
+                "reason": "Reading/Writing is your dominant learning style, and your Linguistic intelligence is strong. You think clearly through text and have a natural ability to explain complex ideas in a simple, engaging way — a rare and valuable skill."
+            },
+            {
+                "name": "Product Management",
+                "reason": "As an Achiever (Type 3), you are goal-focused and results-driven. Combined with your empathy and strategic thinking, you are skilled at understanding user needs, building a clear vision, and bringing a team together to deliver it."
+            },
+            {
+                "name": "Social Work and Non-profit Leadership",
+                "reason": "Your strong moral values and genuine care for others make you naturally drawn to work that creates real change. The INFJ idealism and Type 3 drive means you will not just care about the cause — you will actually push to make things happen."
+            },
+            {
+                "name": "Healthcare Administration",
+                "reason": "Your combination of analytical thinking, Judging preference, and high Agreeableness makes you well-suited to managing healthcare systems and teams. You can handle complex logistics while keeping the human side of healthcare at the centre."
+            },
+            {
+                "name": "Human Resources",
+                "reason": "Your strong Interpersonal intelligence and natural empathy allow you to read people accurately and fairly. You are good at resolving conflict without taking sides, and you genuinely want the best outcome for everyone involved."
+            },
+            {
+                "name": "Philosophy and Ethics",
+                "reason": "INFJs are naturally drawn to big questions about meaning, justice, and how life should be lived. Your Openness score is high and your Introverted Intuition is your dominant function — both of which are well matched for philosophical thinking and ethical reasoning."
+            }
         ],
         "compatibility_notes": {
-            "work_environment": "Thrives in quiet, intellectually stimulating environments with autonomy. Prefers remote or small-team setups over large open offices.",
-            "team_role": "Best suited as a subject-matter expert, researcher, or strategic thinker. May struggle in heavily social or sales-oriented roles.",
-            "leadership_style": "Leads through knowledge and competence rather than charisma. Prefers mentoring over commanding."
+            "work_environment": "Structured but purpose-driven environments where deep work is valued and results are measured meaningfully. Works best with autonomy and a clear sense of mission.",
+            "team_role": "The thoughtful strategist — researches carefully, plans well, and communicates clearly. Brings both heart and logic to the team and is the person others go to for trusted advice.",
+            "leadership_style": "Values-led leadership — leads by example, builds trust slowly but deeply, and motivates through meaning rather than pressure or authority."
         }
     }
 }
