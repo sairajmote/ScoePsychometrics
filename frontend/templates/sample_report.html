@@ -16,20 +16,38 @@
         }
 
         .section-nav {
-            max-width: 1400px; margin: 0 auto; padding: 0 2rem 1.5rem;
+            max-width: 100%;
+            padding: 0 2rem;
             overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+            background: #1a1a1a;
+            position: sticky;
+            top: 81px;
+            z-index: 900;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
         }
         .section-nav::-webkit-scrollbar { display: none; }
-        .section-nav a {
-            display: inline-block; padding: 0.6rem 1.1rem;
-            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.06em; text-decoration: none; color: #666;
-            transition: all 0.3s; border-radius: 4px; margin-right: 0.3rem;
+        div.section-nav a {
+            display: inline-block !important;
+            padding: 1rem 1.4rem !important;
+            font-size: 0.78rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            text-decoration: none !important;
+            color: rgba(255,255,255,0.6) !important;
+            transition: all 0.2s !important;
+            border-bottom: 3px solid transparent !important;
+            margin-bottom: 0 !important;
+            position: static !important;
         }
-        .section-nav a:hover { color: #000; background: #f0f0f0; }
-        .section-nav a.active { color: #fff; background: #000; }
+        div.section-nav a::after { display: none !important; }
+        div.section-nav a:hover { color: #fff !important; border-bottom-color: rgba(255,255,255,0.3) !important; }
+        div.section-nav a.active { color: #1abc9c !important; border-bottom: 3px solid #1abc9c !important; }
 
-        .report-shell { max-width: 1400px; margin: 0 auto 5rem; padding: 0 2rem; }
+        .report-shell { max-width: 1400px; margin: 0 auto 5rem; padding: 2rem 2rem 0; }
+
+        /* Push page body down so fixed header doesn't cover section-nav */
+        body { padding-top: 81px; }
 
         /* Cover */
         .report-cover {
@@ -203,7 +221,9 @@
         .cert-download-btn:hover { background: #333; }
         .cert-download-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
 
-        .chart-wrap { position: relative; }
+        /* Page switching — sections start visible so Chart.js can size canvases, then JS hides non-active */
+        .page-section { animation: pageIn 0.25s ease; }
+        @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @media print {
             .section-nav, .report-footer-bar { display: none !important; }
             .report-shell { margin: 0; padding: 0; max-width: 100%; }
@@ -225,18 +245,18 @@
         </nav>
     </header>
 
-    <nav class="section-nav">
-        <a href="#sec-overview" class="active">Overview</a>
-        <a href="#sec-card">My Card</a>
-        <a href="#sec-big5">Big Five</a>
-        <a href="#sec-mbti">MBTI</a>
-        <a href="#sec-temperament">Temperament</a>
-        <a href="#sec-mi">Multiple Intelligences</a>
-        <a href="#sec-learning">Learning Styles</a>
-        <a href="#sec-brain">Brain</a>
-        <a href="#sec-enneagram">Enneagram</a>
-        <a href="#sec-insights">Insights</a>
-    </nav>
+    <div class="section-nav">
+        <a href="javascript:void(0)" data-page="sec-overview" class="active" onclick="showPage('sec-overview')">Overview</a>
+        <a href="javascript:void(0)" data-page="sec-card" onclick="showPage('sec-card')">My Card</a>
+        <a href="javascript:void(0)" data-page="sec-big5" onclick="showPage('sec-big5')">Big Five</a>
+        <a href="javascript:void(0)" data-page="sec-mbti" onclick="showPage('sec-mbti')">MBTI</a>
+        <a href="javascript:void(0)" data-page="sec-temperament" onclick="showPage('sec-temperament')">Temperament</a>
+        <a href="javascript:void(0)" data-page="sec-mi" onclick="showPage('sec-mi')">Multiple Intelligences</a>
+        <a href="javascript:void(0)" data-page="sec-learning" onclick="showPage('sec-learning')">Learning Styles</a>
+        <a href="javascript:void(0)" data-page="sec-brain" onclick="showPage('sec-brain')">Brain</a>
+        <a href="javascript:void(0)" data-page="sec-enneagram" onclick="showPage('sec-enneagram')">Enneagram</a>
+        <a href="javascript:void(0)" data-page="sec-insights" onclick="showPage('sec-insights')">Insights</a>
+    </div>
 
     <main class="report-shell" id="report-root">
         <div style="text-align:center;padding:5rem;"><p>Loading sample report...</p></div>
@@ -258,9 +278,10 @@
             const ins = D.composite_insights;
             let html = '';
 
-            // COVER
+            // COVER + SNAPSHOT grouped as one Overview page
+            html += `<div class="page-section" id="sec-overview">`;
             html += `
-            <div class="report-cover" id="sec-overview">
+            <div class="report-cover">
                 <div class="cover-badge">Sample Psychometric Assessment Report</div>
                 <h1 class="cover-title">${meta.candidate.name.toUpperCase()}</h1>
                 <div class="cover-subtitle">Comprehensive Multi-Dimensional Personality &amp; Intelligence Profile</div>
@@ -282,11 +303,12 @@
                 <div class="snap-card"><div class="snap-label">Temperament</div><div class="snap-value">${temp.blend_label}</div><div class="snap-sub">Primary: ${temp.primary.charAt(0).toUpperCase()+temp.primary.slice(1)}</div></div>
                 <div class="snap-card"><div class="snap-label">Brain Dominance</div><div class="snap-value">${bh.scores.left.percentage}% L</div><div class="snap-sub">${bh.dominant_hemisphere==='left'?'Left-Brain Dominant':'Right-Brain Dominant'}</div></div>
             </div>`;
+            html += `</div>`; // end sec-overview
 
             // CERTIFICATE CARD
             const certDate = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long' });
             html += `
-            <div class="cert-section" id="sec-card">
+            <div class="page-section cert-section" id="sec-card">
                 <h3>Your Personality Card — Download as a Certificate</h3>
                 <div class="cert-card" id="cert-card-el">
                     <div class="cert-top-bar">
@@ -331,7 +353,7 @@
                     <span class="hbar-tag">${t.percentile}th percentile</span>
                 </li>`).join('');
             html += `
-            <div class="section-block" id="sec-big5">
+            <div class="page-section section-block" id="sec-big5">
                 <div class="section-heading"><span class="section-num">01</span><h2>${b5.label}</h2></div>
                 <div class="section-desc">${b5.description}</div>
                 <div style="display:grid;grid-template-columns:280px 1fr;gap:2.5rem;align-items:start;">
@@ -356,7 +378,7 @@
                 return `<div class="cog-card"><div class="cog-role">${r}</div><div class="cog-code">${fn.code}</div><div class="cog-name">${fn.label}</div><div class="cog-strength">${fn.strength}%</div></div>`;
             }).join('');
             html += `
-            <div class="section-block" id="sec-mbti">
+            <div class="page-section section-block" id="sec-mbti">
                 <div class="section-heading"><span class="section-num">02</span><h2>${mbti.label}</h2></div>
                 <div class="section-desc">${mbti.description}</div>
                 <div class="mbti-type-display"><div class="mbti-type-code">${mbti.result_type}</div><div class="mbti-type-name">${mbti.type_label}</div></div>
@@ -370,7 +392,7 @@
             const tempCards = Object.entries(temp.scores).map(([k,v]) => `
                 <div class="temp-trait-card"><div class="temp-trait-name">${v.label} — ${v.percentage}%</div><div>${v.traits.map(t=>`<span class="temp-tag">${t}</span>`).join('')}</div></div>`).join('');
             html += `
-            <div class="section-block" id="sec-temperament">
+            <div class="page-section section-block" id="sec-temperament">
                 <div class="section-heading"><span class="section-num">03</span><h2>${temp.label}</h2></div>
                 <div class="section-desc">${temp.description}</div>
                 <div class="temp-blend"><div class="temp-blend-label">${temp.blend_label}</div></div>
@@ -390,7 +412,7 @@
                     <span class="hbar-tag">${i.percentile}th percentile · ${i.career_hints.join(', ')}</span>
                 </li>`).join('');
             html += `
-            <div class="section-block" id="sec-mi">
+            <div class="page-section section-block" id="sec-mi">
                 <div class="section-heading"><span class="section-num">04</span><h2>${mi.label}</h2></div>
                 <div class="section-desc">${mi.description}</div>
                 <div style="display:grid;grid-template-columns:320px 1fr;gap:2.5rem;align-items:start;">
@@ -408,7 +430,7 @@
                     <div class="ls-tips">${s.study_tips.map(t=>`<div>→ ${t}</div>`).join('')}</div>
                 </div>`).join('');
             html += `
-            <div class="section-block" id="sec-learning">
+            <div class="page-section section-block" id="sec-learning">
                 <div class="section-heading"><span class="section-num">05</span><h2>${ls.label}</h2></div>
                 <div class="section-desc">${ls.description}</div>
                 <div style="display:grid;grid-template-columns:200px 1fr;gap:2.5rem;align-items:start;">
@@ -420,7 +442,7 @@
 
             // SECTION 6: BRAIN HEMISPHERES
             html += `
-            <div class="section-block" id="sec-brain">
+            <div class="page-section section-block" id="sec-brain">
                 <div class="section-heading"><span class="section-num">06</span><h2>${bh.label}</h2></div>
                 <div class="section-desc">${bh.description}</div>
                 <div class="brain-display">
@@ -443,7 +465,7 @@
 
             // SECTION 7: ENNEAGRAM
             html += `
-            <div class="section-block" id="sec-enneagram">
+            <div class="page-section section-block" id="sec-enneagram">
                 <div class="section-heading"><span class="section-num">07</span><h2>${en.label}</h2></div>
                 <div class="section-desc">${en.description}</div>
                 <div class="ennea-hero">
@@ -474,7 +496,7 @@
 
             // COMPOSITE INSIGHTS
             html += `
-            <div class="insights-block" id="sec-insights">
+            <div class="page-section insights-block" id="sec-insights">
                 <h2>Composite Insights</h2>
                 <div class="insights-summary">${ins.personality_summary}</div>
                 <div class="insights-columns">
@@ -581,13 +603,21 @@
                 }
             });
 
-            // Scroll spy
-            const navLinks = document.querySelectorAll('.section-nav a');
-            window.addEventListener('scroll', () => {
-                let cur = '';
-                document.querySelectorAll('[id^="sec-"]').forEach(s => { if (window.scrollY >= s.offsetTop - 160) cur = s.id; });
-                navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+            // All sections rendered and charts drawn — now hide all except Overview
+            showPage('sec-overview');
+        }
+
+        function showPage(pageId) {
+            // Hide all page sections
+            document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+            // Show the target
+            const target = document.getElementById(pageId);
+            if (target) target.style.display = 'block';
+            // Update nav highlight
+            document.querySelectorAll('.section-nav a').forEach(a => {
+                a.classList.toggle('active', a.dataset.page === pageId);
             });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function downloadCard() {
