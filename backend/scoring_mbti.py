@@ -86,4 +86,4 @@ def get_mbti_label(mbti_type: str) -> str:
 # Reverse scoring — questions that point toward the second letter of a dimension (e.g. I, N, F, P) are now flipped (8 - raw) before scoring, which is a core CTT requirement
 # Mean score per dimension — clean CTT total score, classified against the midpoint (4.0 on a 1–7 scale)
 #Preference clarity % — tells the user how strongly they lean in a direction, not just which side they're on
-#Cronbach's Alpha — standard CTT reliability estimate per dimension, so you can see how internally consiste
+#Cronbach's Alpha — standard CTT reliability estimate per dim, so you can see how internally consiste
