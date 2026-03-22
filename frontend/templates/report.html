@@ -476,6 +476,10 @@
             const urlParams = new URLSearchParams(window.location.search);
             const reportId = urlParams.get('id');
 
+            // Grab temperament result if passed from the exam submission
+            window._temperamentType = urlParams.get('temperament') || '';
+            window._temperamentDesc = urlParams.get('temperament_desc') || '';
+
             if (!reportId) {
                 const res = await fetch('/static/data/sample_report_data.json');
                 const data = await res.json();
@@ -534,8 +538,18 @@
                     </div>
                 </div>`;
 
-            // ── MBTI SNIPPET ──
+            // ── MBTI + TEMPERAMENT SNAPSHOT ──
             if (sub.mbti) {
+                const tempType = window._temperamentType;
+                const tempDesc = window._temperamentDesc;
+
+                const temperamentCard = tempType ? `
+                    <div class="snap-card" style="background:#000;color:#fff;border:none;">
+                        <div class="snap-label" style="color:#888;">Temperament</div>
+                        <div class="snap-value" style="color:#fff;font-size:1.8rem;">${tempType.toUpperCase()}</div>
+                        <div class="snap-sub" style="color:#aaa;font-weight:500;font-size:0.8rem;font-style:italic;margin-top:0.4rem;">${tempDesc}</div>
+                    </div>` : '';
+
                 html += `
                 <div class="snapshot-grid" id="sec-results">
                     <div class="snap-card">
@@ -543,6 +557,7 @@
                         <div class="snap-value">${sub.mbti.result_type}</div>
                         <div class="snap-sub">${sub.mbti.type_label}</div>
                     </div>
+                    ${temperamentCard}
                 </div>`;
 
                 const mbti = sub.mbti;

@@ -521,12 +521,12 @@
                 
                 const data = await res.json();
                 if (data.status === 'success') {
-                    // Show temperament result popup, then redirect
-                    showTemperamentResult(
-                        data.temperament_type || 'Unknown',
-                        data.temperament_description || '',
-                        data.report_id
-                    );
+                    const params = new URLSearchParams({
+                        id: data.report_id,
+                        temperament: data.temperament_type || '',
+                        temperament_desc: data.temperament_description || ''
+                    });
+                    window.location.href = `/report?${params.toString()}`;
                 } else {
                     throw new Error(data.detail || "Submission failed");
                 }
@@ -536,16 +536,6 @@
                 btn.disabled = false;
                 btn.textContent = 'Submit Examination';
             }
-        }
-
-        function showTemperamentResult(type, description, reportId) {
-            const overlay = document.getElementById('result-overlay');
-            document.getElementById('result-type').textContent = type.toUpperCase();
-            document.getElementById('result-desc').textContent = description;
-            document.getElementById('result-continue').onclick = () => {
-                window.location.href = `/report?id=${reportId}`;
-            };
-            overlay.style.display = 'flex';
         }
 
         // Timer (Optional but helpful)
@@ -560,74 +550,6 @@
 
         loadData();
     </script>
-
-    <!-- Temperament Result Overlay -->
-    <div id="result-overlay" style="
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.82);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-    ">
-        <div style="
-            background: #000;
-            color: #fff;
-            padding: 4rem 5rem;
-            text-align: center;
-            max-width: 480px;
-            width: 90%;
-            border: 2px solid #fff;
-            animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
-        ">
-            <p style="
-                font-size: 0.75rem;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-                color: #888;
-                margin-bottom: 1.5rem;
-                font-weight: 600;
-            ">Your Temperament</p>
-            <div id="result-type" style="
-                font-size: 3rem;
-                font-weight: 900;
-                letter-spacing: 0.06em;
-                text-transform: uppercase;
-                line-height: 1;
-                margin-bottom: 1.25rem;
-            "></div>
-            <p id="result-desc" style="
-                font-size: 0.9rem;
-                color: #aaa;
-                line-height: 1.6;
-                margin-bottom: 2.5rem;
-                font-style: italic;
-            "></p>
-            <button id="result-continue" style="
-                background: #fff;
-                color: #000;
-                border: none;
-                padding: 0.9rem 2.5rem;
-                font-size: 0.85rem;
-                font-weight: 700;
-                letter-spacing: 0.08em;
-                text-transform: uppercase;
-                cursor: pointer;
-                font-family: inherit;
-                transition: background 0.2s, color 0.2s;
-            " onmouseover="this.style.background='#ddd'" onmouseout="this.style.background='#fff'">
-                View Full Report →
-            </button>
-        </div>
-    </div>
-
-    <style>
-        @keyframes popIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to   { transform: scale(1);   opacity: 1; }
-        }
-    </style>
 
 </body>
 
