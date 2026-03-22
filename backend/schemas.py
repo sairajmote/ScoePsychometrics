@@ -26,3 +26,5 @@ class ExamSubmissionResponse(BaseModel):
     report_id: str
     user_id: int
     session_id: int
+    temperament_type: Optional[str] = None
+    temperament_description: Optional[str] = None

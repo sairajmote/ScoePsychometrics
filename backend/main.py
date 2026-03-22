@@ -7,7 +7,7 @@ from sqlalchemy.sql import func
 import os
 import uuid
 from datetime import datetime
-from . import models, database, schemas, scoring_mbti
+from . import models, database, schemas, scoring_mbti, scoring_temperament
 from .database import engine, get_db
 
 app = FastAPI()
@@ -111,7 +111,8 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
 
         # 3. Save Responses and prepare for scoring
         option_map = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7}
-        scoring_data = []
+        mbti_scoring_data = []
+        temperament_scoring_data = []
 
         for item in request.responses:
             # Save raw response
@@ -121,20 +122,30 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                 selected_option=item.selected_option
             )
             db.add(resp)
-            
+
             # Fetch question details for scoring
             q = db.query(models.Question).filter(models.Question.id == item.question_id).first()
             if q:
-                scoring_data.append({
-                    "subtest": q.subtest,
-                    "keyed": q.keyed,
-                    "selected_option_index": option_map.get(item.selected_option, 4)
-                })
+                if q.category == "mbti":
+                    mbti_scoring_data.append({
+                        "subtest": q.subtest,
+                        "keyed": q.keyed,
+                        "selected_option_index": option_map.get(item.selected_option, 4)
+                    })
+                elif q.category == "temperament":
+                    temperament_scoring_data.append({
+                        "subtest": q.subtest,
+                        "correct_answer": q.correct_answer,
+                        "selected_option": item.selected_option
+                    })
 
         db.commit()
 
         # 4. Score MBTI
-        mbti_results = scoring_mbti.score_mbti(scoring_data)
+        mbti_results = scoring_mbti.score_mbti(mbti_scoring_data)
+
+        # 4b. Score Temperament
+        temperament_results = scoring_temperament.score_temperament(temperament_scoring_data)
         
         # 5. Build full Report JSON
         report_id = f"RPT-{datetime.now().strftime('%Y-%m%d')}-{uuid.uuid4().hex[:4].upper()}"
@@ -227,7 +238,9 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
             "status": "success",
             "report_id": report_id,
             "user_id": user.id,
-            "session_id": session.id
+            "session_id": session.id,
+            "temperament_type": temperament_results["temperament_type"],
+            "temperament_description": temperament_results["description"]
         }
     except Exception as e:
         db.rollback()
