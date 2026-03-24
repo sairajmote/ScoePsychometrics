@@ -268,10 +268,165 @@
         #final-submit:hover {
             background: #333;
         }
+
+        /* ── Pre-exam info overlay ── */
+        #info-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(4px);
+        }
+
+        #info-modal {
+            background: #fff;
+            width: 100%;
+            max-width: 480px;
+            padding: 3rem;
+            border: 2px solid #000;
+            position: relative;
+        }
+
+        #info-modal h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.4rem;
+        }
+
+        #info-modal .modal-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .info-field {
+            margin-bottom: 1.4rem;
+        }
+
+        .info-field label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #444;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-field input,
+        .info-field select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #ccc;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #fafafa;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .info-field input:focus,
+        .info-field select:focus {
+            border-color: #000;
+            background: #fff;
+        }
+
+        .info-field input.invalid,
+        .info-field select.invalid {
+            border-color: #c0392b;
+        }
+
+        .info-field .field-error {
+            font-size: 0.75rem;
+            color: #c0392b;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        #btn-start-exam {
+            width: 100%;
+            padding: 1rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        #btn-start-exam:hover {
+            background: #222;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Pre-exam info overlay -->
+    <div id="info-overlay">
+        <div id="info-modal">
+            <h2>Before You Begin</h2>
+            <p class="modal-subtitle">Please fill in your details below. This information will be used to generate your personalised psychometric report.</p>
+
+            <div class="info-field">
+                <label for="input-name">Full Name <span style="color:#c0392b">*</span></label>
+                <input type="text" id="input-name" placeholder="e.g. Priya Sharma" autocomplete="name">
+                <div class="field-error" id="err-name">Please enter your full name.</div>
+            </div>
+
+            <div class="info-field">
+                <label for="input-email">Email Address <span style="color:#c0392b">*</span></label>
+                <input type="email" id="input-email" placeholder="e.g. priya@example.com" autocomplete="email">
+                <div class="field-error" id="err-email">Please enter a valid email address.</div>
+            </div>
+
+            <div class="info-field">
+                <label for="input-country">Country <span style="color:#c0392b">*</span></label>
+                <select id="input-country">
+                    <option value="" disabled selected>Select your country…</option>
+                    <option>Afghanistan</option><option>Albania</option><option>Algeria</option>
+                    <option>Argentina</option><option>Australia</option><option>Austria</option>
+                    <option>Bangladesh</option><option>Belgium</option><option>Brazil</option>
+                    <option>Canada</option><option>Chile</option><option>China</option>
+                    <option>Colombia</option><option>Croatia</option><option>Czech Republic</option>
+                    <option>Denmark</option><option>Egypt</option><option>Ethiopia</option>
+                    <option>Finland</option><option>France</option><option>Germany</option>
+                    <option>Ghana</option><option>Greece</option><option>Hungary</option>
+                    <option>India</option><option>Indonesia</option><option>Iran</option>
+                    <option>Iraq</option><option>Ireland</option><option>Israel</option>
+                    <option>Italy</option><option>Japan</option><option>Jordan</option>
+                    <option>Kazakhstan</option><option>Kenya</option><option>Malaysia</option>
+                    <option>Mexico</option><option>Morocco</option><option>Myanmar</option>
+                    <option>Nepal</option><option>Netherlands</option><option>New Zealand</option>
+                    <option>Nigeria</option><option>Norway</option><option>Pakistan</option>
+                    <option>Peru</option><option>Philippines</option><option>Poland</option>
+                    <option>Portugal</option><option>Romania</option><option>Russia</option>
+                    <option>Saudi Arabia</option><option>South Africa</option><option>South Korea</option>
+                    <option>Spain</option><option>Sri Lanka</option><option>Sweden</option>
+                    <option>Switzerland</option><option>Thailand</option><option>Turkey</option>
+                    <option>Ukraine</option><option>United Arab Emirates</option>
+                    <option>United Kingdom</option><option>United States</option>
+                    <option>Vietnam</option><option>Zimbabwe</option><option>Other</option>
+                </select>
+                <div class="field-error" id="err-country">Please select your country.</div>
+            </div>
+
+            <button id="btn-start-exam" onclick="startExam()">Start Examination &rarr;</button>
+        </div>
+    </div>
     <div class="session-header">
         <div class="logo-container">
             <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
@@ -297,6 +452,59 @@
     </div>
 
     <script>
+        // ── User info collected before exam ──
+        let studentName = '';
+        let studentEmail = '';
+        let studentCountry = '';
+
+        function startExam() {
+            const nameEl    = document.getElementById('input-name');
+            const emailEl   = document.getElementById('input-email');
+            const countryEl = document.getElementById('input-country');
+            let valid = true;
+
+            // Validate name
+            if (!nameEl.value.trim()) {
+                nameEl.classList.add('invalid');
+                document.getElementById('err-name').style.display = 'block';
+                valid = false;
+            } else {
+                nameEl.classList.remove('invalid');
+                document.getElementById('err-name').style.display = 'none';
+            }
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailEl.value.trim())) {
+                emailEl.classList.add('invalid');
+                document.getElementById('err-email').style.display = 'block';
+                valid = false;
+            } else {
+                emailEl.classList.remove('invalid');
+                document.getElementById('err-email').style.display = 'none';
+            }
+
+            // Validate country
+            if (!countryEl.value) {
+                countryEl.classList.add('invalid');
+                document.getElementById('err-country').style.display = 'block';
+                valid = false;
+            } else {
+                countryEl.classList.remove('invalid');
+                document.getElementById('err-country').style.display = 'none';
+            }
+
+            if (!valid) return;
+
+            studentName    = nameEl.value.trim();
+            studentEmail   = emailEl.value.trim();
+            studentCountry = countryEl.value;
+
+            // Hide overlay and begin loading exam
+            document.getElementById('info-overlay').style.display = 'none';
+            loadData();
+        }
+
         let currentDomainIndex = 0;
         let domainList = [];
         let questionsByDomain = {};
@@ -505,12 +713,10 @@
                 if (!confirm(`You have ${unanswered} unanswered questions. Submit anyway?`)) return;
             }
 
-            const name = prompt("Enter your Full Name:") || "Anonymous Student";
-            const email = prompt("Enter your Email:") || `user_${Date.now()}@example.com`;
-
             const payload = {
-                student_name: name,
-                email: email,
+                student_name: studentName,
+                email: studentEmail,
+                country: studentCountry,
                 responses: responses
             };
 
@@ -554,7 +760,7 @@
             document.getElementById('timer').textContent = `${m}:${s.toString().padStart(2, '0')}`;
         }, 1000);
 
-        loadData();
+        // loadData() is called by startExam() after the info form is submitted
     </script>
 
 </body>
