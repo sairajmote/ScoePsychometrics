@@ -312,23 +312,26 @@
                 return;
             }
             try {
-                console.log("Fetching MBTI, Temperament and Enneagram questions...");
-                const [mbtiRes, tempRes, ennRes] = await Promise.all([
+                console.log("Fetching MBTI, Temperament, Enneagram and Brain Dominance questions...");
+                const [mbtiRes, tempRes, ennRes, bdRes] = await Promise.all([
                     fetch('/questions?category=mbti'),
                     fetch('/questions?category=temperament'),
-                    fetch('/questions?category=enneagram')
+                    fetch('/questions?category=enneagram'),
+                    fetch('/questions?category=brain_dominance')
                 ]);
 
                 if (!mbtiRes.ok) throw new Error(`MBTI fetch failed: ${mbtiRes.status}`);
                 if (!tempRes.ok) throw new Error(`Temperament fetch failed: ${tempRes.status}`);
                 if (!ennRes.ok) throw new Error(`Enneagram fetch failed: ${ennRes.status}`);
+                if (!bdRes.ok)  throw new Error(`Brain Dominance fetch failed: ${bdRes.status}`);
 
                 const mbtiQuestions = await mbtiRes.json();
                 const tempQuestions = await tempRes.json();
                 const ennQuestions  = await ennRes.json();
-                allQuestions = [...mbtiQuestions, ...tempQuestions, ...ennQuestions];
+                const bdQuestions   = await bdRes.json();
+                allQuestions = [...mbtiQuestions, ...tempQuestions, ...ennQuestions, ...bdQuestions];
 
-                console.log(`Questions loaded — MBTI: ${mbtiQuestions.length}, Temperament: ${tempQuestions.length}, Enneagram: ${ennQuestions.length}`);
+                console.log(`Questions loaded — MBTI: ${mbtiQuestions.length}, Temperament: ${tempQuestions.length}, Enneagram: ${ennQuestions.length}, Brain Dominance: ${bdQuestions.length}`);
 
                 if (allQuestions.length === 0) {
                     console.warn("No questions found in database.");
