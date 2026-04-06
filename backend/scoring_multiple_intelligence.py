@@ -154,7 +154,7 @@ def score_multiple_intelligence(scoring_data: List[Dict[str, Any]]) -> Dict[str,
     counts   = {intel: 0 for intel in INTELLIGENCES}
 
     for item in scoring_data:
-        intel  = item.get("subtest", "").upper()
+        intel  = (item.get("subtest") or "").upper()
         option = item.get("selected_option", "C")
 
         if intel not in INTELLIGENCES:

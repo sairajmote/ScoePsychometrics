@@ -121,7 +121,7 @@ def score_big5(scoring_data: List[Dict[str, Any]]) -> Dict[str, Any]:
     counts   = {t: 0 for t in TRAITS}
 
     for item in scoring_data:
-        trait  = item.get("subtest", "").lower()
+        trait  = (item.get("subtest") or "").lower()
         keyed  = item.get("keyed", "+")
         option = item.get("selected_option", "C")
 

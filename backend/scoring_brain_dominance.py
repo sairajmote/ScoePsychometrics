@@ -126,7 +126,7 @@ def score_brain_dominance(scoring_data: List[Dict[str, Any]]) -> Dict[str, Any]:
     right_count = 0
 
     for item in scoring_data:
-        keyed  = item.get("keyed", "").upper()
+        keyed  = (item.get("keyed") or "").upper()
         option = item.get("selected_option", "C")
         raw    = OPTION_MAP.get(option, 3)  # default neutral
 

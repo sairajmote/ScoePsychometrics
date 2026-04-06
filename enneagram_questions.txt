@@ -1,98 +1,182 @@
-1. Tend to be possessive and demanding when stressed.
-2. Creative and have an artistic view of life.
-3. Tend to be insightful, objective, and sensitive when not stressed.
-4. Tend to be more logical than emotional.
-5. I'm not gullible; you must earn my trust, and I will challenge your loyalty.
-6. I'm extremely protective of my loved ones and feel good about helping the underdog.
-7. Work hard and know how to get things done.
-8. Enjoy having control of my own time and private space.
-9. Believe it is important for people to be with other people or to belong to a group or an organization.
-10. Critical of myself (my own worst critic) and find it easy to be judgmental and critical of other people as well.
-11. Have a strong sense of responsibility and I'm a hard worker.
-12. Friends and family provide the support I feel is necessary in life.
-13. Believe that rules, regulations, policies, and procedures have a purpose and should be followed and I'm frustrated when others break rules.
-14. Thrive in environments where I can express my creativity.
-15. To impress, I may take on too much and make promises I can't keep.
-16. Dislike people nagging me; this makes me quite stubborn.
-17. People may find it difficult to follow my train of thought.
-18. Listen patiently and can be very understanding and comforting to friends.
-19. Value being well organized and punctual in myself and others.
-20. Enjoy the sense of independence that comes from living frugally.
-21. Can be deeply hurt by the slightest criticism.
-22. Value exceeding standards and rising to the top of my profession.
-23. Have a strong need to be noticed, liked, and appreciated for what I do for others.
-24. Tend to be romantic and long for the great love of my life to come along.
-25. Feel different from others, as if "on the outside looking in."
-26. Prefer being with people to being alone.
-27. I'm uncomfortable expressing emotions other than anger.
-28. Love to be challenged and enjoy a good fight.
-29. Fear being criticized or judged as being improper by other people.
-30. Proud about being direct, telling it "like it is," and expressing "tough love."
-31. Look for danger, unsafe people, or unsafe situations.
-32. Tend to see the glass as "half empty" and to look for what needs fixing.
-33. Prefer people not to know how I feel or what I think unless I tell them.
-34. Value looking good, presenting a good first impression, and "dressing for success."
-35. Like to leave my options open; "don't hem me in" describes me well.
-36. When afraid of something, I've done what was necessary to overcome my fear.
-37. Believe it is important to understand my own and other people's feelings.
-38. Strive to be unique and have done things to avoid being ordinary.
-39. Dislike being around pessimistic, negative people.
-40. When I trust people, I can let down my guard and be more sensitive.
-41. In relationships, I seek harmony and peace through a sense of belonging and/or by bonding with the other person.
-42. Tend to be rebellious, controlling, and insensitive when stressed.
-43. Can be caught in a fantasy world of romance and imagination.
-44. May hesitate while I try to organize my thoughts and may not speak at all if I'm not comfortable with what I want to say.
-45. Can be critical, cynical, and argumentative and can act intellectually superior.
-46. Value the belief that everything is going to be all right yet often lack faith in this belief.
-47. Motivated by the need to be correct, fair, and self-disciplined.
-48. Become frustrated if there is not enough time to do all the fun things I want to do.
-49. Have a strong sense of right and wrong and strive for perfection.
-50. Enjoy trying many things and can do many different things fairly well.
-51. Tend to experience more melancholy than most people I know.
-52. Try to avoid confrontations.
-53. Have difficulty making decisions because "everything looks good."
-54. Like people to depend on me and deliver on my promises.
-55. When feeling relaxed I tend to be friendly and responsive to people.
-56. Tend to be excited and impatient about accomplishing plans.
-57. Tend to be shy and withdrawn, especially at social events.
-58. Can be a "homebody" and enjoy the comfort and peace of home.
-59. Impatient with people who are indirect or indecisive.
-60. Easily discern what is wrong in a situation and how it could be done better.
-61. Have ideas, theories, and opinions about almost everything.
-62. Have been told I am not in touch with my emotions.
-63. Making decisions on my own may cause me anxiety.
-64. I feel uncomfortable around loud, emotional people.
-65. Attracted to habits and routines, can relax easily and tune out reality through TV, daydreaming, a good book, etc.
-66. Sensitive to criticism but try to hide that sensitivity.
-67. Attracted to what is intense and out of the ordinary.
-68. Tend to be rational, reasonable, and accepting when not stressed.
-69. Tend to be reflective and to search for the meaning of my life.
-70. Believe that my motives for helping others are noble and helpful.
-71. Do not consider being a perfectionist a negative thing and like to make sure all the details are just right.
-72. I'm told I'm a "nice person" and dislike putting myself first.
-73. Believe that negative feelings are an obstacle to getting the job done.
-74. Find it easy to adapt to different people and situations.
-75. Personal integrity is extremely important to me.
-76. Tend to be idealistic and ambitious and want to contribute something positive to the world.
-77. Tend to take things too seriously and overreact to small issues.
-78. Enjoy spending time alone pursuing my personal interests.
-79. Have difficulty admitting I'm wrong.
-80. Find it difficult to forgive and can carry a grudge for a long time.
-81. Manners and good taste are extremely important to me.
-82. Tend to do things in excess and to always want more.
-83. Motivated by the need to be appreciated, loved, and connected to people.
-84. Feel that something is missing in my life.
-85. When feeling anxious I can be overly vigilant and controlling.
-86. Tend to socialize with people who are interested in the same things I am.
-87. Feel envious of other people's relationships, lifestyles, and accomplishments.
-88. Easily annoyed by people who act unintelligent or uninformed.
-89. Enjoy having elegant, refined, unique things that no one else has.
-90. Dislike confrontation and try to keep the peace.
-91. Love to work and be productive, and work has tended to be a top priority in my life.
-92. Try to prepare for every contingency.
-93. Tend to be more emotional than most people I know.
-94. Have been goal-oriented for as long as I can remember.
-95. Need to feel close to people and feel rejected and hurt if I don't experience that closeness.
-96. Tend to go along with what people say just to get them off my back.
-97. Routine and structure help me stay focused and accomplish things.
-98. Tend to be distant, stubborn, and pessimistic when stressed.
+ENNEAGRAM PERSONALITY QUESTIONNAIRE
+=====================================
+
+TYPE 1 - THE REFORMER
+----------------------
+10.  Critical of myself (my own worst critic) and find it easy to be judgmental and critical of other people as well. [E1]
+13.  Believe that rules, regulations, policies, and procedures have a purpose and should be followed and I'm frustrated when others break rules. [E1]
+19.  Value being well organized and punctual in myself and others. [E1]
+47.  Motivated by the need to be correct, fair, and self-disciplined. [E1]
+49.  Have a strong sense of right and wrong and strive for perfection. [E1]
+60.  Easily discern what is wrong in a situation and how it could be done better. [E1]
+71.  Do not consider being a perfectionist a negative thing and like to make sure all the details are just right. [E1]
+75.  Personal integrity is extremely important to me. [E1]
+81.  Manners and good taste are extremely important to me. [E1]
+97.  Routine and structure help me stay focused and accomplish things. [E1]
+
+TYPE 2 - THE HELPER
+--------------------
+6.   I'm extremely protective of my loved ones and feel good about helping the underdog. [E2]
+18.  Listen patiently and can be very understanding and comforting to friends. [E2]
+23.  Have a strong need to be noticed, liked, and appreciated for what I do for others. [E2]
+54.  Like people to depend on me and deliver on my promises. [E2]
+70.  Believe that my motives for helping others are noble and helpful. [E2]
+72.  I'm told I'm a "nice person" and dislike putting myself first. [E2]
+83.  Motivated by the need to be appreciated, loved, and connected to people. [E2]
+95.  Need to feel close to people and feel rejected and hurt if I don't experience that closeness. [E2]
+99.  I often sense what others need before they ask for it. [E2]
+100. I find it hard to say no when someone asks for my help. [E2]
+101. I feel most fulfilled when I am taking care of someone I love. [E2]
+102. I tend to give advice even when people have not asked for it. [E2]
+103. I sometimes feel resentful when my efforts go unnoticed or unappreciated. [E2]
+104. I naturally take on the role of caregiver in my relationships. [E2]
+
+TYPE 3 - THE ACHIEVER
+----------------------
+7.   Work hard and know how to get things done. [E3]
+15.  To impress, I may take on too much and make promises I can't keep. [E3]
+22.  Value exceeding standards and rising to the top of my profession. [E3]
+34.  Value looking good, presenting a good first impression, and "dressing for success." [E3]
+73.  Believe that negative feelings are an obstacle to getting the job done. [E3]
+76.  Tend to be idealistic and ambitious and want to contribute something positive to the world. [E3]
+91.  Love to work and be productive, and work has tended to be a top priority in my life. [E3]
+94.  Have been goal-oriented for as long as I can remember. [E3]
+105. I tend to adjust my personality depending on who I am trying to impress. [E3]
+106. Failure is something I find very difficult to accept about myself. [E3]
+107. I am very aware of how I am perceived by others in professional settings. [E3]
+108. I measure my self-worth largely by my achievements and accomplishments. [E3]
+109. I find it uncomfortable to slow down and do nothing productive. [E3]
+110. I tend to compare my progress and success to those around me. [E3]
+
+TYPE 4 - THE INDIVIDUALIST
+---------------------------
+2.   Creative and have an artistic view of life. [E4]
+14.  Thrive in environments where I can express my creativity. [E4]
+21.  Can be deeply hurt by the slightest criticism. [E4]
+24.  Tend to be romantic and long for the great love of my life to come along. [E4]
+25.  Feel different from others, as if "on the outside looking in." [E4]
+38.  Strive to be unique and have done things to avoid being ordinary. [E4]
+43.  Can be caught in a fantasy world of romance and imagination. [E4]
+51.  Tend to experience more melancholy than most people I know. [E4]
+67.  Attracted to what is intense and out of the ordinary. [E4]
+84.  Feel that something is missing in my life. [E4]
+87.  Feel envious of other people's relationships, lifestyles, and accomplishments. [E4]
+89.  Enjoy having elegant, refined, unique things that no one else has. [E4]
+111. I am drawn to art, music, or literature that expresses deep emotion or suffering. [E4]
+112. I sometimes idealize the past or mourn opportunities I feel I have missed. [E4]
+
+TYPE 5 - THE INVESTIGATOR
+--------------------------
+4.   Tend to be more logical than emotional. [E5]
+8.   Enjoy having control of my own time and private space. [E5]
+20.  Enjoy the sense of independence that comes from living frugally. [E5]
+33.  Prefer people not to know how I feel or what I think unless I tell them. [E5]
+44.  May hesitate while I try to organize my thoughts and may not speak at all if I'm not comfortable with what I want to say. [E5]
+45.  Can be critical, cynical, and argumentative and can act intellectually superior. [E5]
+61.  Have ideas, theories, and opinions about almost everything. [E5]
+62.  Have been told I am not in touch with my emotions. [E5]
+64.  I feel uncomfortable around loud, emotional people. [E5]
+78.  Enjoy spending time alone pursuing my personal interests. [E5]
+88.  Easily annoyed by people who act unintelligent or uninformed. [E5]
+113. I prefer to observe a situation thoroughly before deciding to participate. [E5]
+114. I tend to detach emotionally when I feel overwhelmed or overstimulated. [E5]
+115. I value knowledge and often research topics extensively before forming an opinion. [E5]
+
+TYPE 6 - THE LOYALIST
+----------------------
+5.   I'm not gullible; you must earn my trust, and I will challenge your loyalty. [E6]
+12.  Friends and family provide the support I feel is necessary in life. [E6]
+29.  Fear being criticized or judged as being improper by other people. [E6]
+31.  Look for danger, unsafe people, or unsafe situations. [E6]
+36.  When afraid of something, I've done what was necessary to overcome my fear. [E6]
+40.  When I trust people, I can let down my guard and be more sensitive. [E6]
+46.  Value the belief that everything is going to be all right yet often lack faith in this belief. [E6]
+63.  Making decisions on my own may cause me anxiety. [E6]
+85.  When feeling anxious I can be overly vigilant and controlling. [E6]
+92.  Try to prepare for every contingency. [E6]
+
+TYPE 7 - THE ENTHUSIAST
+------------------------
+17.  People may find it difficult to follow my train of thought. [E7]
+35.  Like to leave my options open; "don't hem me in" describes me well. [E7]
+39.  Dislike being around pessimistic, negative people. [E7]
+48.  Become frustrated if there is not enough time to do all the fun things I want to do. [E7]
+50.  Enjoy trying many things and can do many different things fairly well. [E7]
+53.  Have difficulty making decisions because "everything looks good." [E7]
+56.  Tend to be excited and impatient about accomplishing plans. [E7]
+74.  Find it easy to adapt to different people and situations. [E7]
+82.  Tend to do things in excess and to always want more. [E7]
+116. I tend to reframe negative experiences quickly so I can stay positive and move on. [E7]
+117. I get bored easily and constantly look for the next exciting thing to do. [E7]
+118. I prefer to focus on possibilities and future plans rather than dwelling on problems. [E7]
+119. I find it hard to commit to one path because I fear missing out on other options. [E7]
+120. I tend to keep conversations light and avoid going too deep into painful topics. [E7]
+
+TYPE 8 - THE CHALLENGER
+------------------------
+1.   Tend to be possessive and demanding when stressed. [E8]
+16.  Dislike people nagging me; this makes me quite stubborn. [E8]
+27.  I'm uncomfortable expressing emotions other than anger. [E8]
+28.  Love to be challenged and enjoy a good fight. [E8]
+30.  Proud about being direct, telling it "like it is," and expressing "tough love." [E8]
+42.  Tend to be rebellious, controlling, and insensitive when stressed. [E8]
+59.  Impatient with people who are indirect or indecisive. [E8]
+79.  Have difficulty admitting I'm wrong. [E8]
+80.  Find it difficult to forgive and can carry a grudge for a long time. [E8]
+121. I naturally take charge in situations where others seem hesitant or weak. [E8]
+122. I respect people who stand their ground and speak their mind directly. [E8]
+123. I have a strong instinct for sensing when someone is being dishonest or manipulative. [E8]
+124. I would rather be feared than be seen as weak or vulnerable. [E8]
+125. I believe that showing vulnerability is a risk that can be used against me. [E8]
+
+TYPE 9 - THE PEACEMAKER
+------------------------
+3.   Tend to be insightful, objective, and sensitive when not stressed. [E9]
+9.   Believe it is important for people to be with other people or to belong to a group or an organization. [E9]
+11.  Have a strong sense of responsibility and I'm a hard worker. [E9]
+26.  Prefer being with people to being alone. [E9]
+32.  Tend to see the glass as "half empty" and to look for what needs fixing. [E9]
+37.  Believe it is important to understand my own and other people's feelings. [E9]
+41.  In relationships, I seek harmony and peace through a sense of belonging and/or by bonding with the other person. [E9]
+52.  Try to avoid confrontations. [E9]
+55.  When feeling relaxed I tend to be friendly and responsive to people. [E9]
+57.  Tend to be shy and withdrawn, especially at social events. [E9]
+58.  Can be a "homebody" and enjoy the comfort and peace of home. [E9]
+65.  Attracted to habits and routines, can relax easily and tune out reality through TV, daydreaming, a good book, etc. [E9]
+66.  Sensitive to criticism but try to hide that sensitivity. [E9]
+68.  Tend to be rational, reasonable, and accepting when not stressed. [E9]
+69.  Tend to be reflective and to search for the meaning of my life. [E9]
+77.  Tend to take things too seriously and overreact to small issues. [E9]
+86.  Tend to socialize with people who are interested in the same things I am. [E9]
+90.  Dislike confrontation and try to keep the peace. [E9]
+93.  Tend to be more emotional than most people I know. [E9]
+96.  Tend to go along with what people say just to get them off my back. [E9]
+98.  Tend to be distant, stubborn, and pessimistic when stressed. [E9]
+
+=====================================
+TAG LEGEND
+=====================================
+[E1] - Type 1: The Reformer
+[E2] - Type 2: The Helper
+[E3] - Type 3: The Achiever
+[E4] - Type 4: The Individualist
+[E5] - Type 5: The Investigator
+[E6] - Type 6: The Loyalist
+[E7] - Type 7: The Enthusiast
+[E8] - Type 8: The Challenger
+[E9] - Type 9: The Peacemaker
+
+=====================================
+QUESTION COUNT PER TYPE
+=====================================
+Type 1 - The Reformer     [E1] : 10 questions
+Type 2 - The Helper       [E2] : 14 questions
+Type 3 - The Achiever     [E3] : 14 questions
+Type 4 - The Individualist[E4] : 14 questions
+Type 5 - The Investigator [E5] : 14 questions
+Type 6 - The Loyalist     [E6] : 10 questions
+Type 7 - The Enthusiast   [E7] : 14 questions
+Type 8 - The Challenger   [E8] : 14 questions
+Type 9 - The Peacemaker   [E9] : 21 questions
+                                 ---
+TOTAL                          : 125 questions
