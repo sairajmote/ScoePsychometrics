@@ -7,7 +7,7 @@ from sqlalchemy.sql import func
 import os
 import uuid
 from datetime import datetime
-from . import models, database, schemas, scoring_mbti, scoring_temperament
+from . import models, database, schemas, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance
 from .database import engine, get_db
 
 app = FastAPI()
@@ -113,6 +113,8 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
         option_map = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7}
         mbti_scoring_data = []
         temperament_scoring_data = []
+        big5_scoring_data = []
+        brain_dominance_scoring_data = []
 
         for item in request.responses:
             # Save raw response
@@ -138,6 +140,17 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                         "correct_answer": q.correct_answer,
                         "selected_option": item.selected_option
                     })
+                elif q.category == "big5":
+                    big5_scoring_data.append({
+                        "subtest": q.subtest,
+                        "keyed": q.keyed,
+                        "selected_option": item.selected_option
+                    })
+                elif q.category == "brain_dominance":
+                    brain_dominance_scoring_data.append({
+                        "keyed": q.keyed,
+                        "selected_option": item.selected_option
+                    })
 
         db.commit()
 
@@ -146,6 +159,12 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
 
         # 4b. Score Temperament
         temperament_results = scoring_temperament.score_temperament(temperament_scoring_data)
+
+        # 4c. Score Big 5
+        big5_results = scoring_big5.score_big5(big5_scoring_data)
+
+        # 4d. Score Brain Dominance
+        brain_dominance_results = scoring_brain_dominance.score_brain_dominance(brain_dominance_scoring_data)
         
         # 5. Build full Report JSON
         report_id = f"RPT-{datetime.now().strftime('%Y-%m%d')}-{uuid.uuid4().hex[:4].upper()}"
@@ -194,8 +213,20 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                         "inferior": {"label": "Mock Function", "code": "Xe", "strength": 20}
                     },
                     "interpretation": "Your personality profile suggests a unique way of processing information and interacting with the world."
+                },
+                "big5": {
+                    "label": "Big Five Personality Traits",
+                    "description": "The Big Five model measures five core personality dimensions that predict behaviour across work, relationships, and life.",
+                    "profile_summary": big5_results["profile_summary"],
+                    "traits": big5_results["traits"]
+                },
+                "brain_dominance": {
+                    "label": "Brain Dominance",
+                    "description": "Measures the relative strength of left-brain (analytical/logical) and right-brain (creative/intuitive) tendencies.",
+                    "left":      brain_dominance_results["left"],
+                    "right":     brain_dominance_results["right"],
+                    "dominance": brain_dominance_results["dominance"],
                 }
-                # Other subtests would be added here as implemented
             },
             "composite_insights": {
                 "personality_summary": (
@@ -240,7 +271,8 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
             "user_id": user.id,
             "session_id": session.id,
             "temperament_type": temperament_results["temperament_type"],
-            "temperament_description": temperament_results["description"]
+            "temperament_description": temperament_results["description"],
+            "big5_profile": big5_results["profile_summary"]
         }
     except Exception as e:
         db.rollback()

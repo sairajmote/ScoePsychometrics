@@ -423,6 +423,108 @@
             text-transform: uppercase;
         }
 
+        /* ── Big Five Traits ── */
+        .b5-section {
+            margin-bottom: 4rem;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 3rem;
+        }
+
+        .b5-trait-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+            margin-top: 2rem;
+        }
+
+        .b5-trait {
+            display: grid;
+            grid-template-columns: 200px 1fr 60px;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .b5-trait-name {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #333;
+        }
+
+        .b5-trait-subname {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: #999;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-top: 2px;
+        }
+
+        .b5-bar-wrap {
+            height: 12px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .b5-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .b5-bar-fill.openness          { background: linear-gradient(90deg, #6C63FF, #9B8FFF); }
+        .b5-bar-fill.neuroticism       { background: linear-gradient(90deg, #e74c3c, #ff7675); }
+        .b5-bar-fill.agreeableness     { background: linear-gradient(90deg, #1abc9c, #55efc4); }
+        .b5-bar-fill.extraversion      { background: linear-gradient(90deg, #f39c12, #fdcb6e); }
+        .b5-bar-fill.conscientiousness { background: linear-gradient(90deg, #3498db, #74b9ff); }
+
+        .b5-pct {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #000;
+            text-align: right;
+        }
+
+        .b5-descriptor {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            margin-left: 0;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .desc-very_low    { background: #ffeaa7; color: #856404; }
+        .desc-low         { background: #dfe6e9; color: #636e72; }
+        .desc-moderate    { background: #d1f2eb; color: #0e6655; }
+        .desc-high        { background: #d6eaf8; color: #1a5276; }
+        .desc-very_high   { background: #d5f5e3; color: #1e8449; }
+
+        .b5-desc-text {
+            font-size: 0.82rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 0.4rem;
+        }
+
+        .b5-profile-summary {
+            background: #f8f9fa;
+            border-left: 4px solid #6C63FF;
+            padding: 1.4rem 1.6rem;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
         @media print {
 
             .section-nav,
@@ -462,6 +564,7 @@
     <div class="section-nav" id="section-nav">
         <a href="#sec-overview" class="nav-active">Overview</a>
         <a href="#sec-results">Results</a>
+        <a href="#sec-big5">Big Five</a>
         <a href="#sec-insights">Insights</a>
     </div>
 
@@ -593,6 +696,52 @@
                 </div>`;
             }
 
+            // ── BIG FIVE ──
+            if (sub.big5) {
+                const b5 = sub.big5;
+                const descriptorClass = {
+                    'Very Low': 'desc-very_low',
+                    'Low': 'desc-low',
+                    'Moderate': 'desc-moderate',
+                    'High': 'desc-high',
+                    'Very High': 'desc-very_high'
+                };
+
+                const traitOrder = ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'neuroticism'];
+                const traitsHtml = traitOrder.map(key => {
+                    if (!b5.traits || !b5.traits[key]) return '';
+                    const t = b5.traits[key];
+                    const pct = t.score_pct || 0;
+                    const dc = descriptorClass[t.descriptor] || 'desc-moderate';
+                    return `
+                        <div class="b5-trait">
+                            <div class="b5-trait-name">
+                                ${t.label}
+                                <span class="b5-descriptor ${dc}">${t.descriptor}</span>
+                            </div>
+                            <div>
+                                <div class="b5-bar-wrap">
+                                    <div class="b5-bar-fill ${key}" data-width="${pct}" style="width:0%"></div>
+                                </div>
+                                <div class="b5-desc-text">${t.description}</div>
+                            </div>
+                            <div class="b5-pct">${Math.round(pct)}%</div>
+                        </div>
+                    `;
+                }).join('');
+
+                html += `
+                <div class="b5-section" id="sec-big5">
+                    <div class="section-heading">
+                        <span class="section-num">02</span>
+                        <h2>${b5.label}</h2>
+                    </div>
+                    <div class="section-desc">${b5.description}</div>
+                    <div class="b5-profile-summary">${b5.profile_summary}</div>
+                    <div class="b5-trait-list">${traitsHtml}</div>
+                </div>`;
+            }
+
             // ── COMPOSITE INSIGHTS ──
             html += `
                 <div class="insights-block" id="sec-insights">
@@ -623,6 +772,14 @@
                 </div>`;
 
             root.innerHTML = html;
+
+            // Animate Big 5 trait bars after DOM render
+            setTimeout(() => {
+                document.querySelectorAll('.b5-bar-fill').forEach(bar => {
+                    const target = bar.getAttribute('data-width');
+                    if (target) bar.style.width = target + '%';
+                });
+            }, 100);
         }
 
         loadReport();

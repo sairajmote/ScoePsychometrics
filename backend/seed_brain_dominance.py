@@ -2,7 +2,10 @@
 seed_brain_dominance.py
 Seeds 40 Brain Dominance questions using a 5-point Likert scale.
 Scale: Strongly Disagree / Disagree / Neutral / Agree / Strongly Agree
-No grading applied — questions are stored without scoring keys.
+
+Scoring keys (stored in the `keyed` column):
+  "L" → Left-brain tendency  (odd-numbered questions: 1,3,5,…,39)
+  "R" → Right-brain tendency (even-numbered questions: 2,4,6,…,40)
 
 Run from the project root with the virtual environment active:
     (.venv) PS Z:\\projects\\Psycho\\psycho_one> python backend/seed_brain_dominance.py
@@ -60,6 +63,15 @@ QUESTIONS_TEXT = [
     "I am a totally random, unpredictable person who rarely does things the same way twice.",   # 40
 ]
 
+# Tendency key for each question (index 0 = question 1).
+# Odd questions → Left (L), Even questions → Right (R)
+QUESTION_KEYS = [
+    "L", "R", "L", "R", "L", "R", "L", "R", "L", "R",  # 1–10
+    "L", "R", "L", "R", "L", "R", "L", "R", "L", "R",  # 11–20
+    "L", "R", "L", "R", "L", "R", "L", "R", "L", "R",  # 21–30
+    "L", "R", "L", "R", "L", "R", "L", "R", "L", "R",  # 31–40
+]
+
 
 def seed_brain_dominance_questions():
     db = SessionLocal()
@@ -77,7 +89,7 @@ def seed_brain_dominance_questions():
 
     print(f"Seeding {len(QUESTIONS_TEXT)} Brain Dominance questions...")
 
-    for text in QUESTIONS_TEXT:
+    for idx, text in enumerate(QUESTIONS_TEXT):
         q = models.Question(
             category="brain_dominance",
             subtest=None,
@@ -87,7 +99,7 @@ def seed_brain_dominance_questions():
             option_c="Neutral",
             option_d="Agree",
             option_e="Strongly Agree",
-            keyed=None,
+            keyed=QUESTION_KEYS[idx],
             correct_answer=None,
         )
         db.add(q)

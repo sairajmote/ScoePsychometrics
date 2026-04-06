@@ -2,7 +2,15 @@
 seed_big5.py
 Seeds 50 Big 5 Personality questions using a 5-point Likert scale.
 Scale: Strongly Disagree / Disagree / Neutral / Agree / Strongly Agree
-No grading applied — questions are stored without scoring keys.
+
+Scoring keys per big5.txt:
+  O (Openness)        — Questions 1–10
+  N (Neuroticism)     — Questions 11–20
+  A (Agreeableness)   — Questions 21–30
+  E (Extraversion)    — Questions 31–40
+  C (Conscientiousness) — Questions 41–50
+  + = positively keyed (agree = higher trait score)
+  - = negatively keyed (agree = lower trait score, reverse-scored)
 
 Run from the project root with the virtual environment active:
     (.venv) PS Z:\\projects\\Psycho\\psycho_one> python backend/seed_big5.py
@@ -17,62 +25,63 @@ from backend.database import SessionLocal
 from backend import models
 
 
-QUESTIONS_TEXT = [
+# (text, subtest, keyed) — ordered exactly as in big5.txt
+QUESTIONS = [
     # Openness to Experience (1-10)
-    "When confronted with unfamiliar perspectives that challenge long-held beliefs, I feel intellectually energized rather than defensive.",
-    "I rarely see value in exploring ideas that have no immediate practical application.",
-    "Abstract discussions about philosophy, art, or theoretical possibilities tend to capture my attention more than routine conversations.",
-    "I prefer familiar patterns of thinking over experimenting with unconventional viewpoints.",
-    "Encountering ambiguous or complex problems usually stimulates curiosity in me rather than frustration.",
-    "I feel uncomfortable when conversations drift into imaginative or speculative territories.",
-    "I am naturally inclined to reinterpret everyday experiences through creative or symbolic meanings.",
-    "Novel experiences often seem unnecessarily disruptive to an otherwise efficient routine.",
-    "I frequently find myself mentally exploring 'what if' scenarios beyond immediate reality.",
-    "I see little benefit in questioning traditions or long-standing methods that already function adequately.",
+    ("When confronted with unfamiliar perspectives that challenge long-held beliefs, I feel intellectually energized rather than defensive.", "openness", "+"),
+    ("I rarely see value in exploring ideas that have no immediate practical application.", "openness", "-"),
+    ("Abstract discussions about philosophy, art, or theoretical possibilities tend to capture my attention more than routine conversations.", "openness", "+"),
+    ("I prefer familiar patterns of thinking over experimenting with unconventional viewpoints.", "openness", "-"),
+    ("Encountering ambiguous or complex problems usually stimulates curiosity in me rather than frustration.", "openness", "+"),
+    ("I feel uncomfortable when conversations drift into imaginative or speculative territories.", "openness", "-"),
+    ("I am naturally inclined to reinterpret everyday experiences through creative or symbolic meanings.", "openness", "+"),
+    ("Novel experiences often seem unnecessarily disruptive to an otherwise efficient routine.", "openness", "-"),
+    ("I frequently find myself mentally exploring 'what if' scenarios beyond immediate reality.", "openness", "+"),
+    ("I see little benefit in questioning traditions or long-standing methods that already function adequately.", "openness", "-"),
     # Neuroticism (11-20)
-    "Minor setbacks can remain on my mind long after the situation has passed.",
-    "I rarely dwell on stressful situations once they are resolved.",
-    "Unexpected uncertainty tends to trigger noticeable tension in my thoughts.",
-    "Emotional fluctuations rarely influence how I approach daily responsibilities.",
-    "I sometimes anticipate negative outcomes even when circumstances appear stable.",
-    "I generally remain calm even when several problems arise simultaneously.",
-    "Criticism can linger in my mind longer than compliments.",
-    "I usually recover quickly from embarrassment or mistakes.",
-    "Situations outside my control occasionally provoke persistent worry.",
-    "I tend to maintain emotional steadiness even during demanding periods.",
+    ("Minor setbacks can remain on my mind long after the situation has passed.", "neuroticism", "+"),
+    ("I rarely dwell on stressful situations once they are resolved.", "neuroticism", "-"),
+    ("Unexpected uncertainty tends to trigger noticeable tension in my thoughts.", "neuroticism", "+"),
+    ("Emotional fluctuations rarely influence how I approach daily responsibilities.", "neuroticism", "-"),
+    ("I sometimes anticipate negative outcomes even when circumstances appear stable.", "neuroticism", "+"),
+    ("I generally remain calm even when several problems arise simultaneously.", "neuroticism", "-"),
+    ("Criticism can linger in my mind longer than compliments.", "neuroticism", "+"),
+    ("I usually recover quickly from embarrassment or mistakes.", "neuroticism", "-"),
+    ("Situations outside my control occasionally provoke persistent worry.", "neuroticism", "+"),
+    ("I tend to maintain emotional steadiness even during demanding periods.", "neuroticism", "-"),
     # Agreeableness (21-30)
-    "When disagreements arise, I instinctively attempt to understand the other person's perspective before asserting my own.",
-    "I sometimes feel that being too considerate of others only slows down decision-making.",
-    "I often find myself mediating conflicts so that everyone involved feels heard.",
-    "In competitive situations, I rarely worry about how my actions affect others emotionally.",
-    "I tend to assume that most people have reasonable intentions unless proven otherwise.",
-    "I am generally skeptical of others' motives until they demonstrate reliability.",
-    "I feel uneasy when someone around me is upset, even if the situation does not directly involve me.",
-    "I sometimes prioritize personal advantage even when it inconveniences others.",
-    "I usually adjust my communication style to maintain harmony in conversations.",
-    "I believe blunt honesty is more important than protecting people's feelings.",
+    ("When disagreements arise, I instinctively attempt to understand the other person's perspective before asserting my own.", "agreeableness", "+"),
+    ("I sometimes feel that being too considerate of others only slows down decision-making.", "agreeableness", "-"),
+    ("I often find myself mediating conflicts so that everyone involved feels heard.", "agreeableness", "+"),
+    ("In competitive situations, I rarely worry about how my actions affect others emotionally.", "agreeableness", "-"),
+    ("I tend to assume that most people have reasonable intentions unless proven otherwise.", "agreeableness", "+"),
+    ("I am generally skeptical of others' motives until they demonstrate reliability.", "agreeableness", "-"),
+    ("I feel uneasy when someone around me is upset, even if the situation does not directly involve me.", "agreeableness", "+"),
+    ("I sometimes prioritize personal advantage even when it inconveniences others.", "agreeableness", "-"),
+    ("I usually adjust my communication style to maintain harmony in conversations.", "agreeableness", "+"),
+    ("I believe blunt honesty is more important than protecting people's feelings.", "agreeableness", "-"),
     # Extraversion (31-40)
-    "Prolonged periods of social interaction tend to energize rather than exhaust me.",
-    "In group settings, I often prefer observing quietly rather than actively participating.",
-    "I usually find it easy to initiate conversations even with unfamiliar individuals.",
-    "After extended social events, I typically feel the need to withdraw and recharge alone.",
-    "I often feel stimulated by environments with many people and dynamic activity.",
-    "When discussions become lively, I tend to step back rather than insert my opinions.",
-    "I am comfortable directing attention toward myself when presenting ideas publicly.",
-    "Unexpected social interactions sometimes make me feel mentally drained.",
-    "I tend to seek environments where conversations, movement, and interaction are constant.",
-    "I usually prefer smaller, quieter settings over crowded or socially demanding ones.",
+    ("Prolonged periods of social interaction tend to energize rather than exhaust me.", "extraversion", "+"),
+    ("In group settings, I often prefer observing quietly rather than actively participating.", "extraversion", "-"),
+    ("I usually find it easy to initiate conversations even with unfamiliar individuals.", "extraversion", "+"),
+    ("After extended social events, I typically feel the need to withdraw and recharge alone.", "extraversion", "-"),
+    ("I often feel stimulated by environments with many people and dynamic activity.", "extraversion", "+"),
+    ("When discussions become lively, I tend to step back rather than insert my opinions.", "extraversion", "-"),
+    ("I am comfortable directing attention toward myself when presenting ideas publicly.", "extraversion", "+"),
+    ("Unexpected social interactions sometimes make me feel mentally drained.", "extraversion", "-"),
+    ("I tend to seek environments where conversations, movement, and interaction are constant.", "extraversion", "+"),
+    ("I usually prefer smaller, quieter settings over crowded or socially demanding ones.", "extraversion", "-"),
     # Conscientiousness (41-50)
-    "Even when external supervision is absent, I tend to maintain structured progress toward long-term goals.",
-    "Deadlines become negotiable in my mind if the task begins to feel tedious or inconvenient.",
-    "I often break large responsibilities into organized steps before beginning the task.",
-    "I frequently underestimate how much preparation a task will require.",
-    "Completing obligations tends to provide me with a stronger sense of satisfaction than spontaneous leisure.",
-    "I sometimes leave projects partially completed when my interest shifts elsewhere.",
-    "I naturally monitor my progress when working toward objectives to ensure efficiency.",
-    "My workspace or digital environment often becomes disorganized without me noticing immediately.",
-    "I am inclined to think ahead about possible complications before initiating important tasks.",
-    "I rarely develop structured routines unless someone else expects them from me.",
+    ("Even when external supervision is absent, I tend to maintain structured progress toward long-term goals.", "conscientiousness", "+"),
+    ("Deadlines become negotiable in my mind if the task begins to feel tedious or inconvenient.", "conscientiousness", "-"),
+    ("I often break large responsibilities into organized steps before beginning the task.", "conscientiousness", "+"),
+    ("I frequently underestimate how much preparation a task will require.", "conscientiousness", "-"),
+    ("Completing obligations tends to provide me with a stronger sense of satisfaction than spontaneous leisure.", "conscientiousness", "+"),
+    ("I sometimes leave projects partially completed when my interest shifts elsewhere.", "conscientiousness", "-"),
+    ("I naturally monitor my progress when working toward objectives to ensure efficiency.", "conscientiousness", "+"),
+    ("My workspace or digital environment often becomes disorganized without me noticing immediately.", "conscientiousness", "-"),
+    ("I am inclined to think ahead about possible complications before initiating important tasks.", "conscientiousness", "+"),
+    ("I rarely develop structured routines unless someone else expects them from me.", "conscientiousness", "-"),
 ]
 
 
@@ -90,19 +99,19 @@ def seed_big5_questions():
     if deleted > 0:
         print(f"Cleared {deleted} existing Big 5 questions.")
 
-    print(f"Seeding {len(QUESTIONS_TEXT)} Big 5 questions...")
+    print(f"Seeding {len(QUESTIONS)} Big 5 questions...")
 
-    for text in QUESTIONS_TEXT:
+    for text, subtest, keyed in QUESTIONS:
         q = models.Question(
             category="big5",
-            subtest=None,
+            subtest=subtest,
             text=text,
             option_a="Strongly Disagree",
             option_b="Disagree",
             option_c="Neutral",
             option_d="Agree",
             option_e="Strongly Agree",
-            keyed=None,
+            keyed=keyed,
             correct_answer=None,
         )
         db.add(q)
