@@ -2,7 +2,17 @@
 seed_multiple_intelligence.py
 Seeds 44 Multiple Intelligence questions using a 5-point Likert scale.
 Scale: Strongly Disagree / Disagree / Neutral / Agree / Strongly Agree
-No grading applied — questions are stored without scoring keys.
+
+Scoring keys (stored in the `subtest` column):
+  LI   → Linguistic Intelligence           (questions: 22, 30, 38, 41)
+  LMI  → Logical-Mathematical Intelligence (questions: 3, 8, 10, 13, 20, 21, 40)
+  MI   → Musical Intelligence              (questions: 2, 17, 18, 34, 42)
+  BKI  → Bodily-Kinesthetic Intelligence   (questions: 6, 16, 26, 31, 44)
+  SVI  → Spatial-Visual Intelligence       (questions: 12, 19, 33)
+  IPI  → Interpersonal Intelligence        (questions: 4, 7, 23, 24, 32)
+  INPI → Intrapersonal Intelligence        (questions: 1, 11, 14, 25, 37)
+  NI   → Naturalistic Intelligence         (questions: 9, 28, 29, 35, 43)
+  EI   → Existential Intelligence          (questions: 5, 15, 27, 36, 39)
 
 Run from the project root with the virtual environment active:
     (.venv) PS Z:\\projects\\Psycho\\psycho_one> python backend/seed_multiple_intelligence.py
@@ -64,6 +74,54 @@ QUESTIONS_TEXT = [
     "I like sewing, carving, model-building, or other activities that involve dexterity.",               # 44 [BKI]
 ]
 
+# Intelligence subtest key for each question (index 0 = question 1)
+QUESTION_SUBTESTS = [
+    "INPI",  # 1
+    "MI",    # 2
+    "LMI",   # 3
+    "IPI",   # 4
+    "EI",    # 5
+    "BKI",   # 6
+    "IPI",   # 7
+    "LMI",   # 8
+    "NI",    # 9
+    "LMI",   # 10
+    "INPI",  # 11
+    "SVI",   # 12
+    "LMI",   # 13
+    "INPI",  # 14
+    "EI",    # 15
+    "BKI",   # 16
+    "MI",    # 17
+    "MI",    # 18
+    "SVI",   # 19
+    "LMI",   # 20
+    "LMI",   # 21
+    "LI",    # 22
+    "IPI",   # 23
+    "IPI",   # 24
+    "INPI",  # 25
+    "BKI",   # 26
+    "EI",    # 27
+    "NI",    # 28
+    "NI",    # 29
+    "LI",    # 30
+    "BKI",   # 31
+    "IPI",   # 32
+    "SVI",   # 33
+    "MI",    # 34
+    "NI",    # 35
+    "EI",    # 36
+    "INPI",  # 37
+    "LI",    # 38
+    "EI",    # 39
+    "LMI",   # 40
+    "LI",    # 41
+    "MI",    # 42
+    "NI",    # 43
+    "BKI",   # 44
+]
+
 
 def seed_multiple_intelligence_questions():
     db = SessionLocal()
@@ -81,10 +139,10 @@ def seed_multiple_intelligence_questions():
 
     print(f"Seeding {len(QUESTIONS_TEXT)} Multiple Intelligence questions...")
 
-    for text in QUESTIONS_TEXT:
+    for idx, text in enumerate(QUESTIONS_TEXT):
         q = models.Question(
             category="multiple_intelligence",
-            subtest=None,
+            subtest=QUESTION_SUBTESTS[idx],
             text=text,
             option_a="Strongly Disagree",
             option_b="Disagree",

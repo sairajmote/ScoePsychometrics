@@ -525,6 +525,127 @@
             margin-bottom: 2rem;
         }
 
+        /* ── Multiple Intelligence ── */
+        .mi-section {
+            margin-bottom: 4rem;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 3rem;
+        }
+
+        .mi-dominant-banner {
+            background: linear-gradient(135deg, #6C63FF 0%, #3498db 100%);
+            color: #fff;
+            border-radius: 6px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .mi-dominant-icon {
+            font-size: 2.4rem;
+            line-height: 1;
+        }
+
+        .mi-dominant-text h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin: 0 0 0.3rem;
+            letter-spacing: -0.01em;
+        }
+
+        .mi-dominant-text p {
+            font-size: 0.88rem;
+            opacity: 0.9;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .mi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.4rem;
+            margin-top: 1.5rem;
+        }
+
+        .mi-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 1.2rem 1.4rem;
+            background: #fafafa;
+            transition: box-shadow 0.2s;
+        }
+
+        .mi-card:hover {
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+
+        .mi-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+        }
+
+        .mi-card-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #333;
+        }
+
+        .mi-card-pct {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        .mi-bar-wrap {
+            height: 8px;
+            background: #ececec;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .mi-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Per-intelligence colour palette */
+        .mi-bar-fill.LI   { background: linear-gradient(90deg, #e17055, #fab1a0); }
+        .mi-bar-fill.LMI  { background: linear-gradient(90deg, #6C63FF, #a29bfe); }
+        .mi-bar-fill.MI   { background: linear-gradient(90deg, #fd79a8, #fdcfe8); }
+        .mi-bar-fill.BKI  { background: linear-gradient(90deg, #00b894, #55efc4); }
+        .mi-bar-fill.SVI  { background: linear-gradient(90deg, #0984e3, #74b9ff); }
+        .mi-bar-fill.IPI  { background: linear-gradient(90deg, #e67e22, #f9ca24); }
+        .mi-bar-fill.INPI { background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
+        .mi-bar-fill.NI   { background: linear-gradient(90deg, #27ae60, #6fcf97); }
+        .mi-bar-fill.EI   { background: linear-gradient(90deg, #636e72, #b2bec3); }
+
+        .mi-card-desc {
+            font-size: 0.78rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .mi-profile-summary {
+            background: #f8f9fa;
+            border-left: 4px solid #6C63FF;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
         @media print {
 
             .section-nav,
@@ -565,6 +686,7 @@
         <a href="#sec-overview" class="nav-active">Overview</a>
         <a href="#sec-results">Results</a>
         <a href="#sec-big5">Big Five</a>
+        <a href="#sec-mi">Multiple Intelligence</a>
         <a href="#sec-insights">Insights</a>
     </div>
 
@@ -742,6 +864,57 @@
                 </div>`;
             }
 
+            // ── MULTIPLE INTELLIGENCE ──
+            if (sub.multiple_intelligence) {
+                const mi = sub.multiple_intelligence;
+                const intelligenceOrder = ['LI','LMI','MI','BKI','SVI','IPI','INPI','NI','EI'];
+                const intelligenceIcons = {
+                    LI: '📚', LMI: '🔢', MI: '🎵', BKI: '🏃', SVI: '🎨',
+                    IPI: '🤝', INPI: '🧘', NI: '🌿', EI: '🌌'
+                };
+
+                const dominantIcon = intelligenceIcons[mi.dominant_intelligences[0]] || '🧠';
+                const dominantText = mi.dominant_labels.join(' & ');
+
+                const miCards = intelligenceOrder.map(key => {
+                    if (!mi.intelligences || !mi.intelligences[key]) return '';
+                    const t = mi.intelligences[key];
+                    const pct = t.score_pct || 0;
+                    const isDom = mi.dominant_intelligences.includes(key);
+                    const cardStyle = isDom ? 'border-color:#6C63FF;background:#f5f4ff;' : '';
+                    return `
+                        <div class="mi-card" style="${cardStyle}">
+                            <div class="mi-card-top">
+                                <span class="mi-card-label">${intelligenceIcons[key] || ''} ${t.label}</span>
+                                <span class="mi-card-pct">${Math.round(pct)}%</span>
+                            </div>
+                            <div class="mi-bar-wrap">
+                                <div class="mi-bar-fill ${key}" data-mi-width="${pct}" style="width:0%"></div>
+                            </div>
+                            <div class="mi-card-desc">${t.description}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                html += `
+                <div class="mi-section" id="sec-mi">
+                    <div class="section-heading">
+                        <span class="section-num">03</span>
+                        <h2>${mi.label}</h2>
+                    </div>
+                    <div class="section-desc">${mi.description}</div>
+                    <div class="mi-dominant-banner">
+                        <div class="mi-dominant-icon">${dominantIcon}</div>
+                        <div class="mi-dominant-text">
+                            <h3>Dominant Intelligence: ${dominantText}</h3>
+                            <p>${mi.profile_summary}</p>
+                        </div>
+                    </div>
+                    <div class="mi-profile-summary">${mi.profile_summary}</div>
+                    <div class="mi-grid">${miCards}</div>
+                </div>`;
+            }
+
             // ── COMPOSITE INSIGHTS ──
             html += `
                 <div class="insights-block" id="sec-insights">
@@ -777,6 +950,10 @@
             setTimeout(() => {
                 document.querySelectorAll('.b5-bar-fill').forEach(bar => {
                     const target = bar.getAttribute('data-width');
+                    if (target) bar.style.width = target + '%';
+                });
+                document.querySelectorAll('.mi-bar-fill').forEach(bar => {
+                    const target = bar.getAttribute('data-mi-width');
                     if (target) bar.style.width = target + '%';
                 });
             }, 100);

@@ -7,7 +7,7 @@ from sqlalchemy.sql import func
 import os
 import uuid
 from datetime import datetime
-from . import models, database, schemas, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance
+from . import models, database, schemas, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance, scoring_multiple_intelligence
 from .database import engine, get_db
 
 app = FastAPI()
@@ -115,6 +115,7 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
         temperament_scoring_data = []
         big5_scoring_data = []
         brain_dominance_scoring_data = []
+        mi_scoring_data = []
 
         for item in request.responses:
             # Save raw response
@@ -151,6 +152,11 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                         "keyed": q.keyed,
                         "selected_option": item.selected_option
                     })
+                elif q.category == "multiple_intelligence":
+                    mi_scoring_data.append({
+                        "subtest": q.subtest,
+                        "selected_option": item.selected_option
+                    })
 
         db.commit()
 
@@ -165,6 +171,9 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
 
         # 4d. Score Brain Dominance
         brain_dominance_results = scoring_brain_dominance.score_brain_dominance(brain_dominance_scoring_data)
+
+        # 4e. Score Multiple Intelligence
+        mi_results = scoring_multiple_intelligence.score_multiple_intelligence(mi_scoring_data)
         
         # 5. Build full Report JSON
         report_id = f"RPT-{datetime.now().strftime('%Y-%m%d')}-{uuid.uuid4().hex[:4].upper()}"
@@ -226,6 +235,14 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                     "left":      brain_dominance_results["left"],
                     "right":     brain_dominance_results["right"],
                     "dominance": brain_dominance_results["dominance"],
+                },
+                "multiple_intelligence": {
+                    "label": "Multiple Intelligence",
+                    "description": "Howard Gardner's theory identifies nine distinct intelligences that reflect diverse cognitive strengths and learning styles.",
+                    "profile_summary":       mi_results["profile_summary"],
+                    "dominant_intelligences": mi_results["dominant_intelligences"],
+                    "dominant_labels":        mi_results["dominant_labels"],
+                    "intelligences":          mi_results["intelligences"],
                 }
             },
             "composite_insights": {
