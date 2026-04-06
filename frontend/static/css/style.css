@@ -23,13 +23,30 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/img/psychometric_hero_visual_1772384582456.png');
+    background-repeat: repeat;
+    background-size: 600px;
+    opacity: 0.15;
+    z-index: 10000;
+    pointer-events: none;
+    filter: invert(1) grayscale(1);
 }
 
 /* Typography */
 h1,
 h2,
 h3 {
-    font-weight: 700;
+    font-weight: 100;
     text-transform: uppercase;
     letter-spacing: -1px;
 }
@@ -73,9 +90,16 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgb(251, 249, 249);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
+}
+
+.header-home {
+    background-image: conic-gradient(from 45deg, rgba(0, 0, 0, 0.06) 25%, transparent 0 50%, rgba(0, 0, 0, 0.06) 0 75%, transparent 0);
+    background-size: 40px 40px;
+    background-color: #ffffff;
+    backdrop-filter: none;
 }
 
 .logo-container {
@@ -160,7 +184,6 @@ nav a.active::after {
 
 /* Sections */
 .hero {
-    background: var(--bg-color);
     position: relative;
     display: flex;
     align-items: center;
@@ -229,7 +252,7 @@ nav a.active::after {
 
 /* Exam Section */
 .exam {
-    background: #f9f9f9;
+    position: relative;
 }
 
 .exam-grid {
