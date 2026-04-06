@@ -520,26 +520,32 @@
                 return;
             }
             try {
-                console.log("Fetching MBTI, Temperament, Enneagram and Brain Dominance questions...");
-                const [mbtiRes, tempRes, ennRes, bdRes] = await Promise.all([
+                console.log("Fetching MBTI, Temperament, Enneagram, Brain Dominance, Multiple Intelligence and Big 5 questions...");
+                const [mbtiRes, tempRes, ennRes, bdRes, miRes, b5Res] = await Promise.all([
                     fetch('/questions?category=mbti'),
                     fetch('/questions?category=temperament'),
                     fetch('/questions?category=enneagram'),
-                    fetch('/questions?category=brain_dominance')
+                    fetch('/questions?category=brain_dominance'),
+                    fetch('/questions?category=multiple_intelligence'),
+                    fetch('/questions?category=big5')
                 ]);
 
                 if (!mbtiRes.ok) throw new Error(`MBTI fetch failed: ${mbtiRes.status}`);
                 if (!tempRes.ok) throw new Error(`Temperament fetch failed: ${tempRes.status}`);
                 if (!ennRes.ok) throw new Error(`Enneagram fetch failed: ${ennRes.status}`);
                 if (!bdRes.ok)  throw new Error(`Brain Dominance fetch failed: ${bdRes.status}`);
+                if (!miRes.ok)  throw new Error(`Multiple Intelligence fetch failed: ${miRes.status}`);
+                if (!b5Res.ok)  throw new Error(`Big 5 fetch failed: ${b5Res.status}`);
 
                 const mbtiQuestions = await mbtiRes.json();
                 const tempQuestions = await tempRes.json();
                 const ennQuestions  = await ennRes.json();
                 const bdQuestions   = await bdRes.json();
-                allQuestions = [...mbtiQuestions, ...tempQuestions, ...ennQuestions, ...bdQuestions];
+                const miQuestions   = await miRes.json();
+                const b5Questions   = await b5Res.json();
+                allQuestions = [...mbtiQuestions, ...tempQuestions, ...ennQuestions, ...bdQuestions, ...miQuestions, ...b5Questions];
 
-                console.log(`Questions loaded — MBTI: ${mbtiQuestions.length}, Temperament: ${tempQuestions.length}, Enneagram: ${ennQuestions.length}, Brain Dominance: ${bdQuestions.length}`);
+                console.log(`Questions loaded — MBTI: ${mbtiQuestions.length}, Temperament: ${tempQuestions.length}, Enneagram: ${ennQuestions.length}, Brain Dominance: ${bdQuestions.length}, Multiple Intelligence: ${miQuestions.length}, Big 5: ${b5Questions.length}`);
 
                 if (allQuestions.length === 0) {
                     console.warn("No questions found in database.");
@@ -666,6 +672,21 @@
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('.question-card').forEach(c => observer.observe(c));
+
+            // Auto-scroll to next question after answering
+            panelsContainer.addEventListener('change', e => {
+                if (e.target.type !== 'radio') return;
+                const currentCard = e.target.closest('.question-card');
+                if (!currentCard) return;
+                const nextCard = currentCard.nextElementSibling;
+                if (nextCard && nextCard.classList.contains('question-card')) {
+                    setTimeout(() => {
+                        const headerHeight = document.querySelector('.session-header')?.offsetHeight || 0;
+                        const cardTop = nextCard.getBoundingClientRect().top + window.scrollY - headerHeight - 24;
+                        window.scrollTo({ top: cardTop, behavior: 'smooth' });
+                    }, 150);
+                }
+            });
         }
 
         function goToDomain(index) {
