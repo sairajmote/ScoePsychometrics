@@ -1,14 +1,14 @@
 """
 seed_big5.py
-Seeds 50 Big 5 Personality questions using a 5-point Likert scale.
+Seeds 100 Big 5 Personality questions using a 5-point Likert scale.
 Scale: Strongly Disagree / Disagree / Neutral / Agree / Strongly Agree
 
 Scoring keys per big5.txt:
-  O (Openness)        — Questions 1–10
-  N (Neuroticism)     — Questions 11–20
-  A (Agreeableness)   — Questions 21–30
-  E (Extraversion)    — Questions 31–40
-  C (Conscientiousness) — Questions 41–50
+  O (Openness)        — Questions 1–20
+  N (Neuroticism)     — Questions 21–40
+  A (Agreeableness)   — Questions 41–60
+  E (Extraversion)    — Questions 61–80
+  C (Conscientiousness) — Questions 81–100
   + = positively keyed (agree = higher trait score)
   - = negatively keyed (agree = lower trait score, reverse-scored)
 
@@ -82,6 +82,62 @@ QUESTIONS = [
     ("My workspace or digital environment often becomes disorganized without me noticing immediately.", "conscientiousness", "-"),
     ("I am inclined to think ahead about possible complications before initiating important tasks.", "conscientiousness", "+"),
     ("I rarely develop structured routines unless someone else expects them from me.", "conscientiousness", "-"),
+    # Extra Big Five questions — expanded set
+    # Openness to Experience (O)
+    ("I enjoy experimenting with new approaches even when familiar methods already work well.", "openness", "+"),
+    ("I tend to avoid activities that require imaginative thinking.", "openness", "-"),
+    ("Learning about unfamiliar cultures or ideas excites me.", "openness", "+"),
+    ("I prefer sticking to traditional ways rather than trying something new.", "openness", "-"),
+    ("I often reflect deeply on abstract concepts or ideas.", "openness", "+"),
+    ("I find creative hobbies unnecessary or unproductive.", "openness", "-"),
+    ("I am curious about possibilities beyond what is immediately visible.", "openness", "+"),
+    ("I feel uneasy when asked to think outside conventional boundaries.", "openness", "-"),
+    ("I enjoy connecting unrelated ideas to form something new.", "openness", "+"),
+    ("I believe imagination is less important than practicality.", "openness", "-"),
+    # Neuroticism (N)
+    ("I sometimes find it difficult to relax even when there is no clear reason to worry.", "neuroticism", "+"),
+    ("I remain emotionally stable even under unexpected pressure.", "neuroticism", "-"),
+    ("Small problems can feel overwhelming at times.", "neuroticism", "+"),
+    ("I usually stay composed even when things don’t go as planned.", "neuroticism", "-"),
+    ("I tend to overthink situations that others might ignore.", "neuroticism", "+"),
+    ("I can quickly let go of worries once a situation is resolved.", "neuroticism", "-"),
+    ("I often feel tense without a clear cause.", "neuroticism", "+"),
+    ("I handle criticism without it affecting my mood significantly.", "neuroticism", "-"),
+    ("I sometimes imagine worst-case scenarios unnecessarily.", "neuroticism", "+"),
+    ("I generally feel confident and secure in my emotions.", "neuroticism", "-"),
+    # Agreeableness (A)
+    ("I try to be considerate of others even when it requires extra effort.", "agreeableness", "+"),
+    ("I prioritize my own needs even if it inconveniences others.", "agreeableness", "-"),
+    ("I feel satisfied when I help others solve their problems.", "agreeableness", "+"),
+    ("I rarely compromise when I strongly believe I am right.", "agreeableness", "-"),
+    ("I value cooperation more than competition.", "agreeableness", "+"),
+    ("I sometimes ignore others’ feelings to get things done faster.", "agreeableness", "-"),
+    ("I tend to forgive people easily after conflicts.", "agreeableness", "+"),
+    ("I find it difficult to trust people without strong proof.", "agreeableness", "-"),
+    ("I try to maintain positive relationships with people around me.", "agreeableness", "+"),
+    ("I believe personal success matters more than group harmony.", "agreeableness", "-"),
+    # Extraversion (E)
+    ("I enjoy being the center of attention in social gatherings.", "extraversion", "+"),
+    ("I feel uncomfortable speaking up in large groups.", "extraversion", "-"),
+    ("I actively seek opportunities to meet new people.", "extraversion", "+"),
+    ("I prefer spending time alone rather than socializing frequently.", "extraversion", "-"),
+    ("I feel energized when engaging in group activities.", "extraversion", "+"),
+    ("I avoid initiating conversations with strangers.", "extraversion", "-"),
+    ("I enjoy expressing my thoughts openly in discussions.", "extraversion", "+"),
+    ("Social interactions often leave me feeling exhausted.", "extraversion", "-"),
+    ("I like environments that are lively and interactive.", "extraversion", "+"),
+    ("I tend to stay quiet even when I have something to say.", "extraversion", "-"),
+    # Conscientiousness (C)
+    ("I set clear goals and work consistently toward achieving them.", "conscientiousness", "+"),
+    ("I often delay tasks until the last moment.", "conscientiousness", "-"),
+    ("I pay attention to details to ensure accuracy in my work.", "conscientiousness", "+"),
+    ("I find it hard to stay organized over long periods.", "conscientiousness", "-"),
+    ("I feel responsible for completing tasks on time.", "conscientiousness", "+"),
+    ("I sometimes lose focus and leave work unfinished.", "conscientiousness", "-"),
+    ("I plan my activities in advance to avoid last-minute stress.", "conscientiousness", "+"),
+    ("I struggle to maintain discipline without external pressure.", "conscientiousness", "-"),
+    ("I take pride in being reliable and dependable.", "conscientiousness", "+"),
+    ("I often act impulsively without proper planning.", "conscientiousness", "-"),
 ]
 
 
