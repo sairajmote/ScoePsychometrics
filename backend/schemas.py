@@ -28,3 +28,7 @@ class ExamSubmissionResponse(BaseModel):
     session_id: int
     temperament_type: Optional[str] = None
     temperament_description: Optional[str] = None
+    big5_profile: Optional[str] = None
+    enneagram_type: Optional[str] = None
+    enneagram_label: Optional[str] = None
+    enneagram_description: Optional[str] = None

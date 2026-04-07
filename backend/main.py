@@ -7,7 +7,7 @@ from sqlalchemy.sql import func
 import os
 import uuid
 from datetime import datetime
-from . import models, database, schemas, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance, scoring_multiple_intelligence
+from . import models, database, schemas, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance, scoring_multiple_intelligence, scoring_enneagram
 from .database import engine, get_db
 
 app = FastAPI()
@@ -116,6 +116,7 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
         big5_scoring_data = []
         brain_dominance_scoring_data = []
         mi_scoring_data = []
+        enneagram_scoring_data = []
 
         for item in request.responses:
             # Save raw response
@@ -157,6 +158,11 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                         "subtest": q.subtest,
                         "selected_option": item.selected_option
                     })
+                elif q.category == "enneagram":
+                    enneagram_scoring_data.append({
+                        "subtest": q.subtest,
+                        "selected_option": item.selected_option
+                    })
 
         db.commit()
 
@@ -174,6 +180,7 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
 
         # 4e. Score Multiple Intelligence
         mi_results = scoring_multiple_intelligence.score_multiple_intelligence(mi_scoring_data)
+        enneagram_results = scoring_enneagram.score_enneagram(enneagram_scoring_data)
         
         # 5. Build full Report JSON
         report_id = f"RPT-{datetime.now().strftime('%Y-%m%d')}-{uuid.uuid4().hex[:4].upper()}"
@@ -243,6 +250,15 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                     "dominant_intelligences": mi_results["dominant_intelligences"],
                     "dominant_labels":        mi_results["dominant_labels"],
                     "intelligences":          mi_results["intelligences"],
+                },
+                "enneagram": {
+                    "label": "Enneagram Personality Type",
+                    "description": "The Enneagram identifies core motivations, fears, and behavioral patterns across nine personality types.",
+                    "primary_type": enneagram_results["primary_type"],
+                    "center": enneagram_results["center"],
+                    "type_scores": enneagram_results["type_scores"],
+                    "type_rankings": enneagram_results["type_rankings"],
+                    "interpretation": enneagram_results["interpretation"]
                 }
             },
             "composite_insights": {
@@ -289,7 +305,10 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
             "session_id": session.id,
             "temperament_type": temperament_results["temperament_type"],
             "temperament_description": temperament_results["description"],
-            "big5_profile": big5_results["profile_summary"]
+            "big5_profile": big5_results["profile_summary"],
+            "enneagram_type": enneagram_results["primary_type"]["code"],
+            "enneagram_label": enneagram_results["primary_type"]["label"],
+            "enneagram_description": enneagram_results["interpretation"]
         }
     except Exception as e:
         db.rollback()
