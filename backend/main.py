@@ -1,16 +1,23 @@
+"""
+Main entry point for the Psychometric Assessment Platform backend.
+Handles all API routes, database sessions, and assessment scoring.
+"""
+import os
+import uuid
+from datetime import datetime
+from typing import Optional
 from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
-import os
-import uuid
-from datetime import datetime
-from . import models, database, schemas, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance, scoring_multiple_intelligence, scoring_enneagram
+
+from . import models, database, schemas, auth, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance, scoring_multiple_intelligence, scoring_enneagram, insights_engine
 from .database import engine, get_db
 
-app = FastAPI()
+# Initialize FastAPI application
+app = FastAPI(title="Psycho One - Psychometric Platform")
 
 # Tables are managed by Alembic migrations — run: alembic upgrade head
 
@@ -25,23 +32,23 @@ templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "frontend", "templa
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html", context={})
 
 @app.get("/exam", response_class=HTMLResponse)
 async def read_exam(request: Request):
-    return templates.TemplateResponse("exam.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="exam.html", context={})
 
 @app.get("/session", response_class=HTMLResponse)
 async def read_session(request: Request):
-    return templates.TemplateResponse("session.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="session.html", context={})
 
 @app.get("/report", response_class=HTMLResponse)
 async def read_report(request: Request):
-    return templates.TemplateResponse("report.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="report.html", context={})
 
 @app.get("/sample-report", response_class=HTMLResponse)
 async def read_sample_report(request: Request):
-    return templates.TemplateResponse("sample_report.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="sample_report.html", context={})
 
 @app.get("/health-db")
 async def health_db(db: Session = Depends(get_db)):
@@ -51,8 +58,6 @@ async def health_db(db: Session = Depends(get_db)):
         return {"status": "ok", "database": "connected"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-from typing import Optional
 
 @app.get("/questions", response_model=list[schemas.QuestionBase])
 async def get_questions(category: Optional[str] = None, db: Session = Depends(get_db)):
@@ -84,6 +89,19 @@ async def get_questions(category: Optional[str] = None, db: Session = Depends(ge
         })
     return result
 
+@app.post("/auth/google-verify")
+async def google_verify(request: schemas.GoogleAuthRequest):
+    idinfo = auth.verify_google_token(request.credential)
+    if not idinfo:
+        raise HTTPException(status_code=400, detail="Invalid Google token")
+    
+    return {
+        "status": "success",
+        "email": idinfo.get("email"),
+        "name": idinfo.get("name"),
+        "picture": idinfo.get("picture")
+    }
+
 @app.post("/submit-exam", response_model=schemas.ExamSubmissionResponse)
 async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(get_db)):
     try:
@@ -93,16 +111,25 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
             user = models.User(
                 name=request.student_name,
                 email=request.email,
-                education=request.education
+                education=request.education,
+                country=request.country,
+                password=request.password
             )
             db.add(user)
             db.commit()
             db.refresh(user)
+        else:
+            if request.password and not user.password:
+                user.password = request.password
+            if request.country and not user.country:
+                user.country = request.country
+            db.commit()
 
         # 2. Create Quiz Session
         session = models.QuizSession(
             user_id=user.id,
             status="completed",
+            duration_seconds=request.quiz_duration_seconds,
             completed_at=func.now()
         )
         db.add(session)
@@ -195,7 +222,7 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                     "education": user.education or "Not Specified"
                 },
                 "generated_at": datetime.now().isoformat(),
-                "quiz_duration_seconds": 1200, # Mocked
+                "quiz_duration_seconds": request.quiz_duration_seconds or 0,
                 "total_questions_answered": len(request.responses)
             },
             "subtests": {
@@ -222,12 +249,7 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                             "dimension_b": {"label": "Perceiving", "code": "P", "score": mbti_results["dimensions"]["JP"]["pct_b"]}
                         }
                     },
-                    "cognitive_functions": {
-                        "dominant": {"label": "Mock Function", "code": "Xi", "strength": 80},
-                        "auxiliary": {"label": "Mock Function", "code": "Xe", "strength": 60},
-                        "tertiary": {"label": "Mock Function", "code": "Xi", "strength": 40},
-                        "inferior": {"label": "Mock Function", "code": "Xe", "strength": 20}
-                    },
+                    "cognitive_functions": scoring_mbti.get_cognitive_stack(mbti_results["result_type"]),
                     "interpretation": "Your personality profile suggests a unique way of processing information and interacting with the world."
                 },
                 "big5": {
@@ -259,32 +281,27 @@ async def submit_exam(request: schemas.SubmitExamRequest, db: Session = Depends(
                     "type_scores": enneagram_results["type_scores"],
                     "type_rankings": enneagram_results["type_rankings"],
                     "interpretation": enneagram_results["interpretation"]
+                },
+                "temperament": {
+                    "label": "Core Temperament",
+                    "description": "Your biological temperament based on Eysenck's Personality Theory, measuring Extraversion and emotional stability.",
+                    "result_type": temperament_results["temperament_type"],
+                    "interpretation": temperament_results["description"],
+                    "e_score": temperament_results["e_score"],
+                    "n_score": temperament_results["n_score"],
+                    "e_max": temperament_results["e_max"],
+                    "n_max": temperament_results["n_max"],
                 }
             },
             "composite_insights": {
-                "personality_summary": (
-                    f"Your MBTI personality type is **{mbti_results['result_type']}** — "
-                    f"{scoring_mbti.get_mbti_label(mbti_results['result_type'])}. "
-                    "This profile reflects your natural preferences for how you perceive the world and make decisions. "
-                    "Use the dichotomy breakdown below to understand the clarity of each dimension."
-                ),
-                "top_strengths": [
-                    f"Strong {mbti_results['result_type'][0]} preference (Energy dimension)",
-                    "Analytical decision-making",
-                    "Consistent personal values",
-                    "Structured thinking"
-                ],
-                "growth_areas": [
-                    "Balancing opposing preferences",
-                    "Adapting to new perspectives",
-                    "Exploring less dominant traits"
-                ],
-                "recommended_career_domains": [
-                    "Research & Strategy",
-                    "Technology & Engineering",
-                    "Counseling & Psychology",
-                    "Writing & Communication"
-                ]
+                **insights_engine.generate_ai_insights(
+                    mbti_results=mbti_results,
+                    temperament_results=temperament_results,
+                    enneagram_results=enneagram_results,
+                    big5_results=big5_results,
+                    brain_dominance_results=brain_dominance_results,
+                    mi_results=mi_results
+                )
             }
         }
 
@@ -321,6 +338,26 @@ async def get_report(report_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Report not found")
     return report.report_data
 
+@app.get("/api/reports/user/{email}")
+async def get_reports_by_email(email: str, password: Optional[str] = None, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if not user:
+        return []
+
+    if user.password != password:
+        raise HTTPException(status_code=401, detail="Invalid password")
+
+    reports = db.query(models.Report).filter(models.Report.user_id == user.id).order_by(models.Report.created_at.desc()).all()
+    
+    result = []
+    for r in reports:
+        result.append({
+            "report_id": r.report_id,
+            "created_at": r.created_at.isoformat() if r.created_at else None,
+            "candidate_name": user.name
+        })
+    return result
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

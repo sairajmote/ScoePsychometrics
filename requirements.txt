@@ -6,3 +6,6 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 alembic
+numpy
+google-auth
+requests
