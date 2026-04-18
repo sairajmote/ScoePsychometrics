@@ -51,17 +51,17 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
     global model
     
     fallback = {
-        "personality_summary": "AI Overview is currently processing. Please check back in a moment or verify your API configuration.",
+        "personality_summary": "Your AI Overview is currently processing. Please check back in a moment or verify your API configuration.",
         "top_strengths": ["Analytical Thinking", "Strategic Planning", "Adaptability"],
         "growth_areas": ["Communication style", "Time management"],
         "recommended_career_domains": [
-            {"name": "Technology", "reason": "Strong logical-mathematical background."},
-            {"name": "Research", "reason": "Detailed and analytical approach to problems."}
+            {"name": "Technology", "reason": "You have a strong logical-mathematical background."},
+            {"name": "Research", "reason": "You take a detailed and analytical approach to problems."}
         ],
         "compatibility_notes": {
-            "work_environment": "Quiet, structured environments.",
-            "team_role": "Analyst or Researcher.",
-            "leadership_style": "Leading by expertise."
+            "work_environment": "You thrive in quiet, structured environments.",
+            "team_role": "You contribute best as an Analyst or Researcher.",
+            "leadership_style": "You lead by expertise and precision."
         }
     }
 
@@ -86,9 +86,9 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
         mi_top = ", ".join(mi_results.get("dominant_labels", []))
 
     prompt = f"""
-    You are an expert psychometrician and master behavioral analyst. Based on the provided scores, generate a comprehensive, deep-dive personality analysis.
+    Based on the provided scores, generate a comprehensive, deep-dive personality analysis for the user.
 
-    CANDIDATE DATA:
+    DATA:
     - MBTI: {mbti} ({mbti_label})
     - Temperament: {temp}
     - Enneagram: {ennea}
@@ -97,30 +97,35 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
     - Top Intelligences: {mi_top}
 
     TASK:
-    Produce a detailed, multi-paragraph narrative for the "personality_summary" section. This should be a significant deep-dive (approx. 400-600 words) that explores the complex interplay between their markers.
+    Produce a detailed, multi-paragraph narrative for the "personality_summary" section. This should be a significant deep-dive (approx. 400-600 words).
     
+    CRITICAL STYLE INSTRUCTIONS:
+    1. ALWAYS write in the SECOND PERSON ("You", "Your"). 
+    2. NEVER refer to the subject as "the candidate", "the user", or "the individual".
+    3. Make the tone advisory, direct, and insightful.
+
     CRITICAL FORMATTING INSTRUCTIONS:
     1. Use a multi-paragraph structure.
-    2. USE NUMBERED POINTS (1., 2., 3., etc.) to break down the key analysis areas (e.g., 1. Identity & Core Drives, 2. Emotional Landscape, 3. Cognitive & Learning Style).
+    2. USE NUMBERED POINTS (1., 2., 3., etc.) to break down the key analysis areas (e.g., 1. Your Identity & Core Drives, 2. Your Emotional Landscape, 3. Your Cognitive & Learning Style).
     3. Use double newlines (\\n\\n) for vertical spacing between paragraphs and points.
     4. Ensure the content is structured for readability.
 
     OUTPUT SCHEMA (RETURN ONLY VALID JSON):
     {{
-        "ai_overview": "A high-level, 4-6 sentence professional introductory summary for the report cover. It should be insightful and provide a strong initial impression.",
-        "personality_summary": "A comprehensive 450+ word deep-dive narrative, divided into logical sections with numbered points (1., 2., 3.). Use \\n\\n for clear vertical spacing between every paragraph and point.",
+        "ai_overview": "A high-level, 4-6 sentence professional introductory summary for the user. Written in second person.",
+        "personality_summary": "A comprehensive 450+ word deep-dive narrative, divided into logical sections with numbered points (1., 2., 3.). Written in second person. Use \\n\\n for clear vertical spacing.",
         "top_strengths": ["string", "string", "string", "string", "string"],
         "growth_areas": ["string", "string", "string", "string"],
         "recommended_career_domains": [
-            {{ "name": "Domain Name", "reason": "Specific reason based on their profile." }},
-            {{ "name": "Domain Name", "reason": "Specific reason based on their profile." }},
-            {{ "name": "Domain Name", "reason": "Specific reason based on their profile." }},
-            {{ "name": "Domain Name", "reason": "Specific reason based on their profile." }}
+            {{ "name": "Domain Name", "reason": "Specific reason explaining why this suits YOU." }},
+            {{ "name": "Domain Name", "reason": "Specific reason explaining why this suits YOU." }},
+            {{ "name": "Domain Name", "reason": "Specific reason explaining why this suits YOU." }},
+            {{ "name": "Domain Name", "reason": "Specific reason explaining why this suits YOU." }}
         ],
         "compatibility_notes": {{
-            "work_environment": "Describe the ideal physical and cultural workspace in detail.",
-            "team_role": "Describe their natural contribution to a team in detail.",
-            "leadership_style": "Describe how they lead or manage others in detail."
+            "work_environment": "Describe the ideal workspace for YOU in detail.",
+            "team_role": "Describe YOUR natural contribution to a team in detail.",
+            "leadership_style": "Describe how YOU lead or manage others in detail."
         }}
     }}
 
