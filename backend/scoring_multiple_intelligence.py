@@ -1,18 +1,18 @@
 """
 scoring_multiple_intelligence.py
-Scores 44 Multiple Intelligence questionnaire responses.
+Scores 90 Multiple Intelligence questionnaire responses.
 
 Intelligence Tags
 -----------------
-  LI   → Linguistic Intelligence           (4 questions: 22, 30, 38, 41)
-  LMI  → Logical-Mathematical Intelligence (7 questions: 3, 8, 10, 13, 20, 21, 40)
-  MI   → Musical Intelligence              (5 questions: 2, 17, 18, 34, 42)
-  BKI  → Bodily-Kinesthetic Intelligence   (5 questions: 6, 16, 26, 31, 44)
-  SVI  → Spatial-Visual Intelligence       (3 questions: 12, 19, 33)
-  IPI  → Interpersonal Intelligence        (5 questions: 4, 7, 23, 24, 32)
-  INPI → Intrapersonal Intelligence        (5 questions: 1, 11, 14, 25, 37)
-  NI   → Naturalistic Intelligence         (5 questions: 9, 28, 29, 35, 43)
-  EI   → Existential Intelligence          (5 questions: 5, 15, 27, 36, 39)
+  LI   → Linguistic Intelligence           (10 questions: 22, 30, 38, 41, 45, 46, 47, 48, 49, 50)
+  LMI  → Logical-Mathematical Intelligence (10 questions: 3, 8, 10, 13, 20, 21, 40, 51, 52, 53)
+  MI   → Musical Intelligence              (10 questions: 2, 17, 18, 34, 42, 54, 55, 56, 57, 58)
+  BKI  → Bodily-Kinesthetic Intelligence   (10 questions: 6, 16, 26, 31, 44, 59, 60, 61, 62, 63)
+  SVI  → Spatial-Visual Intelligence       (10 questions: 12, 19, 33, 64, 65, 66, 67, 68, 69, 70)
+  IPI  → Interpersonal Intelligence        (10 questions: 4, 7, 23, 24, 32, 71, 72, 73, 74, 75)
+  INPI → Intrapersonal Intelligence        (10 questions: 1, 11, 14, 25, 37, 76, 77, 78, 79, 80)
+  NI   → Naturalistic Intelligence         (10 questions: 9, 28, 29, 35, 43, 81, 82, 83, 84, 85)
+  EI   → Existential Intelligence          (10 questions: 5, 15, 27, 36, 39, 86, 87, 88, 89, 90)
 
 Scoring Logic
 -------------
