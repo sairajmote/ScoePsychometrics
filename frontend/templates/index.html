@@ -100,10 +100,10 @@
             </div>
             
             <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;">
-                <input type="email" id="lookupEmail" placeholder="candidate@example.com" style="padding:0.8rem; border:1px solid #ccc; font-size:1rem; outline:none;">
+                <input type="email" id="lookupEmail" placeholder="candidate@example.com" style="padding:0.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none;">
                 <div style="display:flex; gap:0.5rem;">
-                    <input type="password" id="lookupPassword" placeholder="Password" style="flex:1; padding:0.8rem; border:1px solid #ccc; font-size:1rem; outline:none;" onkeypress="if(event.key === 'Enter') lookupReports();">
-                    <button onclick="lookupReports()" style="background:#000; color:#fff; border:none; padding:0.8rem 1.5rem; font-weight:700; cursor:pointer; text-transform:uppercase;">Search</button>
+                    <input type="password" id="lookupPassword" placeholder="Password" style="flex:1; padding:0.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none;" onkeypress="if(event.key === 'Enter') lookupReports();">
+                    <button onclick="lookupReports()" style="background:#000; color:#fff; border:none; border-radius:8px; padding:0.8rem 1.5rem; font-weight:700; cursor:pointer; text-transform:uppercase;">Search</button>
                 </div>
             </div>
             
@@ -122,7 +122,7 @@
         .modal-overlay.active { display: flex; }
         .modal-content {
             background: #fff; width: 90%; max-width: 500px; padding: 1.25rem; position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s ease; border-radius: 12px;
         }
         .modal-close {
             position: absolute;
@@ -157,7 +157,7 @@
         @keyframes popIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
         .report-item {
-            display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid #eee; text-decoration: none; color: #000; transition: border-color 0.2s;
+            display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid #eee; border-radius: 8px; text-decoration: none; color: #000; transition: border-color 0.2s;
         }
         .report-item:hover { border-color: #000; }
         .ri-id { font-weight: 700; font-size: 1rem; }
