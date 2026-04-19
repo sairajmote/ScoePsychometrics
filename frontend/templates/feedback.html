@@ -38,25 +38,25 @@
 
             <!-- ─── INTRO CARD ─────────────────────────────── -->
             <div class="fb-card intro-card active" id="fb-intro">
-                <div class="fb-intro-icon">&#128172;</div>
+
                 <h1 class="fb-hero-title">How Did We Do?</h1>
                 <p class="fb-hero-sub">
                     Your feedback helps us make the assessment more accurate and useful.
                     This survey takes <strong>2–3 minutes</strong> and has <strong>15 short questions</strong>.
                 </p>
                 <div class="fb-intro-chips">
-                    <span class="chip">&#9733; Accuracy</span>
-                    <span class="chip">&#128161; Usefulness</span>
-                    <span class="chip">&#128204; Clarity</span>
-                    <span class="chip">&#128101; Self-Insight</span>
+                    <span class="chip">Accuracy</span>
+                    <span class="chip">Usefulness</span>
+                    <span class="chip">Clarity</span>
+                    <span class="chip">Self-Insight</span>
                 </div>
                 <button class="fb-btn-primary" id="btn-start" onclick="startSurvey()">Begin Survey &rarr;</button>
             </div>
 
             <!-- ─── QUESTION CARDS ──────────────────────────── -->
 
-            <!-- Q1 ─ Overall accuracy (Likert 1-5) -->
-            <div class="fb-card" data-q="1" data-type="likert" data-field="q1_overall_accuracy">
+            <!-- Q1 ─ Overall accuracy (Likert 1-10) -->
+            <div class="fb-card" data-q="1" data-type="likert10" data-field="q1_overall_accuracy">
                 <span class="fb-q-badge">Q1 / 15</span>
                 <span class="fb-dimension-tag">Perceived Accuracy</span>
                 <h2 class="fb-q-text">Overall, how accurately did the assessment results reflect your actual personality?</h2>
@@ -68,6 +68,11 @@
                         <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="3"><span>3</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="4"><span>4</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="5"><span>5</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="6"><span>6</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="7"><span>7</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="8"><span>8</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="9"><span>9</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="10"><span>10</span></label>
                     </div>
                     <span class="fb-likert-label-right">Extremely accurate</span>
                 </div>
@@ -77,8 +82,8 @@
                 </div>
             </div>
 
-            <!-- Q2 ─ Personality type accuracy (Likert 1-5) -->
-            <div class="fb-card" data-q="2" data-type="likert" data-field="q2_personality_accuracy">
+            <!-- Q2 ─ Personality type accuracy (Likert 1-10) -->
+            <div class="fb-card" data-q="2" data-type="likert10" data-field="q2_personality_accuracy">
                 <span class="fb-q-badge">Q2 / 15</span>
                 <span class="fb-dimension-tag">Perceived Accuracy</span>
                 <h2 class="fb-q-text">How accurately does your MBTI / Enneagram type describe your personality?</h2>
@@ -90,6 +95,11 @@
                         <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="3"><span>3</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="4"><span>4</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="5"><span>5</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="6"><span>6</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="7"><span>7</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="8"><span>8</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="9"><span>9</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="10"><span>10</span></label>
                     </div>
                     <span class="fb-likert-label-right">Spot on</span>
                 </div>
@@ -99,8 +109,8 @@
                 </div>
             </div>
 
-            <!-- Q3 ─ Trait-score accuracy (Likert 1-5) -->
-            <div class="fb-card" data-q="3" data-type="likert" data-field="q3_trait_scores_accuracy">
+            <!-- Q3 ─ Trait-score accuracy (Likert 1-10) -->
+            <div class="fb-card" data-q="3" data-type="likert10" data-field="q3_trait_scores_accuracy">
                 <span class="fb-q-badge">Q3 / 15</span>
                 <span class="fb-dimension-tag">Perceived Accuracy</span>
                 <h2 class="fb-q-text">How accurately do the individual trait scores (e.g., Openness 78%, Left-Brain 62%) reflect your self-perception?</h2>
@@ -112,6 +122,11 @@
                         <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="3"><span>3</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="4"><span>4</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="5"><span>5</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="6"><span>6</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="7"><span>7</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="8"><span>8</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="9"><span>9</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="10"><span>10</span></label>
                     </div>
                     <span class="fb-likert-label-right">Very accurate</span>
                 </div>
@@ -121,8 +136,8 @@
                 </div>
             </div>
 
-            <!-- Q4 ─ Usefulness for self-understanding (Likert 1-5) -->
-            <div class="fb-card" data-q="4" data-type="likert" data-field="q4_self_understanding">
+            <!-- Q4 ─ Usefulness for self-understanding (Likert 1-10) -->
+            <div class="fb-card" data-q="4" data-type="likert10" data-field="q4_self_understanding">
                 <span class="fb-q-badge">Q4 / 15</span>
                 <span class="fb-dimension-tag">Usefulness</span>
                 <h2 class="fb-q-text">How useful were the results for deepening your self-understanding?</h2>
@@ -134,6 +149,11 @@
                         <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="3"><span>3</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="4"><span>4</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="5"><span>5</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="6"><span>6</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="7"><span>7</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="8"><span>8</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="9"><span>9</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="10"><span>10</span></label>
                     </div>
                     <span class="fb-likert-label-right">Extremely useful</span>
                 </div>
@@ -143,8 +163,8 @@
                 </div>
             </div>
 
-            <!-- Q5 ─ Report clarity (Likert 1-5) -->
-            <div class="fb-card" data-q="5" data-type="likert" data-field="q5_report_clarity">
+            <!-- Q5 ─ Report clarity (Likert 1-10) -->
+            <div class="fb-card" data-q="5" data-type="likert10" data-field="q5_report_clarity">
                 <span class="fb-q-badge">Q5 / 15</span>
                 <span class="fb-dimension-tag">Clarity</span>
                 <h2 class="fb-q-text">How clear and easy to understand was the report?</h2>
@@ -156,6 +176,11 @@
                         <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="3"><span>3</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="4"><span>4</span></label>
                         <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="5"><span>5</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="6"><span>6</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="7"><span>7</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="8"><span>8</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="9"><span>9</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="10"><span>10</span></label>
                     </div>
                     <span class="fb-likert-label-right">Crystal clear</span>
                 </div>
@@ -217,11 +242,11 @@
                 <div class="fb-yn-row">
                     <label class="fb-yn-opt">
                         <input type="radio" name="q8_ei_agreement" value="1">
-                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, I agree</span>
+                        <span class="fb-yn-btn yes-btn">Yes, I agree</span>
                     </label>
                     <label class="fb-yn-opt">
                         <input type="radio" name="q8_ei_agreement" value="0">
-                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, I disagree</span>
+                        <span class="fb-yn-btn no-btn">No, I disagree</span>
                     </label>
                 </div>
                 <div class="fb-nav-row">
@@ -238,11 +263,11 @@
                 <div class="fb-yn-row">
                     <label class="fb-yn-opt">
                         <input type="radio" name="q9_mi_agreement" value="1">
-                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, I agree</span>
+                        <span class="fb-yn-btn yes-btn">Yes, I agree</span>
                     </label>
                     <label class="fb-yn-opt">
                         <input type="radio" name="q9_mi_agreement" value="0">
-                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, I disagree</span>
+                        <span class="fb-yn-btn no-btn">No, I disagree</span>
                     </label>
                 </div>
                 <div class="fb-nav-row">
@@ -259,11 +284,11 @@
                 <div class="fb-yn-row">
                     <label class="fb-yn-opt">
                         <input type="radio" name="q10_enneagram_agreement" value="1">
-                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, it fits</span>
+                        <span class="fb-yn-btn yes-btn">Yes, it fits</span>
                     </label>
                     <label class="fb-yn-opt">
                         <input type="radio" name="q10_enneagram_agreement" value="0">
-                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, it doesn't fit</span>
+                        <span class="fb-yn-btn no-btn">No, it doesn't fit</span>
                     </label>
                 </div>
                 <div class="fb-nav-row">
@@ -324,11 +349,11 @@
                 <div class="fb-yn-row">
                     <label class="fb-yn-opt">
                         <input type="radio" name="q13_retake" value="1">
-                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, definitely</span>
+                        <span class="fb-yn-btn yes-btn">Yes, definitely</span>
                     </label>
                     <label class="fb-yn-opt">
                         <input type="radio" name="q13_retake" value="0">
-                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, probably not</span>
+                        <span class="fb-yn-btn no-btn">No, probably not</span>
                     </label>
                 </div>
                 <div class="fb-nav-row">
@@ -376,14 +401,13 @@
                 <div class="fb-char-count"><span id="char-count">0</span> / 2000</div>
                 <div class="fb-nav-row">
                     <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
-                    <button class="fb-btn-submit" id="btn-submit" onclick="submitFeedback()">Submit Feedback &#10003;</button>
+                    <button class="fb-btn-submit" id="btn-submit" onclick="submitFeedback()">Submit Feedback</button>
                 </div>
             </div>
 
             <!-- ─── THANK-YOU CARD ─────────────────────────── -->
             <div class="fb-card thankyou-card" id="fb-thankyou">
-                <div class="fb-ty-icon">&#127881;</div>
-                <h2 class="fb-ty-title">Thank You!</h2>
+                <h2 class="fb-ty-title">Thank You</h2>
                 <p class="fb-ty-sub">Your feedback has been recorded and will help us continuously improve the accuracy and quality of this assessment.</p>
                 <div class="fb-oas-box" id="fb-oas-box" style="display:none;">
                     <div class="fb-oas-label">Current Overall Accuracy Score</div>

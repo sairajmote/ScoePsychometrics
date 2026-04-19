@@ -682,11 +682,15 @@ async def get_feedback_stats(db: Session = Depends(get_db)):
         return round(sum(vals) / len(vals), 3) if vals else None
 
     # ———  Per-metric averages (raw scale)  ———
-    likert_cols = [
+    # Q1-Q5: 1-10 scale   |   Q6,Q7,Q11,Q12,Q14: 1-5 scale
+    likert10_cols = [
         "q1_overall_accuracy", "q2_personality_accuracy", "q3_trait_scores_accuracy",
-        "q4_self_understanding", "q5_report_clarity", "q6_trust", "q7_novelty",
-        "q11_test_length", "q12_recommend", "q14_satisfaction"
+        "q4_self_understanding", "q5_report_clarity",
     ]
+    likert5_cols = [
+        "q6_trust", "q7_novelty", "q11_test_length", "q12_recommend", "q14_satisfaction"
+    ]
+    likert_cols = likert10_cols + likert5_cols   # all Likert (for type-check)
     yn_cols = ["q8_ei_agreement", "q9_mi_agreement", "q10_enneagram_agreement", "q13_retake"]
 
     per_metric: dict = {}
@@ -718,12 +722,14 @@ async def get_feedback_stats(db: Session = Depends(get_db)):
         avg = per_metric.get(col)
         if avg is None:
             continue
-        if col in likert_cols:
-            pct = (avg - 1) / 4 * 100   # Likert 1-5 -> 0-100
+        if col in likert10_cols:
+            pct = (avg - 1) / 9 * 100   # Likert 1-10 -> 0-100
+        elif col in likert5_cols:
+            pct = (avg - 1) / 4 * 100   # Likert 1-5  -> 0-100
             if col == "q11_test_length":
                 pct = 100 - pct         # Invert fatigue so higher = better
         else:
-            pct = avg * 100             # Yes/No 0-1 -> 0-100
+            pct = avg * 100             # Yes/No 0-1  -> 0-100
         weighted_sum += pct * w
         total_weight += w
 
