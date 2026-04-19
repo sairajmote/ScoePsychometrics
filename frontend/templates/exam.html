@@ -31,13 +31,15 @@
                 <div class="exam-info">
                     <h3>Assessment Structure</h3>
                     <p>The ScoePsychometrics assessment is a comprehensive evaluation designed to provide a
-                        high-fidelity
-                        psychological and cognitive profile. The examination is structured into five core modules:</p>
+                        high-fidelity psychological and cognitive profile. The examination covers eight core modules:</p>
                     <ul class="exam-list">
                         <li><strong>MBTI (Myers-Briggs)</strong>: Analysis of psychological preferences in how you perceive the world and make decisions.</li>
-                        <li><strong>Temperament (Eysenck)</strong>: Measurement of Extraversion and Neuroticism dimensions to classify your core temperament as Sanguine, Choleric, Phlegmatic, or Melancholic.</li>
-                        <li><strong>Enneagram</strong>: Exploration of nine personality archetypes and core motivational patterns that drive your behaviour.</li>
-                        <li><strong>Brain Dominance</strong>: Assessment of left-brain versus right-brain cognitive preferences across logic, creativity, structure, and intuition.</li>
+                        <li><strong>Big Five Personality</strong>: Measures Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.</li>
+                        <li><strong>Enneagram</strong>: Exploration of nine personality archetypes and core motivational patterns.</li>
+                        <li><strong>Brain Dominance</strong>: Assessment of left-brain versus right-brain cognitive preferences.</li>
+                        <li><strong>Temperament (Eysenck)</strong>: Classifies your core temperament as Sanguine, Choleric, Phlegmatic, or Melancholic.</li>
+                        <li><strong>Multiple Intelligence</strong>: Identifies your dominant intelligences across nine categories.</li>
+                        <li><strong>Cognitive Abilities</strong>: Evaluates forgetfulness, distractibility, false triggering, and logical reasoning.</li>
                     </ul>
                 </div>
                 <div class="exam-instructions">
@@ -45,20 +47,113 @@
                     <p>Candidates are required to adhere to the following protocols to ensure the integrity and accuracy
                         of the assessment:</p>
                     <ul class="instruction-list">
-                        <li><strong>Duration</strong>: The total allocated time for the examination is 120 minutes.</li>
                         <li><strong>Environment</strong>: Candidates must ensure a controlled, quiet environment free
                             from distractions.</li>
                         <li><strong>Integrity</strong>: The use of external aids, unauthorized resources, or
                             collaborative assistance is strictly prohibited.</li>
                         <li><strong>Completion</strong>: All sections must be completed within the single allocated
                             session to maintain psychological consistency.</li>
+                        <li><strong>Honesty</strong>: Answer based on how you actually are, not how you wish to be.</li>
                     </ul>
                 </div>
             </div>
-            <div class="exam-cta" style="margin-top: 4rem; text-align: center;">
-                <a href="/session" class="btn" style="padding: 1.5rem 4rem; font-size: 1.1rem;">Start Exam
-                    Session</a>
+
+            <!-- ── Test selection cards ── -->
+            <div style="margin-top: 4rem;">
+                <h3 style="text-align:center; font-size:1.1rem; font-weight:700; text-transform:uppercase;
+                            letter-spacing:0.12em; color:#555; margin-bottom:2rem;">
+                    Choose Your Test Format
+                </h3>
+                <div style="display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;">
+
+                    <!-- FULL TEST card -->
+                    <div style="
+                        flex:1; min-width:280px; max-width:420px;
+                        border:2px solid #000;
+                        padding:2.5rem 2rem;
+                        display:flex; flex-direction:column; gap:1.2rem;
+                        background:#000; color:#fff;
+                    ">
+                        <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase;
+                                    letter-spacing:0.15em; opacity:0.6;">
+                            Recommended
+                        </div>
+                        <h3 style="font-size:1.6rem; font-weight:800; margin:0; letter-spacing:-0.01em;">
+                            Full Test
+                        </h3>
+                        <p style="font-size:0.9rem; opacity:0.75; line-height:1.6; margin:0;">
+                            The complete psychometric battery covering all eight assessment modules.
+                        </p>
+                        <ul style="font-size:0.88rem; line-height:1.8; opacity:0.85; padding-left:1.2rem; margin:0;">
+                            <li>~500 questions across all 8 subtests</li>
+                            <li>Approximately <strong style="color:#fff;">60 minutes</strong> to complete</li>
+                            <li><strong style="color:#fff;">Higher statistical accuracy</strong> — more items per attribute yield more reliable scores</li>
+                            <li>Recommended for detailed career guidance and clinical use</li>
+                        </ul>
+                        <a href="/session?mode=full"
+                           id="btn-full-test"
+                           style="
+                            display:inline-block; margin-top:auto;
+                            padding:1rem 2rem; text-align:center;
+                            background:#fff; color:#000;
+                            font-weight:700; font-size:0.9rem;
+                            text-transform:uppercase; letter-spacing:0.08em;
+                            text-decoration:none;
+                            transition:background 0.2s;
+                           "
+                           onmouseover="this.style.background='#e0e0e0'"
+                           onmouseout="this.style.background='#fff'"
+                        >
+                            Start Full Test &rarr;
+                        </a>
+                    </div>
+
+                    <!-- SHORTER TEST card -->
+                    <div style="
+                        flex:1; min-width:280px; max-width:420px;
+                        border:2px solid #000;
+                        padding:2.5rem 2rem;
+                        display:flex; flex-direction:column; gap:1.2rem;
+                        background:#fff; color:#000;
+                    ">
+                        <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase;
+                                    letter-spacing:0.15em; color:#888;">
+                            Quick Option
+                        </div>
+                        <h3 style="font-size:1.6rem; font-weight:800; margin:0; letter-spacing:-0.01em;">
+                            Shorter Test
+                        </h3>
+                        <p style="font-size:0.9rem; color:#555; line-height:1.6; margin:0;">
+                            A curated 150-question short form that still covers every attribute at least once.
+                        </p>
+                        <ul style="font-size:0.88rem; line-height:1.8; color:#444; padding-left:1.2rem; margin:0;">
+                            <li>150 questions across all 8 subtests</li>
+                            <li>Approximately <strong>20 minutes</strong> to complete</li>
+                            <li>Good for a quick personality snapshot</li>
+                            <li>Scores may be slightly less precise than the full test due to fewer items per attribute</li>
+                        </ul>
+                        <a href="/session?mode=short"
+                           id="btn-short-test"
+                           style="
+                            display:inline-block; margin-top:auto;
+                            padding:1rem 2rem; text-align:center;
+                            background:#000; color:#fff;
+                            font-weight:700; font-size:0.9rem;
+                            text-transform:uppercase; letter-spacing:0.08em;
+                            text-decoration:none;
+                            border:2px solid #000;
+                            transition:background 0.2s;
+                           "
+                           onmouseover="this.style.background='#333'"
+                           onmouseout="this.style.background='#000'"
+                        >
+                            Start Shorter Test &rarr;
+                        </a>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </section>
 

@@ -137,19 +137,21 @@ def score_brain_dominance(scoring_data: List[Dict[str, Any]]) -> Dict[str, Any]:
             right_sum   += raw
             right_count += 1
 
-    # Calculate percentages (handle edge case of missing responses)
-    if left_count > 0:
-        left_pct = round((left_sum  - left_count)  / (left_count  * 4) * 100, 1)
+    # Calculate raw intensity percentages
+    left_raw = (left_sum - left_count) / (left_count * 4) * 100 if left_count > 0 else 50.0
+    right_raw = (right_sum - right_count) / (right_count * 4) * 100 if right_count > 0 else 50.0
+
+    # Normalize to 100% total for visual display
+    total_pct = left_raw + right_raw
+    if total_pct > 0:
+        left_pct = round((left_raw / total_pct) * 100, 1)
+        right_pct = round((right_raw / total_pct) * 100, 1)
     else:
         left_pct = 50.0
-
-    if right_count > 0:
-        right_pct = round((right_sum - right_count) / (right_count * 4) * 100, 1)
-    else:
         right_pct = 50.0
 
-    # Determine dominant side (5-point margin to avoid declaring a split on tiny differences)
-    margin = left_pct - right_pct
+    # Determine dominant side based on raw intensity margin
+    margin = left_raw - right_raw
     if margin > 5:
         dominance_key = "left_dominant"
     elif margin < -5:
@@ -157,8 +159,9 @@ def score_brain_dominance(scoring_data: List[Dict[str, Any]]) -> Dict[str, Any]:
     else:
         dominance_key = "balanced"
 
-    left_desc_key  = _descriptor(left_pct)
-    right_desc_key = _descriptor(right_pct)
+    # Descriptors use raw intensity (not normalized) to preserve qualitative insight
+    left_desc_key  = _descriptor(left_raw)
+    right_desc_key = _descriptor(right_raw)
 
     return {
         "left": {

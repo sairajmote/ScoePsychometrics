@@ -7,6 +7,21 @@
     <title>Active Session | SCOE-Psychometrics</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
+        .mode-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 0.3rem 0.9rem;
+            border: 2px solid #000;
+            background: #fff;
+            color: #000;
+            white-space: nowrap;
+        }
+        .mode-badge.short { background: #000; color: #fff; border-color: #000; }
+    </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
         * {
             box-sizing: border-box;
         }
@@ -285,7 +300,7 @@
             background: #fff;
             width: 100%;
             max-width: 480px;
-            padding: 3rem;
+            padding: 1.75rem;
             border: 2px solid #000;
             position: relative;
         }
@@ -295,18 +310,18 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
         }
 
         #info-modal .modal-subtitle {
             font-size: 0.85rem;
             color: #666;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem;
             line-height: 1.5;
         }
 
         .info-field {
-            margin-bottom: 1.4rem;
+            margin-bottom: 0.7rem;
         }
 
         .info-field label {
@@ -370,6 +385,38 @@
         #btn-start-exam:hover {
             background: #222;
         }
+
+        /* Close button for overlay */
+        .btn-close-overlay {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #888;
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .btn-close-overlay:hover {
+            background: #f5f5f5;
+            color: #000;
+            border-color: #eee;
+            transform: rotate(90deg);
+        }
+
+        .btn-close-overlay:active {
+            transform: rotate(90deg) scale(0.9);
+        }
     </style>
 </head>
 
@@ -378,8 +425,40 @@
     <!-- Pre-exam info overlay -->
     <div id="info-overlay">
         <div id="info-modal">
+            <button class="btn-close-overlay" onclick="window.location.href='/exam'" title="Cancel and go back">×</button>
             <h2>Before You Begin</h2>
-            <p class="modal-subtitle">Please fill in your details below. This information will be used to generate your personalised psychometric report.</p>
+            <p id="modal-mode-label" class="modal-subtitle">Please fill in your details below. This information will be used to generate your personalised psychometric report.</p>
+
+            <!-- Google Sign-In Integration -->
+            <!-- 
+                 Google Identity Services (GSI) Integration
+                 - data-client_id: Project-specific ID from Google Cloud Console
+                 - data-callback: JS function called after successful authentication
+            -->
+            <div id="g_id_onload"
+                data-client_id="363945290379-gogiov7n9mkc8pjqcmq0gapalrasesfg.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-callback="handleGoogleSignIn"
+                data-auto_prompt="false">
+            </div>
+
+            <!-- Standard Google Sign-In Button -->
+            <div class="g_id_signin"
+                data-type="standard"
+                data-shape="rectangular"
+                data-theme="outline"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left"
+                style="margin-bottom: 1.25rem; display: flex; justify-content: center;">
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0 1.25rem; font-size: 0.75rem; font-weight: 700; color: #aaa; display: flex; align-items: center; gap: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                <div style="flex: 1; height: 1px; background: #eee;"></div>
+                <span>Or enter details manually</span>
+                <div style="flex: 1; height: 1px; background: #eee;"></div>
+            </div>
 
             <div class="info-field">
                 <label for="input-name">Full Name <span style="color:#c0392b">*</span></label>
@@ -394,34 +473,21 @@
             </div>
 
             <div class="info-field">
-                <label for="input-country">Country <span style="color:#c0392b">*</span></label>
-                <select id="input-country">
-                    <option value="" disabled selected>Select your country…</option>
-                    <option>Afghanistan</option><option>Albania</option><option>Algeria</option>
-                    <option>Argentina</option><option>Australia</option><option>Austria</option>
-                    <option>Bangladesh</option><option>Belgium</option><option>Brazil</option>
-                    <option>Canada</option><option>Chile</option><option>China</option>
-                    <option>Colombia</option><option>Croatia</option><option>Czech Republic</option>
-                    <option>Denmark</option><option>Egypt</option><option>Ethiopia</option>
-                    <option>Finland</option><option>France</option><option>Germany</option>
-                    <option>Ghana</option><option>Greece</option><option>Hungary</option>
-                    <option>India</option><option>Indonesia</option><option>Iran</option>
-                    <option>Iraq</option><option>Ireland</option><option>Israel</option>
-                    <option>Italy</option><option>Japan</option><option>Jordan</option>
-                    <option>Kazakhstan</option><option>Kenya</option><option>Malaysia</option>
-                    <option>Mexico</option><option>Morocco</option><option>Myanmar</option>
-                    <option>Nepal</option><option>Netherlands</option><option>New Zealand</option>
-                    <option>Nigeria</option><option>Norway</option><option>Pakistan</option>
-                    <option>Peru</option><option>Philippines</option><option>Poland</option>
-                    <option>Portugal</option><option>Romania</option><option>Russia</option>
-                    <option>Saudi Arabia</option><option>South Africa</option><option>South Korea</option>
-                    <option>Spain</option><option>Sri Lanka</option><option>Sweden</option>
-                    <option>Switzerland</option><option>Thailand</option><option>Turkey</option>
-                    <option>Ukraine</option><option>United Arab Emirates</option>
-                    <option>United Kingdom</option><option>United States</option>
-                    <option>Vietnam</option><option>Zimbabwe</option><option>Other</option>
+                <label for="input-education">Education <span style="color:#c0392b">*</span></label>
+                <select id="input-education">
+                    <option value="" disabled selected>Select your education level…</option>
+                    <option value="+1">+1 (Grade 11)</option>
+                    <option value="+2">+2 (Grade 12)</option>
+                    <option value="Under Graduate">Under Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
                 </select>
-                <div class="field-error" id="err-country">Please select your country.</div>
+                <div class="field-error" id="err-education">Please select your education level.</div>
+            </div>
+
+            <div class="info-field">
+                <label for="input-password">Create Password <span style="color:#c0392b">*</span></label>
+                <input type="password" id="input-password" placeholder="Create a secure password">
+                <div class="field-error" id="err-password">Please provide a password.</div>
             </div>
 
             <button id="btn-start-exam" onclick="startExam()">Start Examination &rarr;</button>
@@ -432,7 +498,10 @@
             <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
             <span class="logo">ScoePsychometrics</span>
         </div>
-        <div id="timer" class="timer">120:00</div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span id="mode-badge" class="mode-badge">Full Test</span>
+            <div id="timer" class="timer">120:00</div>
+        </div>
     </div>
 
     <!-- Domain tabs -->
@@ -452,15 +521,41 @@
     </div>
 
     <script>
+        // ── Detect mode from URL ?mode=short|full ──
+        const _urlParams = new URLSearchParams(window.location.search);
+        const examMode = (_urlParams.get('mode') || 'full').toLowerCase() === 'short' ? 'short' : 'full';
+        const isShortMode = examMode === 'short';
+
+        // ── Update UI labels for mode ──
+        (function applyModeLabels() {
+            const badge = document.getElementById('mode-badge');
+            const label = document.getElementById('modal-mode-label');
+            if (isShortMode) {
+                badge.textContent = 'Shorter Test';
+                badge.classList.add('short');
+                label.textContent = 'You have selected the 150-question Shorter Test (~20 min). Fill in your details to begin.';
+                document.getElementById('timer').textContent = '25:00';
+            } else {
+                badge.textContent = 'Full Test';
+                label.textContent = 'You have selected the Full Test (~60 min). Fill in your details to begin.';
+                document.getElementById('timer').textContent = '120:00';
+            }
+        })();
+
         // ── User info collected before exam ──
         let studentName = '';
         let studentEmail = '';
-        let studentCountry = '';
+        let studentEducation = '';
+        let studentPassword = '';
 
+        /**
+         * Validates the form and begins the assessment session.
+         * Transitions from details screen to the first quiz question.
+         */
         function startExam() {
             const nameEl    = document.getElementById('input-name');
             const emailEl   = document.getElementById('input-email');
-            const countryEl = document.getElementById('input-country');
+            const educationEl = document.getElementById('input-education');
             let valid = true;
 
             // Validate name
@@ -484,25 +579,66 @@
                 document.getElementById('err-email').style.display = 'none';
             }
 
-            // Validate country
-            if (!countryEl.value) {
-                countryEl.classList.add('invalid');
-                document.getElementById('err-country').style.display = 'block';
+            // Validate education
+            if (!educationEl.value.trim()) {
+                educationEl.classList.add('invalid');
+                document.getElementById('err-education').style.display = 'block';
                 valid = false;
             } else {
-                countryEl.classList.remove('invalid');
-                document.getElementById('err-country').style.display = 'none';
+                educationEl.classList.remove('invalid');
+                document.getElementById('err-education').style.display = 'none';
+            }
+
+            const passwordEl = document.getElementById('input-password');
+            if (!passwordEl.value.trim()) {
+                passwordEl.classList.add('invalid');
+                document.getElementById('err-password').style.display = 'block';
+                valid = false;
+            } else {
+                passwordEl.classList.remove('invalid');
+                document.getElementById('err-password').style.display = 'none';
             }
 
             if (!valid) return;
 
             studentName    = nameEl.value.trim();
             studentEmail   = emailEl.value.trim();
-            studentCountry = countryEl.value;
+            studentEducation = educationEl.value.trim();
+            studentPassword = passwordEl.value.trim();
 
             // Hide overlay and begin loading exam
             document.getElementById('info-overlay').style.display = 'none';
             loadData();
+        }
+
+        /**
+         * Callback fired when Google Sign-In is successful.
+         * Logic: Verify token with backend -> Autofill form -> Visual feedback.
+         */
+        async function handleGoogleSignIn(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            try {
+                const res = await fetch('/auth/google-verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ credential: response.credential })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    document.getElementById('input-name').value = data.name;
+                    document.getElementById('input-email').value = data.email;
+                    
+                    // Add a subtle highlight effect to show it was autofilled
+                    const fields = ['input-name', 'input-email'];
+                    fields.forEach(f => {
+                        const el = document.getElementById(f);
+                        el.style.backgroundColor = '#e8f0fe';
+                        setTimeout(() => el.style.backgroundColor = '', 2000);
+                    });
+                }
+            } catch (err) {
+                console.error("Google Sign-In verification failed:", err);
+            }
         }
 
         let currentDomainIndex = 0;
@@ -516,60 +652,98 @@
 
         async function loadData() {
             if (window.location.protocol === 'file:') {
-                alert("Error: This page must be served through the FastAPI server (e.g., http://localhost:8000/session) to load questions. Please do not open the HTML file directly.");
+                alert("Error: This page must be served through the FastAPI server to load questions.");
                 return;
             }
             try {
-                console.log("Fetching MBTI, Temperament, Enneagram, Brain Dominance, Multiple Intelligence and Big 5 questions...");
-                const [mbtiRes, tempRes, ennRes, bdRes, miRes, b5Res] = await Promise.all([
-                    fetch('/questions?category=mbti'),
-                    fetch('/questions?category=temperament'),
-                    fetch('/questions?category=enneagram'),
-                    fetch('/questions?category=brain_dominance'),
-                    fetch('/questions?category=multiple_intelligence'),
-                    fetch('/questions?category=big5')
-                ]);
+                if (isShortMode) {
+                    // ── Short-form: single fetch ──
+                    console.log('Loading 150-question short form...');
+                    const sfRes = await fetch('/questions?category=short_form');
+                    if (!sfRes.ok) throw new Error(`Short-form fetch failed: ${sfRes.status}`);
+                    allQuestions = await sfRes.json();
+                    console.log(`Short-form questions loaded: ${allQuestions.length}`);
 
-                if (!mbtiRes.ok) throw new Error(`MBTI fetch failed: ${mbtiRes.status}`);
-                if (!tempRes.ok) throw new Error(`Temperament fetch failed: ${tempRes.status}`);
-                if (!ennRes.ok) throw new Error(`Enneagram fetch failed: ${ennRes.status}`);
-                if (!bdRes.ok)  throw new Error(`Brain Dominance fetch failed: ${bdRes.status}`);
-                if (!miRes.ok)  throw new Error(`Multiple Intelligence fetch failed: ${miRes.status}`);
-                if (!b5Res.ok)  throw new Error(`Big 5 fetch failed: ${b5Res.status}`);
+                    // Group by a friendly subtest-block label
+                    const subtestGroups = {
+                        forgetfulness: 'COGNITIVE', false_triggering: 'COGNITIVE',
+                        distractibility: 'COGNITIVE', cognitive: 'COGNITIVE',
+                        openness: 'BIG FIVE', neuroticism: 'BIG FIVE',
+                        agreeableness: 'BIG FIVE', extraversion: 'BIG FIVE',
+                        conscientiousness: 'BIG FIVE',
+                        E1:'ENNEAGRAM',E2:'ENNEAGRAM',E3:'ENNEAGRAM',
+                        E4:'ENNEAGRAM',E5:'ENNEAGRAM',E6:'ENNEAGRAM',
+                        E7:'ENNEAGRAM',E8:'ENNEAGRAM',E9:'ENNEAGRAM',
+                        L:'BRAIN DOMINANCE', R:'BRAIN DOMINANCE',
+                        EI_temperament:'TEMPERAMENT', N_temperament:'TEMPERAMENT',
+                        LIE_temperament:'TEMPERAMENT',
+                        EI:'MBTI', SN:'MBTI', TF:'MBTI', JP:'MBTI',
+                        LI:'MULTIPLE INTELLIGENCE', LMI:'MULTIPLE INTELLIGENCE',
+                        MI:'MULTIPLE INTELLIGENCE', BKI:'MULTIPLE INTELLIGENCE',
+                        SVI:'MULTIPLE INTELLIGENCE', IPI:'MULTIPLE INTELLIGENCE',
+                        INPI:'MULTIPLE INTELLIGENCE', NI:'MULTIPLE INTELLIGENCE',
+                    };
 
-                const mbtiQuestions = await mbtiRes.json();
-                const tempQuestions = await tempRes.json();
-                const ennQuestions  = await ennRes.json();
-                const bdQuestions   = await bdRes.json();
-                const miQuestions   = await miRes.json();
-                const b5Questions   = await b5Res.json();
-                allQuestions = [...mbtiQuestions, ...tempQuestions, ...ennQuestions, ...bdQuestions, ...miQuestions, ...b5Questions];
+                    questionsByDomain = {};
+                    domainList = [];
+                    allQuestions.forEach(q => {
+                        const domain = subtestGroups[q.subtest] || 'SHORT FORM';
+                        if (!questionsByDomain[domain]) {
+                            questionsByDomain[domain] = [];
+                            domainList.push(domain);
+                        }
+                        questionsByDomain[domain].push(q);
+                    });
+                } else {
+                    // ── Full test: original multi-category fetch ──
+                    console.log('Loading full battery questions...');
+                    const [mbtiRes, tempRes, ennRes, bdRes, miRes, b5Res] = await Promise.all([
+                        fetch('/questions?category=mbti'),
+                        fetch('/questions?category=temperament'),
+                        fetch('/questions?category=enneagram'),
+                        fetch('/questions?category=brain_dominance'),
+                        fetch('/questions?category=multiple_intelligence'),
+                        fetch('/questions?category=big5')
+                    ]);
+                    if (!mbtiRes.ok) throw new Error(`MBTI fetch failed: ${mbtiRes.status}`);
+                    if (!tempRes.ok) throw new Error(`Temperament fetch failed: ${tempRes.status}`);
+                    if (!ennRes.ok)  throw new Error(`Enneagram fetch failed: ${ennRes.status}`);
+                    if (!bdRes.ok)   throw new Error(`Brain Dominance fetch failed: ${bdRes.status}`);
+                    if (!miRes.ok)   throw new Error(`Multiple Intelligence fetch failed: ${miRes.status}`);
+                    if (!b5Res.ok)   throw new Error(`Big 5 fetch failed: ${b5Res.status}`);
 
-                console.log(`Questions loaded — MBTI: ${mbtiQuestions.length}, Temperament: ${tempQuestions.length}, Enneagram: ${ennQuestions.length}, Brain Dominance: ${bdQuestions.length}, Multiple Intelligence: ${miQuestions.length}, Big 5: ${b5Questions.length}`);
+                    const mbtiQ = await mbtiRes.json();
+                    const tempQ = await tempRes.json();
+                    const ennQ  = await ennRes.json();
+                    const bdQ   = await bdRes.json();
+                    const miQ   = await miRes.json();
+                    const b5Q   = await b5Res.json();
+                    allQuestions = [...mbtiQ, ...tempQ, ...ennQ, ...bdQ, ...miQ, ...b5Q];
+                    console.log(`Full questions loaded — MBTI:${mbtiQ.length}, Temp:${tempQ.length}, Enn:${ennQ.length}, BD:${bdQ.length}, MI:${miQ.length}, B5:${b5Q.length}`);
+
+                    questionsByDomain = {};
+                    domainList = [];
+                    allQuestions.forEach(q => {
+                        const domain = (q.category || 'General').toUpperCase();
+                        if (!questionsByDomain[domain]) {
+                            questionsByDomain[domain] = [];
+                            domainList.push(domain);
+                        }
+                        questionsByDomain[domain].push(q);
+                    });
+                }
 
                 if (allQuestions.length === 0) {
-                    console.warn("No questions found in database.");
-                    panelsContainer.innerHTML = '<p style="text-align:center;padding:5rem;color:#888;">No questions found in the database. Please seed the database first.</p>';
+                    panelsContainer.innerHTML = '<p style="text-align:center;padding:5rem;color:#888;">No questions found. Please seed the database first.</p>';
                     return;
                 }
 
-                // Group questions by category (domain)
-                questionsByDomain = {};
-                domainList = [];
-                allQuestions.forEach(q => {
-                    const domain = (q.category || "General").toUpperCase();
-                    if (!questionsByDomain[domain]) {
-                        questionsByDomain[domain] = [];
-                        domainList.push(domain);
-                    }
-                    questionsByDomain[domain].push(q);
-                });
-
                 renderStructure();
                 updateNav();
+                startTimer();
             } catch (err) {
-                console.error("loadData Error:", err);
-                panelsContainer.innerHTML = `<p style="color:red;text-align:center;padding:5rem;">Error loading questions: ${err.message}<br><br>Check if the backend server is running and the database is connected.</p>`;
+                console.error('loadData error:', err);
+                panelsContainer.innerHTML = `<p style="color:red;text-align:center;padding:5rem;">Error loading questions: ${err.message}<br><br>Check that the backend is running and the database is seeded.</p>`;
             }
         }
 
@@ -600,19 +774,42 @@
                     if (isLikert) {
                         inputHtml = `
                             <div class="likert-scale">
-                                <div class="likert-header">
-                                    <span>Disagree</span>
-                                    <span>Neutral</span>
-                                    <span>Agree</span>
-                                </div>
                                 <div class="likert-options">
-                                    ${opts.map((key, idx) => `
-                                        <label class="likert-option" title="${q.options[key]}">
-                                            <input type="radio" name="q${q.id}" value="${key}" required>
-                                            <span class="likert-option-num" style="font-size:0.75rem;font-weight:700;margin-top:0.3rem;">${idx + 1}</span>
-                                            <span class="likert-option-label" style="display:none;">${q.options[key]}</span>
-                                        </label>
-                                    `).join('')}
+                                    ${opts.map((key, idx) => {
+                                        const isMBTI = q.category.toLowerCase() === 'mbti';
+                                        
+                                        const labels7 = [
+                                            "Strongly Disagree", "Disagree", "May Disagree", 
+                                            "Neutral", 
+                                            "May Agree", "Agree", "Strongly Agree"
+                                        ];
+                                        
+                                        const labels5 = [
+                                            "Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"
+                                        ];
+                                        
+                                        let labelToShow = "";
+                                        if (isMBTI && opts.length === 7) {
+                                            labelToShow = labels7[idx] || "";
+                                        } else if (opts.length === 5) {
+                                            labelToShow = labels5[idx] || "";
+                                        } else {
+                                            // Fallback for other ranges (e.g. 7-point non-MBTI)
+                                            if (idx === 0) labelToShow = "Disagree";
+                                            else if (idx === Math.floor(opts.length / 2)) labelToShow = "Neutral";
+                                            else if (idx === opts.length - 1) labelToShow = "Agree";
+                                        }
+
+                                        return `
+                                            <label class="likert-option" title="${q.options[key]}">
+                                                <span class="likert-label-text" style="font-size:0.6rem; font-weight:700; text-transform:uppercase; color:#555; height:2.4rem; display:flex; align-items:flex-end; text-align:center; margin-bottom:0.5rem; line-height:1.1;">
+                                                    ${labelToShow}
+                                                </span>
+                                                <input type="radio" name="q${q.id}" value="${key}" required>
+                                                <span class="likert-option-num" style="font-size:0.75rem; font-weight:700; margin-top:0.3rem;">${idx + 1}</span>
+                                            </label>
+                                        `;
+                                    }).join('')}
                                 </div>
                             </div>
                         `;
@@ -734,10 +931,15 @@
                 if (!confirm(`You have ${unanswered} unanswered questions. Submit anyway?`)) return;
             }
 
+            const totalTimeSeconds = 120 * 60;
+            const elapsedSeconds = totalTimeSeconds - (typeof timeLeft !== 'undefined' ? timeLeft : 0);
+
             const payload = {
                 student_name: studentName,
                 email: studentEmail,
-                country: studentCountry,
+                education: studentEducation,
+                password: studentPassword,
+                quiz_duration_seconds: elapsedSeconds,
                 responses: responses
             };
 
@@ -746,7 +948,8 @@
                 btn.disabled = true;
                 btn.textContent = 'Submitting...';
 
-                const res = await fetch('/submit-exam', {
+                const endpoint = isShortMode ? '/submit-short-form' : '/submit-exam';
+                const res = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -771,15 +974,29 @@
             }
         }
 
-        // Timer (Optional but helpful)
-        let timeLeft = 120 * 60;
-        setInterval(() => {
-            if (timeLeft <= 0) return;
-            timeLeft--;
-            const m = Math.floor(timeLeft / 60);
-            const s = timeLeft % 60;
-            document.getElementById('timer').textContent = `${m}:${s.toString().padStart(2, '0')}`;
-        }, 1000);
+        // ── Timer — started after loadData() completes ──
+        let timeLeft = isShortMode ? 25 * 60 : 120 * 60;
+        let timerInterval = null;
+
+        function startTimer() {
+            if (timerInterval) return; // prevent double-start
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').textContent = '0:00';
+                    document.getElementById('timer').style.background = '#c0392b';
+                    return;
+                }
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60);
+                const s = timeLeft % 60;
+                document.getElementById('timer').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+                // Warn when 5 minutes remain
+                if (timeLeft === 5 * 60) {
+                    document.getElementById('timer').style.background = '#c0392b';
+                }
+            }, 1000);
+        }
 
         // loadData() is called by startExam() after the info form is submitted
     </script>

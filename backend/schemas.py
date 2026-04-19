@@ -18,7 +18,10 @@ class ResponseItem(BaseModel):
 class SubmitExamRequest(BaseModel):
     student_name: str
     email: str
+    country: Optional[str] = None
+    password: Optional[str] = None
     education: Optional[str] = None
+    quiz_duration_seconds: Optional[int] = 0
     responses: List[ResponseItem]
 
 class ExamSubmissionResponse(BaseModel):
@@ -32,3 +35,7 @@ class ExamSubmissionResponse(BaseModel):
     enneagram_type: Optional[str] = None
     enneagram_label: Optional[str] = None
     enneagram_description: Optional[str] = None
+
+class GoogleAuthRequest(BaseModel):
+    credential: str
+
