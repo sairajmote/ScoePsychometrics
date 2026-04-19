@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Feedback | ScoePsychometrics</title>
+    <meta name="description" content="Help us improve by rating the accuracy and usefulness of your psychometric assessment results.">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/feedback.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="/static/img/SCOE_logo.png" alt="ScoePsychometrics Logo" class="nav-logo">
+            <span class="logo">ScoePsychometrics</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/exam">Exam</a></li>
+                <li><a href="#" onclick="openReportModal ? openReportModal(event) : void(0)">View Your Report</a></li>
+                <li><a href="/feedback" class="active">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ─── Main Survey Wrapper ──────────────────────────── -->
+    <main class="fb-main">
+
+        <!-- Progress bar -->
+        <div class="fb-progress-bar-wrap">
+            <div class="fb-progress-bar" id="fb-progress-bar"></div>
+            <span class="fb-progress-label" id="fb-progress-label">Question 1 of 15</span>
+        </div>
+
+        <div class="fb-shell">
+
+            <!-- ─── INTRO CARD ─────────────────────────────── -->
+            <div class="fb-card intro-card active" id="fb-intro">
+                <div class="fb-intro-icon">&#128172;</div>
+                <h1 class="fb-hero-title">How Did We Do?</h1>
+                <p class="fb-hero-sub">
+                    Your feedback helps us make the assessment more accurate and useful.
+                    This survey takes <strong>2–3 minutes</strong> and has <strong>15 short questions</strong>.
+                </p>
+                <div class="fb-intro-chips">
+                    <span class="chip">&#9733; Accuracy</span>
+                    <span class="chip">&#128161; Usefulness</span>
+                    <span class="chip">&#128204; Clarity</span>
+                    <span class="chip">&#128101; Self-Insight</span>
+                </div>
+                <button class="fb-btn-primary" id="btn-start" onclick="startSurvey()">Begin Survey &rarr;</button>
+            </div>
+
+            <!-- ─── QUESTION CARDS ──────────────────────────── -->
+
+            <!-- Q1 ─ Overall accuracy (Likert 1-5) -->
+            <div class="fb-card" data-q="1" data-type="likert" data-field="q1_overall_accuracy">
+                <span class="fb-q-badge">Q1 / 15</span>
+                <span class="fb-dimension-tag">Perceived Accuracy</span>
+                <h2 class="fb-q-text">Overall, how accurately did the assessment results reflect your actual personality?</h2>
+                <div class="fb-likert-row" data-field="q1_overall_accuracy">
+                    <span class="fb-likert-label-left">Not at all accurate</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q1_overall_accuracy" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Extremely accurate</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q2 ─ Personality type accuracy (Likert 1-5) -->
+            <div class="fb-card" data-q="2" data-type="likert" data-field="q2_personality_accuracy">
+                <span class="fb-q-badge">Q2 / 15</span>
+                <span class="fb-dimension-tag">Perceived Accuracy</span>
+                <h2 class="fb-q-text">How accurately does your MBTI / Enneagram type describe your personality?</h2>
+                <div class="fb-likert-row" data-field="q2_personality_accuracy">
+                    <span class="fb-likert-label-left">Completely wrong</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q2_personality_accuracy" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Spot on</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q3 ─ Trait-score accuracy (Likert 1-5) -->
+            <div class="fb-card" data-q="3" data-type="likert" data-field="q3_trait_scores_accuracy">
+                <span class="fb-q-badge">Q3 / 15</span>
+                <span class="fb-dimension-tag">Perceived Accuracy</span>
+                <h2 class="fb-q-text">How accurately do the individual trait scores (e.g., Openness 78%, Left-Brain 62%) reflect your self-perception?</h2>
+                <div class="fb-likert-row" data-field="q3_trait_scores_accuracy">
+                    <span class="fb-likert-label-left">Very inaccurate</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q3_trait_scores_accuracy" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Very accurate</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q4 ─ Usefulness for self-understanding (Likert 1-5) -->
+            <div class="fb-card" data-q="4" data-type="likert" data-field="q4_self_understanding">
+                <span class="fb-q-badge">Q4 / 15</span>
+                <span class="fb-dimension-tag">Usefulness</span>
+                <h2 class="fb-q-text">How useful were the results for deepening your self-understanding?</h2>
+                <div class="fb-likert-row" data-field="q4_self_understanding">
+                    <span class="fb-likert-label-left">Not useful at all</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q4_self_understanding" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Extremely useful</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q5 ─ Report clarity (Likert 1-5) -->
+            <div class="fb-card" data-q="5" data-type="likert" data-field="q5_report_clarity">
+                <span class="fb-q-badge">Q5 / 15</span>
+                <span class="fb-dimension-tag">Clarity</span>
+                <h2 class="fb-q-text">How clear and easy to understand was the report?</h2>
+                <div class="fb-likert-row" data-field="q5_report_clarity">
+                    <span class="fb-likert-label-left">Very confusing</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q5_report_clarity" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Crystal clear</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q6 ─ Trust in the test (Likert 1-5) -->
+            <div class="fb-card" data-q="6" data-type="likert" data-field="q6_trust">
+                <span class="fb-q-badge">Q6 / 15</span>
+                <span class="fb-dimension-tag">Trust</span>
+                <h2 class="fb-q-text">How much do you trust the scientific validity of this assessment?</h2>
+                <div class="fb-likert-row" data-field="q6_trust">
+                    <span class="fb-likert-label-left">Do not trust it at all</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q6_trust" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q6_trust" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q6_trust" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q6_trust" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q6_trust" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Fully trust it</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q7 ─ Surprise / novelty (Likert 1-5) -->
+            <div class="fb-card" data-q="7" data-type="likert" data-field="q7_novelty">
+                <span class="fb-q-badge">Q7 / 15</span>
+                <span class="fb-dimension-tag">Novelty</span>
+                <h2 class="fb-q-text">Did the results reveal something new or surprising about yourself?</h2>
+                <div class="fb-likert-row" data-field="q7_novelty">
+                    <span class="fb-likert-label-left">Nothing new at all</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q7_novelty" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q7_novelty" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q7_novelty" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q7_novelty" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q7_novelty" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Very eye-opening</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q8 ─ EI consistency Yes/No -->
+            <div class="fb-card" data-q="8" data-type="yn" data-field="q8_ei_agreement">
+                <span class="fb-q-badge">Q8 / 15</span>
+                <span class="fb-dimension-tag">Self-Consistency</span>
+                <h2 class="fb-q-text">The test identified you as either <em>Extraverted</em> or <em>Introverted</em> — do you agree with that result?</h2>
+                <div class="fb-yn-row">
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q8_ei_agreement" value="1">
+                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, I agree</span>
+                    </label>
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q8_ei_agreement" value="0">
+                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, I disagree</span>
+                    </label>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q9 ─ MI consistency Yes/No -->
+            <div class="fb-card" data-q="9" data-type="yn" data-field="q9_mi_agreement">
+                <span class="fb-q-badge">Q9 / 15</span>
+                <span class="fb-dimension-tag">Self-Consistency</span>
+                <h2 class="fb-q-text">The test identified your dominant intelligence (e.g., Logical-Mathematical, Musical, etc.) — do you agree with that result?</h2>
+                <div class="fb-yn-row">
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q9_mi_agreement" value="1">
+                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, I agree</span>
+                    </label>
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q9_mi_agreement" value="0">
+                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, I disagree</span>
+                    </label>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q10 ─ Enneagram consistency Yes/No -->
+            <div class="fb-card" data-q="10" data-type="yn" data-field="q10_enneagram_agreement">
+                <span class="fb-q-badge">Q10 / 15</span>
+                <span class="fb-dimension-tag">Self-Consistency</span>
+                <h2 class="fb-q-text">The test assigned you an Enneagram type (Type 1–9) — do you feel this type describes your motivations and fears well?</h2>
+                <div class="fb-yn-row">
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q10_enneagram_agreement" value="1">
+                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, it fits</span>
+                    </label>
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q10_enneagram_agreement" value="0">
+                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, it doesn't fit</span>
+                    </label>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q11 ─ Test length / fatigue (Likert 1-5, 5 = too long) -->
+            <div class="fb-card" data-q="11" data-type="likert" data-field="q11_test_length">
+                <span class="fb-q-badge">Q11 / 15</span>
+                <span class="fb-dimension-tag">Test Experience</span>
+                <h2 class="fb-q-text">How was the length of the test? Did you feel fatigued while taking it?</h2>
+                <div class="fb-likert-row" data-field="q11_test_length">
+                    <span class="fb-likert-label-left">Perfect length, no fatigue</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q11_test_length" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q11_test_length" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q11_test_length" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q11_test_length" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q11_test_length" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Far too long, very tiring</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q12 ─ Likelihood to recommend (Likert 1-5) -->
+            <div class="fb-card" data-q="12" data-type="likert" data-field="q12_recommend">
+                <span class="fb-q-badge">Q12 / 15</span>
+                <span class="fb-dimension-tag">Recommendation</span>
+                <h2 class="fb-q-text">How likely are you to recommend this assessment to a friend or colleague?</h2>
+                <div class="fb-likert-row" data-field="q12_recommend">
+                    <span class="fb-likert-label-left">Would not recommend</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q12_recommend" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q12_recommend" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q12_recommend" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q12_recommend" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q12_recommend" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Highly recommend</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q13 ─ Would take again Yes/No -->
+            <div class="fb-card" data-q="13" data-type="yn" data-field="q13_retake">
+                <span class="fb-q-badge">Q13 / 15</span>
+                <span class="fb-dimension-tag">Recommendation</span>
+                <h2 class="fb-q-text">Would you take this assessment again in the future to track how you have changed over time?</h2>
+                <div class="fb-yn-row">
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q13_retake" value="1">
+                        <span class="fb-yn-btn yes-btn">&#10003;&nbsp; Yes, definitely</span>
+                    </label>
+                    <label class="fb-yn-opt">
+                        <input type="radio" name="q13_retake" value="0">
+                        <span class="fb-yn-btn no-btn">&#10007;&nbsp; No, probably not</span>
+                    </label>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q14 ─ Overall satisfaction (Likert 1-5) -->
+            <div class="fb-card" data-q="14" data-type="likert" data-field="q14_satisfaction">
+                <span class="fb-q-badge">Q14 / 15</span>
+                <span class="fb-dimension-tag">Overall Satisfaction</span>
+                <h2 class="fb-q-text">Overall, how satisfied are you with your experience of this psychometric assessment?</h2>
+                <div class="fb-likert-row" data-field="q14_satisfaction">
+                    <span class="fb-likert-label-left">Very dissatisfied</span>
+                    <div class="fb-likert-options">
+                        <label class="fb-likert-opt"><input type="radio" name="q14_satisfaction" value="1"><span>1</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q14_satisfaction" value="2"><span>2</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q14_satisfaction" value="3"><span>3</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q14_satisfaction" value="4"><span>4</span></label>
+                        <label class="fb-likert-opt"><input type="radio" name="q14_satisfaction" value="5"><span>5</span></label>
+                    </div>
+                    <span class="fb-likert-label-right">Extremely satisfied</span>
+                </div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-primary" onclick="nextQ()">Next &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Q15 ─ Open-ended text -->
+            <div class="fb-card" data-q="15" data-type="text" data-field="q15_open_text">
+                <span class="fb-q-badge">Q15 / 15</span>
+                <span class="fb-dimension-tag">Open Feedback</span>
+                <h2 class="fb-q-text">Please share any additional feedback or thoughts about your results.</h2>
+                <p class="fb-q-hint">This is entirely optional — feel free to mention anything the quantitative questions didn't capture.</p>
+                <textarea
+                    id="q15_open_text"
+                    name="q15_open_text"
+                    class="fb-textarea"
+                    placeholder="e.g. &quot;The Big Five scores felt accurate but the Enneagram result surprised me because…&quot;"
+                    rows="6"
+                    maxlength="2000"
+                ></textarea>
+                <div class="fb-char-count"><span id="char-count">0</span> / 2000</div>
+                <div class="fb-nav-row">
+                    <button class="fb-btn-sec" onclick="prevQ()">&#8592; Back</button>
+                    <button class="fb-btn-submit" id="btn-submit" onclick="submitFeedback()">Submit Feedback &#10003;</button>
+                </div>
+            </div>
+
+            <!-- ─── THANK-YOU CARD ─────────────────────────── -->
+            <div class="fb-card thankyou-card" id="fb-thankyou">
+                <div class="fb-ty-icon">&#127881;</div>
+                <h2 class="fb-ty-title">Thank You!</h2>
+                <p class="fb-ty-sub">Your feedback has been recorded and will help us continuously improve the accuracy and quality of this assessment.</p>
+                <div class="fb-oas-box" id="fb-oas-box" style="display:none;">
+                    <div class="fb-oas-label">Current Overall Accuracy Score</div>
+                    <div class="fb-oas-value" id="fb-oas-value">—</div>
+                    <div class="fb-oas-sub">based on all community responses</div>
+                </div>
+                <div class="fb-ty-actions">
+                    <a href="/" class="fb-btn-primary">Back to Home</a>
+                    <a href="/exam" class="fb-btn-sec">Take the Test Again</a>
+                </div>
+            </div>
+
+        </div><!-- /.fb-shell -->
+    </main>
+
+    <footer>
+        <div class="logo-container">
+            <img src="/static/img/SCOE_logo.png" alt="ScoePsychometrics Logo" class="nav-logo">
+            <span class="logo">ScoePsychometrics</span>
+        </div>
+        <div class="footer-links">
+            <span>&copy; 2026 InnovateX</span>
+        </div>
+    </footer>
+
+    <script src="/static/js/feedback.js"></script>
+</body>
+</html>

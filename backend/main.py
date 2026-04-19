@@ -15,6 +15,7 @@ from sqlalchemy.sql import func
 
 from . import models, database, schemas, auth, scoring_mbti, scoring_temperament, scoring_big5, scoring_brain_dominance, scoring_multiple_intelligence, scoring_enneagram, insights_engine, scoring_short_form
 from .database import engine, get_db
+from sqlalchemy import func as sqlfunc
 
 # Initialize FastAPI application
 app = FastAPI(title="Psycho One - Psychometric Platform")
@@ -402,10 +403,6 @@ async def submit_short_form(request: schemas.SubmitExamRequest, db: Session = De
 
         # Subtest → section mapping (mirrors seed_short_form.py)
         _SUBTEST_TO_SECTION = {
-            "forgetfulness":    "cognitive",
-            "false_triggering": "cognitive",
-            "distractibility":  "cognitive",
-            "cognitive":        "cognitive",
             "openness":         "big5",
             "neuroticism":      "big5",
             "agreeableness":    "big5",
@@ -473,7 +470,6 @@ async def submit_short_form(request: schemas.SubmitExamRequest, db: Session = De
         bd_res      = results["brain_dominance"]
         mi_res      = results["multiple_intelligence"]
         temp_res    = results["temperament"]
-        cog_res     = results["cognitive"]
 
         # 5. Build report
         report_id = f"RPT-SF-{datetime.now().strftime('%Y-%m%d')}-{uuid.uuid4().hex[:4].upper()}"
@@ -492,12 +488,6 @@ async def submit_short_form(request: schemas.SubmitExamRequest, db: Session = De
                 "total_questions_answered": len(request.responses),
             },
             "subtests": {
-                "cognitive": {
-                    "label":          "Cognitive Abilities",
-                    "description":    "Self-reported cognitive tendencies across forgetfulness, distractibility, false triggering, and logical reasoning.",
-                    "profile_summary": cog_res["profile_summary"],
-                    "attributes":     cog_res["attributes"],
-                },
                 "mbti": {
                     "label":       "Myers-Briggs Type Indicator",
                     "description": "Assessment of how people perceive the world and make decisions.",
@@ -607,3 +597,147 @@ async def submit_short_form(request: schemas.SubmitExamRequest, db: Session = De
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
+
+
+# ════════════════════════════════════════════════════════
+# FEEDBACK ROUTES
+# ════════════════════════════════════════════════════════
+
+@app.get("/feedback", response_class=HTMLResponse)
+async def read_feedback(request: Request):
+    """Serve the feedback survey page."""
+    return templates.TemplateResponse(request=request, name="feedback.html", context={})
+
+
+@app.post("/api/feedback")
+async def submit_feedback(payload: schemas.FeedbackSubmit, db: Session = Depends(get_db)):
+    """
+    Persist one user's survey answers.
+    All quantitative fields are optional; missing values are stored as NULL
+    and excluded from aggregate calculations.
+    """
+    try:
+        entry = models.Feedback(
+            user_id   = payload.user_id,
+            report_id = payload.report_id,
+            q1_overall_accuracy      = payload.q1_overall_accuracy,
+            q2_personality_accuracy  = payload.q2_personality_accuracy,
+            q3_trait_scores_accuracy = payload.q3_trait_scores_accuracy,
+            q4_self_understanding    = payload.q4_self_understanding,
+            q5_report_clarity        = payload.q5_report_clarity,
+            q6_trust                 = payload.q6_trust,
+            q7_novelty               = payload.q7_novelty,
+            q8_ei_agreement          = payload.q8_ei_agreement,
+            q9_mi_agreement          = payload.q9_mi_agreement,
+            q10_enneagram_agreement  = payload.q10_enneagram_agreement,
+            q11_test_length          = payload.q11_test_length,
+            q12_recommend            = payload.q12_recommend,
+            q13_retake               = payload.q13_retake,
+            q14_satisfaction         = payload.q14_satisfaction,
+            q15_open_text            = payload.q15_open_text,
+        )
+        db.add(entry)
+        db.commit()
+        db.refresh(entry)
+        return {"status": "success", "feedback_id": entry.id}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/feedback/stats", response_model=schemas.FeedbackStatsResponse)
+async def get_feedback_stats(db: Session = Depends(get_db)):
+    """
+    Compute real-time aggregated feedback statistics.
+
+    Overall Accuracy Score (0–100%) methodology:
+    ───────────────────────────────────────────────────────────────────
+    • Likert 1-5 questions: normalised to 0-100 as (avg-1)/4 * 100
+    • Yes/No questions (0 or 1): already 0-100 when multiplied by 100
+    • Q11 (fatigue) is INVERTED before inclusion (5=max fatigue → bad)
+    • Weights applied before averaging:
+        - Accuracy questions (Q1,Q2,Q3):           weight 3 each
+        - Usefulness / satisfaction (Q4,Q14):       weight 2 each
+        - Clarity / trust / recommend (Q5,Q6,Q12): weight 2 each
+        - Self-consistency (Q8,Q9,Q10):             weight 1 each
+        - Novelty (Q7), retake (Q13):               weight 1 each
+        - Fatigue Q11 (inverted):                   weight 1
+    • Missing/NULL values: that question is excluded from numerator
+      AND denominator, so partial responses don't bias the score.
+    """
+    rows = db.query(models.Feedback).all()
+    total = len(rows)
+
+    if total == 0:
+        return schemas.FeedbackStatsResponse(
+            total_responses=0,
+            overall_accuracy_score=0.0,
+            per_metric_averages={},
+            open_text_samples=[]
+        )
+
+    # ———  Helper: mean of a column, ignoring NULLs  ———
+    def col_avg(attr: str) -> Optional[float]:
+        vals = [getattr(r, attr) for r in rows if getattr(r, attr) is not None]
+        return round(sum(vals) / len(vals), 3) if vals else None
+
+    # ———  Per-metric averages (raw scale)  ———
+    likert_cols = [
+        "q1_overall_accuracy", "q2_personality_accuracy", "q3_trait_scores_accuracy",
+        "q4_self_understanding", "q5_report_clarity", "q6_trust", "q7_novelty",
+        "q11_test_length", "q12_recommend", "q14_satisfaction"
+    ]
+    yn_cols = ["q8_ei_agreement", "q9_mi_agreement", "q10_enneagram_agreement", "q13_retake"]
+
+    per_metric: dict = {}
+    for col in likert_cols + yn_cols:
+        per_metric[col] = col_avg(col)
+
+    # ———  Weighted Overall Accuracy Score  ———
+    WEIGHTS = {
+        "q1_overall_accuracy":     3,
+        "q2_personality_accuracy": 3,
+        "q3_trait_scores_accuracy": 3,
+        "q4_self_understanding":   2,
+        "q5_report_clarity":       2,
+        "q6_trust":                2,
+        "q7_novelty":              1,
+        "q8_ei_agreement":         1,
+        "q9_mi_agreement":         1,
+        "q10_enneagram_agreement": 1,
+        "q11_test_length":         1,   # inverted below
+        "q12_recommend":           2,
+        "q13_retake":              1,
+        "q14_satisfaction":        2,
+    }
+
+    total_weight = 0.0
+    weighted_sum = 0.0
+
+    for col, w in WEIGHTS.items():
+        avg = per_metric.get(col)
+        if avg is None:
+            continue
+        if col in likert_cols:
+            pct = (avg - 1) / 4 * 100   # Likert 1-5 -> 0-100
+            if col == "q11_test_length":
+                pct = 100 - pct         # Invert fatigue so higher = better
+        else:
+            pct = avg * 100             # Yes/No 0-1 -> 0-100
+        weighted_sum += pct * w
+        total_weight += w
+
+    oas = round(weighted_sum / total_weight, 2) if total_weight > 0 else 0.0
+
+    # ———  Last 5 open-text comments  ———
+    samples = [
+        r.q15_open_text for r in reversed(rows)
+        if r.q15_open_text and r.q15_open_text.strip()
+    ][:5]
+
+    return schemas.FeedbackStatsResponse(
+        total_responses=total,
+        overall_accuracy_score=oas,
+        per_metric_averages=per_metric,
+        open_text_samples=samples
+    )

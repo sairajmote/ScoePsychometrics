@@ -1,27 +1,16 @@
 """
 seed_short_form.py
-Seeds exactly 150 short-form questions that cover every attribute at least once.
+Seeds exactly 138 short-form questions that cover every attribute at least once.
 
-Allocation (150 total):
-  Big Five      → 15 q  (3 per trait × 5 traits)          category: big5
-  Enneagram     → 27 q  (3 per type  × 9 types)           category: enneagram
-  Brain Dom.    → 10 q  (5L + 5R)                         category: brain_dominance
-  Temperament   → 15 q  (EI: 8, N: 6, LIE: 1)            category: temperament
-  MBTI          → 24 q  (6 per dichotomy × 4)             category: mbti
-  Multi. Intel. → 27 q  (3 per intelligence × 9)          category: multiple_intelligence
-  Cognitive     → 12 q  (3 per attribute × 4)    [NEW]    category: cognitive
-  Personality   →  0 q  (absorbed into Big Five block)
+Allocation (138 total):
+  Big Five      → 19 q  (3-4 per trait)             category: big5
+  Enneagram     → 32 q  (3-4 per type)              category: enneagram
+  Brain Dom.    → 10 q  (5L + 5R)                   category: brain_dominance
+  Temperament   → 19 q  (EI: 10, N: 8, LIE: 1)      category: temperament
+  MBTI          → 30 q  (7-8 per dichotomy)         category: mbti
+  Multi. Intel. → 28 q  (3-4 per intelligence)      category: multiple_intelligence
   ──────────────────────────────────────────────────────
-  TOTAL         → 130 q (remaining 20 allocated below)
-
-  Extra slots   → 20 distributed:
-                   Big Five +4 → 19 total
-                   Enneagram  +5 → 32 total
-                   MBTI       +6 → 30 total
-                   Temperament+4 → 19 total
-                   MI         +1 → 28 total
-  ──────────────────────────────────────────────────────
-  GRAND TOTAL   → 150 ✓
+  TOTAL         → 138 ✓
 
 All questions are drawn verbatim from the existing seed files.
 The short form is stored with category = "short_form" and a `subtest`
@@ -313,40 +302,13 @@ MULTIPLE_INTELLIGENCE = [
 ]  # Total: 28
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 7. COGNITIVE ABILITIES — 12 questions  (3 per attribute × 4 attributes)
-#    NEW content — self-report Likert style
-#    Attributes: forgetfulness, false_triggering, distractibility, cognitive
-# ─────────────────────────────────────────────────────────────────────────────
-COGNITIVE = [
-    # Forgetfulness (3 items: 2+, 1-)
-    q5("I often forget where I left everyday objects like keys or my phone.", "forgetfulness", "+"),
-    q5("I sometimes forget what I was about to say mid-sentence.", "forgetfulness", "+"),
-    q5("My memory for recent events is sharp and reliable.", "forgetfulness", "-"),
-
-    # False Triggering (3 items: 2+, 1-)
-    q5("I often misread a situation and react before fully understanding it.", "false_triggering", "+"),
-    q5("I sometimes feel alarmed by things that turn out to be harmless.", "false_triggering", "+"),
-    q5("I rarely jump to conclusions without checking the facts first.", "false_triggering", "-"),
-
-    # Distractibility (3 items: 2+, 1-)
-    q5("I find it hard to stay focused when there are minor distractions around me.", "distractibility", "+"),
-    q5("My attention frequently drifts away from the task I am trying to complete.", "distractibility", "+"),
-    q5("I can maintain concentration for long periods even in noisy environments.", "distractibility", "-"),
-
-    # Cognitive / Logic & Sequence (3 items: 2+, 1-)
-    q5("I enjoy following step-by-step logical sequences to solve problems.", "cognitive", "+"),
-    q5("Spotting errors in patterns or sequences comes naturally to me.", "cognitive", "+"),
-    q5("I struggle to keep track of a chain of reasoning when it has many steps.", "cognitive", "-"),
-]  # Total: 12
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ASSEMBLE FULL 150-QUESTION LIST
 # ─────────────────────────────────────────────────────────────────────────────
 ALL_QUESTIONS = (
-    COGNITIVE            # 12
-    + BIG5               # 19
+    BIG5               # 19
     + ENNEAGRAM          # 32
     + BRAIN_DOMINANCE    # 10
     + TEMPERAMENT        # 19
@@ -354,15 +316,11 @@ ALL_QUESTIONS = (
     + MULTIPLE_INTELLIGENCE  # 28
 )
 
-assert len(ALL_QUESTIONS) == 150, (
-    f"Expected 150 questions, got {len(ALL_QUESTIONS)}. Check section counts."
+assert len(ALL_QUESTIONS) == 138, (
+    f"Expected 138 questions, got {len(ALL_QUESTIONS)}. Check section counts."
 )
 
 _SECTION_LABELS = {
-    "cognitive":             "cognitive",
-    "forgetfulness":         "cognitive",
-    "false_triggering":      "cognitive",
-    "distractibility":       "cognitive",
     "openness":              "big5",
     "neuroticism":           "big5",
     "agreeableness":         "big5",
