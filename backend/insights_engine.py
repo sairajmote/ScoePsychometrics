@@ -4,9 +4,8 @@ import google.generativeai as genai
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
+# Configuration is loaded from system environment (Azure) or .env (Local)
 load_dotenv()
-
-# Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY")
 
 def get_model():

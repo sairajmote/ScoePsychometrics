@@ -1,0 +1,13 @@
+{
+    "connectionString": "postgresql://psycho_admin:password@123@psycho-db-name-server.postgres.database.azure.com/postgres?sslmode=require",
+    "databaseName": "postgres",
+    "firewallName": "AllowAllAzureServicesAndResourcesWithinAzureIps_2026-4-20_9-1-6",
+    "host": "psycho-db-name-server.postgres.database.azure.com",
+    "id": "/subscriptions/e505585f-259c-4c6b-856b-ee4a60c3cb32/resourceGroups/psycho-resource-group-2/providers/Microsoft.DBforPostgreSQL/flexibleServers/psycho-db-name-server",
+    "location": "Central India",
+    "password": "password@123",
+    "resourceGroup": "psycho-resource-group-2",
+    "skuname": "Standard_B1ms",
+    "username": "psycho_admin",
+    "version": "18"
+}

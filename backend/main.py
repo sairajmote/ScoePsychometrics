@@ -747,3 +747,21 @@ async def get_feedback_stats(db: Session = Depends(get_db)):
         per_metric_averages=per_metric,
         open_text_samples=samples
     )
+
+
+
+
+def mask_db_url(url: str) -> str:
+    """Masks the password part of a database connection string."""
+    if not url: return "NOT_SET"
+    import re
+    # Matches the password between : and @
+    return re.sub(r":([^/@]+)@", ":***@", url)
+
+@app.get("/debug")
+def debug():
+    """Diagnostic endpoint to verify environment configuration on Azure."""
+    return {
+        "db": mask_db_url(os.getenv("DATABASE_URL")),
+        "has_key": bool(os.getenv("GEMINI_API_KEY"))
+    }
