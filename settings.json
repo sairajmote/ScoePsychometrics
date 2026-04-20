@@ -1,0 +1,9 @@
+{
+    "DATABASE_URL": "postgresql://psycho_admin:password%40123@psycho-db-name-server.postgres.database.azure.com/postgres?sslmode=require",
+    "PORT": "8000",
+    "DOCKER_REGISTRY_SERVER_URL": "https://psychoregistry.azurecr.io",
+    "DOCKER_REGISTRY_SERVER_USERNAME": "psychoregistry",
+    "DOCKER_REGISTRY_SERVER_PASSWORD": "8XMCBd4rq3637kEBlkR8eiEkq5aRWwFvlbUXv2qMWK5JcxJxJgWtJQQJ99CDACGhslBEqg7NAAACAZCRRWqG",
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE": "false",
+    "GEMINI_API_KEY": "AIzaSyCuJ37grjQsiyRMLi83Z9QqUHkX9d3bp8Y"
+}
