@@ -26,7 +26,12 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8000
 
-# Start the application
-# Using --host 0.0.0.0 to allow connections from outside the container
-# Azure App Service will map its internal port to this 8000
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Create startup script to run migrations then start app
+RUN echo '#!/bin/bash\n\
+echo "Running Alembic migrations..."\n\
+alembic upgrade head\n\
+echo "Starting FastAPI app..."\n\
+uvicorn backend.main:app --host 0.0.0.0 --port 8000' > /start.sh && chmod +x /start.sh
+
+# Start the application with migrations
+CMD ["/start.sh"]
