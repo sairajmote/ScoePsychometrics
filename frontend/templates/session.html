@@ -1010,6 +1010,41 @@
             }, 1000);
         }
 
+        // ── Keyboard Support for Likert Questions ──
+        window.addEventListener('keydown', e => {
+            const num = parseInt(e.key);
+            if (num >= 1 && num <= 5) {
+                // Find all question cards
+                const cards = document.querySelectorAll('.question-card');
+                
+                // Find the card closest to the top of the viewport (the "active" one)
+                let activeCard = null;
+                let minDistance = Infinity;
+                const headerHeight = document.querySelector('.session-header')?.offsetHeight || 0;
+
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    // We want the card whose top is near the top of the viewport
+                    const distance = Math.abs(rect.top - headerHeight - 20);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeCard = card;
+                    }
+                });
+
+                if (activeCard) {
+                    // Find the Likert scale options in this card
+                    const radios = activeCard.querySelectorAll('input[type="radio"]');
+                    // Likert scales 1-5 or 1-7 or 1-10. The user specifically asked for 1-5.
+                    if (radios.length >= num) {
+                        radios[num - 1].checked = true;
+                        // Dispatch a change event to trigger the auto-scroll logic already in the page
+                        radios[num - 1].dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }
+            }
+        });
+
         // loadData() is called by startExam() after the info form is submitted
     </script>
 

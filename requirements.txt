@@ -9,3 +9,4 @@ alembic
 numpy
 google-auth
 requests
+google-generativeai

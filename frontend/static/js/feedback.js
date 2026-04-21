@@ -38,6 +38,32 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('char-count').textContent = tx.value.length;
         });
     }
+
+    // ── Keyboard Support ──
+    window.addEventListener('keydown', e => {
+        // Only trigger if a survey question is active and not the text question
+        if (currentStep < 1 || currentStep >= TOTAL_QUESTIONS) return;
+        
+        let num = parseInt(e.key, 10);
+        if (e.key === '0') num = 10; // 0 maps to 10 for Likert-10
+
+        if (!isNaN(num) && num >= 1 && num <= 10) {
+            const card = getActiveQuestionCard();
+            if (!card) return;
+
+            const field = card.dataset.field;
+            const radio = document.querySelector(`input[name="${field}"][value="${num}"]`);
+            
+            if (radio) {
+                radio.checked = true;
+                answers[field] = num;
+                highlightSelected(field, String(num));
+                
+                // Advance to next question with a small delay for visual feedback
+                setTimeout(() => nextQ(), 200);
+            }
+        }
+    });
 });
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
