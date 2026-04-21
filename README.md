@@ -101,7 +101,7 @@ pytest
 
 ## Key Features
 
-- **Google Sign-In**: Easy and secure login for enrollment and accessing reports.
+
 - **Multi-Vector Analysis**: Comprehensive coverage of multiple personality models for a holistic view.
 - **Secure Reports**: Password-protected reports that are easy to find and retrieve.
 - **Responsive Design**: Works well on desktop and mobile devices.
@@ -122,15 +122,15 @@ For full API documentation, refer to the FastAPI auto-generated docs at `/docs` 
 
 ## Deployment
 
-For production deployment, see the [Azure Hosting Guide](AZURE_HOSTING_GUIDE.md) for instructions on deploying to Azure.
+The application is deployed using Docker containers and Azure services. It utilizes Azure PostgreSQL for the database and Azure Container Instances for running the containerized application.
+
+For detailed deployment instructions, see the [Azure Hosting Guide](AZURE_HOSTING_GUIDE.md).
 
 ## Contributing
 
 We welcome contributions! Please see the contributing guidelines (if available) or open an issue for feature requests.
 
-## Future Plans
 
-Check out [FUTURE_IMPLEMENTATIONS.md](FUTURE_IMPLEMENTATIONS.md) for upcoming features and improvements.
 
 ## License
 
