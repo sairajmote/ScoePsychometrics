@@ -120,9 +120,23 @@ The backend provides RESTful APIs for various functionalities:
 
 For full API documentation, refer to the FastAPI auto-generated docs at `/docs` when running the server.
 
-## Deployment
+## Deployment & Architecture (PaaS)
 
-The application is deployed using Docker containers and Azure services. It utilizes Azure PostgreSQL for the database and Azure Container Instances for running the containerized application.
+This project is built using a **Platform as a Service (PaaS)** model to ensure scalability, security, and low maintenance overhead.
+
+### Why PaaS?
+Instead of managing raw virtual machines (IaaS), we leverage managed services that handle the "heavy lifting" of infrastructure management, such as OS patching, scaling, and high availability.
+
+### Cloud Infrastructure
+- **Azure App Service (Web App for Containers)**: Hosts the FastAPI application. It automatically manages the container lifecycle and scaling.
+- **Azure Database for PostgreSQL (Flexible Server)**: A fully managed database service that handles backups, security, and performance tuning.
+- **Azure Container Registry (ACR)**: Stores our production Docker images securely.
+
+### Containerization
+The application is fully containerized using **Docker**, ensuring consistency across development and production environments.
+- **Image**: Python 3.11-slim
+- **Registry**: Azure Container Registry
+- **Deployment**: Automatic pulls from ACR to Azure App Service upon new image pushes.
 
 For detailed deployment instructions, see the [Azure Hosting Guide](AZURE_HOSTING_GUIDE.md).
 
