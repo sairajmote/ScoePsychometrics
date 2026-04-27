@@ -32,19 +32,19 @@
         <div class="container reveal">
             <div class="hero-content">
                 <div class="live-stats-badge" id="live-accuracy-badge" style="display:none;">
-                    <span class="stats-label">Accuracy</span>
+                    <span class="stats-label">Overall Accuracy</span>
                     <span class="stats-value" id="accuracy-value">--%</span>
                 </div>
                 <h1>PRECISE<span>INSIGHTS</span></h1>
                 <p>Empowering organizations with data-driven psychometric solutions. Minimalist design meets maximum
                     performance.</p>
                 <div class="hero-cta" style="display:flex;gap:1.2rem;margin-top:2rem;flex-wrap:wrap;">
-                    <a href="/exam" class="btn" id="begin-assessment-btn">Begin Assessment</a>
+                    <a href="/exam" class="btn" id="begin-assessment-btn" style="flex:1 1 auto;text-align:center;">Begin Assessment</a>
                     <a href="/sample-report" class="btn" id="sample-report-btn"
-                        style="background:#fff;color:#000;border:2px solid #000;">View Sample Report &rarr;</a>
-                    <a href="#" class="btn" onclick="openReportModal(event)">View Your Report</a>
+                        style="flex:1 1 auto;text-align:center;background:#fff;color:#000;border:2px solid #000;">View Sample Report &rarr;</a>
+                    <a href="#" class="btn" onclick="openReportModal(event)" style="flex:1 1 auto;text-align:center;">View Your Report</a>
                     <a href="/feedback" class="btn" id="hero-feedback-btn"
-                        style="background:#000;color:#fff;border:2px solid #000;">Share Feedback &rarr;</a>
+                        style="flex:1 1 auto;text-align:center;background:#000;color:#fff;border:2px solid #000;">Share Feedback &rarr;</a>
                 </div>
                 <div class="about-brief">
                     <h2>The Science of Mind</h2>
@@ -78,43 +78,43 @@
     <div id="reportModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeReportModal()" title="Close">&times;</button>
-            <h2 style="font-size:1.8rem; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:-1px;">Your Reports</h2>
-            <p style="font-size:0.9rem; color:#666; margin-bottom:1.5rem;">Enter your details or use Google to find your past assessment reports.</p>
-            
+            <h2 style="font-size:1.8rem; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:-1px;">Your
+                Reports</h2>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:1.5rem;">Enter your details or use Google to find your
+                past assessment reports.</p>
+
             <!-- Google Sign-In for Lookup -->
             <div id="g_id_onload"
                 data-client_id="363945290379-gogiov7n9mkc8pjqcmq0gapalrasesfg.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback="handleGoogleLookup"
-                data-auto_prompt="false">
+                data-context="signin" data-ux_mode="popup" data-callback="handleGoogleLookup" data-auto_prompt="false">
             </div>
 
-            <div class="g_id_signin"
-                data-type="standard"
-                data-shape="rectangular"
-                data-theme="outline"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left"
+            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+                data-text="signin_with" data-size="large" data-logo_alignment="left"
                 style="margin-bottom: 0.75rem; display: flex; justify-content: center;">
             </div>
 
-            <div style="text-align: center; margin: 0.5rem 0 1rem; font-size: 0.7rem; font-weight: 700; color: #aaa; display: flex; align-items: center; gap: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <div
+                style="text-align: center; margin: 0.5rem 0 1rem; font-size: 0.7rem; font-weight: 700; color: #aaa; display: flex; align-items: center; gap: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">
                 <div style="flex: 1; height: 1px; background: #eee;"></div>
                 <span>Or use email and password</span>
                 <div style="flex: 1; height: 1px; background: #eee;"></div>
             </div>
-            
+
             <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;">
-                <input type="email" id="lookupEmail" placeholder="candidate@example.com" style="padding:0.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none;">
+                <input type="email" id="lookupEmail" placeholder="candidate@example.com"
+                    style="padding:0.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none;">
                 <div style="display:flex; gap:0.5rem;">
-                    <input type="password" id="lookupPassword" placeholder="Password" style="flex:1; padding:0.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none;" onkeypress="if(event.key === 'Enter') lookupReports();">
-                    <button onclick="lookupReports()" style="background:#000; color:#fff; border:none; border-radius:8px; padding:0.8rem 1.5rem; font-weight:700; cursor:pointer; text-transform:uppercase;">Search</button>
+                    <input type="password" id="lookupPassword" placeholder="Password"
+                        style="flex:1; padding:0.8rem; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none;"
+                        onkeypress="if(event.key === 'Enter') lookupReports();">
+                    <button onclick="lookupReports()"
+                        style="background:#000; color:#fff; border:none; border-radius:8px; padding:0.8rem 1.5rem; font-weight:700; cursor:pointer; text-transform:uppercase;">Search</button>
                 </div>
             </div>
-            
-            <div id="lookupResults" style="max-height: 260px; overflow-y: auto; overflow-x: hidden; border-top: 1px solid #eee; padding-top: 1rem; padding-right: 5px; display: flex; flex-direction: column; gap: 0.5rem; scrollbar-width: thin; scrollbar-color: #ccc #f9f9f9;">
+
+            <div id="lookupResults"
+                style="max-height: 260px; overflow-y: auto; overflow-x: hidden; border-top: 1px solid #eee; padding-top: 1rem; padding-right: 5px; display: flex; flex-direction: column; gap: 0.5rem; scrollbar-width: thin; scrollbar-color: #ccc #f9f9f9;">
                 <!-- Results rendered here -->
             </div>
         </div>
@@ -122,15 +122,34 @@
 
     <style>
         .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000;
-            align-items: center; justify-content: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
         }
-        .modal-overlay.active { display: flex; }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
         .modal-content {
-            background: #fff; width: 90%; max-width: 500px; padding: 1.25rem; position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s ease; border-radius: 12px;
+            background: #fff;
+            width: 90%;
+            max-width: 500px;
+            padding: 1.25rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.3s ease;
+            border-radius: 12px;
         }
+
         .modal-close {
             position: absolute;
             top: 1.25rem;
@@ -161,19 +180,58 @@
         .modal-close:active {
             transform: rotate(90deg) scale(0.9);
         }
-        @keyframes popIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .report-item {
-            display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid #eee; border-radius: 8px; text-decoration: none; color: #000; transition: border-color 0.2s;
+
+        @keyframes popIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        .report-item:hover { border-color: #000; }
-        .ri-id { font-weight: 700; font-size: 1rem; }
-        .ri-date { font-size: 0.8rem; color: #666; }
-        
+
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #000;
+            transition: border-color 0.2s;
+        }
+
+        .report-item:hover {
+            border-color: #000;
+        }
+
+        .ri-id {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .ri-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
         /* Custom scrollbar for Webkit */
-        #lookupResults::-webkit-scrollbar { width: 4px; }
-        #lookupResults::-webkit-scrollbar-track { background: #f9f9f9; }
-        #lookupResults::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        #lookupResults::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #lookupResults::-webkit-scrollbar-track {
+            background: #f9f9f9;
+        }
+
+        #lookupResults::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
     </style>
 
     <script>
@@ -201,12 +259,12 @@
                     body: JSON.stringify({ credential: response.credential })
                 });
                 const userData = await verifyRes.json();
-                
+
                 if (userData.status === 'success') {
                     // Fill email and move to password field
                     document.getElementById('lookupEmail').value = userData.email;
                     document.getElementById('lookupPassword').focus();
-                    
+
                     // Clear any previous results
                     document.getElementById('lookupResults').innerHTML = '<p style="color:#2ecc71; font-size:0.9rem;">Email verified via Google. Please enter your password to continue.</p>';
                 }
@@ -221,33 +279,33 @@
             const email = document.getElementById('lookupEmail').value.trim();
             const password = document.getElementById('lookupPassword').value.trim();
             const resDiv = document.getElementById('lookupResults');
-            
-            if(!email) {
+
+            if (!email) {
                 resDiv.innerHTML = '<p style="color:red; font-size:0.9rem;">Please enter an email.</p>';
                 return;
             }
-            if(!password) {
+            if (!password) {
                 resDiv.innerHTML = '<p style="color:red; font-size:0.9rem;">Please enter your password.</p>';
                 return;
             }
-            
+
             resDiv.innerHTML = '<p style="color:#666; font-size:0.9rem;">Searching...</p>';
-            
+
             try {
                 const res = await fetch('/api/reports/user/' + encodeURIComponent(email) + '?password=' + encodeURIComponent(password));
-                
+
                 if (res.status === 401) {
                     resDiv.innerHTML = '<p style="color:red; font-size:0.9rem;">Invalid password.</p>';
                     return;
                 }
-                
+
                 const data = await res.json();
-                
-                if(!data || data.length === 0) {
+
+                if (!data || data.length === 0) {
                     resDiv.innerHTML = '<p style="color:#666; font-size:0.9rem; font-style:italic;">No reports found. Make sure you entered the correct email used during the assessment.</p>';
                     return;
                 }
-                
+
                 let html = '';
                 data.forEach(r => {
                     const d = new Date(r.created_at);
@@ -255,14 +313,14 @@
                         <a href="/report?report_id=${r.report_id}" class="report-item">
                             <div>
                                 <div class="ri-id">${r.report_id}</div>
-                                <div class="ri-date">${d.toLocaleDateString('en-IN', {year:'numeric',month:'long',day:'numeric'})} &middot; ${r.candidate_name}</div>
+                                <div class="ri-date">${d.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })} &middot; ${r.candidate_name}</div>
                             </div>
                             <span style="font-weight:700;">&rarr;</span>
                         </a>
                     `;
                 });
                 resDiv.innerHTML = html;
-            } catch(err) {
+            } catch (err) {
                 resDiv.innerHTML = '<p style="color:red; font-size:0.9rem;">Error connecting to server. Please try again.</p>';
             }
         }

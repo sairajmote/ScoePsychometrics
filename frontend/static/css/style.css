@@ -226,7 +226,7 @@ nav a.active::after {
     border: 1px solid #000;
     border-radius: 12px;
     filter: grayscale(1);
-    box-shadow: 20px 20px 0px rgba(0,0,0,0.1);
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 .hero h1 span {
@@ -257,11 +257,22 @@ nav a.active::after {
     border: 2px solid #000;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
-.stats-label { color: #aaa; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; }
-.stats-value { color: #fff; font-weight: 900; font-size: 1.4rem; letter-spacing: -0.02em; }
+.stats-label {
+    color: #aaa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.stats-value {
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+}
 
 /* About Brief Integration */
 .about-brief {

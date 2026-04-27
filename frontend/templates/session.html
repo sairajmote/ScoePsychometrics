@@ -828,7 +828,7 @@
                         // Yes / Maybe / No — used by Temperament questions
                         inputHtml = `
                             <div class="ynm-options" style="display:flex;gap:1rem;margin-top:1.25rem;flex-wrap:wrap;">
-                                ${opts.filter(key => q.options[key]).map(key => `
+                                ${opts.filter(key => q.options[key]).map((key, idx) => `
                                     <label class="ynm-option" style="
                                         display:flex;align-items:center;gap:0.5rem;
                                         padding:0.6rem 1.4rem;
@@ -840,9 +840,11 @@
                                         transition:border-color 0.15s,background 0.15s;
                                         user-select:none;
                                         border-radius:8px;
+                                        position:relative;
                                     " onmouseover="this.style.borderColor='#000'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'#000':'#ccc'">
                                         <input type="radio" name="q${q.id}" value="${key}" required style="accent-color:#000;width:16px;height:16px;">
                                         <span>${q.options[key]}</span>
+                                        <span class="key-hint" style="font-size:0.7rem; color:#aaa; margin-left:0.3rem;">[${idx+1}]</span>
                                     </label>
                                 `).join('')}
                             </div>
@@ -850,10 +852,10 @@
                     } else {
                         inputHtml = `
                             <div class="options-grid">
-                                ${opts.map(key => `
+                                ${opts.map((key, idx) => `
                                     <label class="option-label">
                                         <input type="radio" name="q${q.id}" value="${key}" required>
-                                        <span><strong>${key}.</strong> ${q.options[key]}</span>
+                                        <span><strong>${key}.</strong> ${q.options[key]} <span style="font-size:0.75rem; color:#aaa; font-weight:400;">[Key ${idx+1}]</span></span>
                                     </label>
                                 `).join('')}
                             </div>
@@ -1010,12 +1012,18 @@
             }, 1000);
         }
 
-        // ── Keyboard Support for Likert Questions ──
+        // ── Keyboard Support for ALL Questions ──
         window.addEventListener('keydown', e => {
+            // Ignore if user is typing in an input field
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
             const num = parseInt(e.key);
-            if (num >= 1 && num <= 5) {
-                // Find all question cards
-                const cards = document.querySelectorAll('.question-card');
+            if (!isNaN(num) && num >= 1 && num <= 9) {
+                // Find all visible question cards (only in the active domain panel)
+                const activePanel = document.querySelector('.domain-panel.active');
+                if (!activePanel) return;
+
+                const cards = activePanel.querySelectorAll('.question-card');
                 
                 // Find the card closest to the top of the viewport (the "active" one)
                 let activeCard = null;
@@ -1024,7 +1032,7 @@
 
                 cards.forEach(card => {
                     const rect = card.getBoundingClientRect();
-                    // We want the card whose top is near the top of the viewport
+                    // Distance from top of viewport (adjusted for header)
                     const distance = Math.abs(rect.top - headerHeight - 20);
                     if (distance < minDistance) {
                         minDistance = distance;
@@ -1033,12 +1041,9 @@
                 });
 
                 if (activeCard) {
-                    // Find the Likert scale options in this card
                     const radios = activeCard.querySelectorAll('input[type="radio"]');
-                    // Likert scales 1-5 or 1-7 or 1-10. The user specifically asked for 1-5.
                     if (radios.length >= num) {
                         radios[num - 1].checked = true;
-                        // Dispatch a change event to trigger the auto-scroll logic already in the page
                         radios[num - 1].dispatchEvent(new Event('change', { bubbles: true }));
                     }
                 }
