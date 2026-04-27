@@ -4,9 +4,8 @@ import google.generativeai as genai
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
+# Configuration is loaded from system environment (Azure) or .env (Local)
 load_dotenv()
-
-# Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY")
 
 def get_model():
@@ -106,7 +105,7 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
 
     CRITICAL FORMATTING INSTRUCTIONS:
     1. Use a multi-paragraph structure.
-    2. USE NUMBERED POINTS (1., 2., 3., etc.) to break down the key analysis areas (e.g., 1. Your Identity & Core Drives, 2. Your Emotional Landscape, 3. Your Cognitive & Learning Style).
+    2. USE NUMBERED POINTS (1., 2., 3., etc.) to break down the key analysis areas (e.g., 1. Your Identity & Core Drives, 2. Your Emotional Landscape, 3. Your Natural Intelligences & Working Style).
     3. Use double newlines (\\n\\n) for vertical spacing between paragraphs and points.
     4. Ensure the content is structured for readability.
 

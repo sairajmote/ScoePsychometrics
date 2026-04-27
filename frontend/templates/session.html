@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Active Session | SCOE-Psychometrics</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .mode-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 0.3rem 0.9rem;
+            border: 2px solid #000;
+            background: #fff;
+            color: #000;
+            white-space: nowrap;
+            border-radius: 8px;
+        }
+        .mode-badge.short { background: #000; color: #fff; border-color: #000; }
+    </style>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
@@ -30,6 +45,7 @@
             background: #000;
             color: #fff;
             padding: 0.5rem 1.5rem;
+            border-radius: 8px;
         }
 
         /* ── Domain navigation ── */
@@ -56,6 +72,7 @@
             color: #555;
             transition: background 0.2s, color 0.2s;
             white-space: nowrap;
+            border-radius: 8px 8px 0 0;
         }
 
         .domain-btn:last-child {
@@ -91,6 +108,7 @@
         .domain-progress {
             height: 4px;
             background: #eee;
+            border-radius: 4px;
         }
 
         .domain-progress-fill {
@@ -98,6 +116,7 @@
             background: #000;
             transition: width 0.4s ease;
             width: 0%;
+            border-radius: 4px;
         }
 
         /* ── Question cards ── */
@@ -133,6 +152,7 @@
             transform: translateY(20px);
             transition: all 0.4s ease-out;
             background: #fff;
+            border-radius: 12px;
         }
 
         .question-card.visible {
@@ -242,6 +262,7 @@
             text-transform: uppercase;
             transition: 0.2s;
             font-family: 'Inter', sans-serif;
+            border-radius: 8px;
         }
 
         .btn-outline:hover {
@@ -264,6 +285,7 @@
             letter-spacing: 0.05em;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
+            border-radius: 8px;
         }
 
         #final-submit:hover {
@@ -289,6 +311,7 @@
             padding: 1.75rem;
             border: 2px solid #000;
             position: relative;
+            border-radius: 12px;
         }
 
         #info-modal h2 {
@@ -332,6 +355,7 @@
             background: #fafafa;
             appearance: none;
             -webkit-appearance: none;
+            border-radius: 8px;
         }
 
         .info-field input:focus,
@@ -366,6 +390,7 @@
             font-family: 'Inter', sans-serif;
             margin-top: 0.5rem;
             transition: background 0.2s;
+            border-radius: 8px;
         }
 
         #btn-start-exam:hover {
@@ -411,9 +436,9 @@
     <!-- Pre-exam info overlay -->
     <div id="info-overlay">
         <div id="info-modal">
-            <button class="btn-close-overlay" onclick="window.location.href='/'" title="Cancel and go home">&times;</button>
+            <button class="btn-close-overlay" onclick="window.location.href='/exam'" title="Cancel and go back">×</button>
             <h2>Before You Begin</h2>
-            <p class="modal-subtitle">Please fill in your details below. This information will be used to generate your personalised psychometric report.</p>
+            <p id="modal-mode-label" class="modal-subtitle">Please fill in your details below. This information will be used to generate your personalised psychometric report.</p>
 
             <!-- Google Sign-In Integration -->
             <!-- 
@@ -484,7 +509,10 @@
             <img src="/static/img/SCOE_logo.png" alt="Logo" class="nav-logo">
             <span class="logo">ScoePsychometrics</span>
         </div>
-        <div id="timer" class="timer">120:00</div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span id="mode-badge" class="mode-badge">Full Test</span>
+            <div id="timer" class="timer">120:00</div>
+        </div>
     </div>
 
     <!-- Domain tabs -->
@@ -504,6 +532,27 @@
     </div>
 
     <script>
+        // ── Detect mode from URL ?mode=short|full ──
+        const _urlParams = new URLSearchParams(window.location.search);
+        const examMode = (_urlParams.get('mode') || 'full').toLowerCase() === 'short' ? 'short' : 'full';
+        const isShortMode = examMode === 'short';
+
+        // ── Update UI labels for mode ──
+        (function applyModeLabels() {
+            const badge = document.getElementById('mode-badge');
+            const label = document.getElementById('modal-mode-label');
+            if (isShortMode) {
+                badge.textContent = 'Shorter Test';
+                badge.classList.add('short');
+                label.textContent = 'You have selected the 150-question Shorter Test (~20 min). Fill in your details to begin.';
+                document.getElementById('timer').textContent = '25:00';
+            } else {
+                badge.textContent = 'Full Test';
+                label.textContent = 'You have selected the Full Test (~60 min). Fill in your details to begin.';
+                document.getElementById('timer').textContent = '120:00';
+            }
+        })();
+
         // ── User info collected before exam ──
         let studentName = '';
         let studentEmail = '';
@@ -614,60 +663,98 @@
 
         async function loadData() {
             if (window.location.protocol === 'file:') {
-                alert("Error: This page must be served through the FastAPI server (e.g., http://localhost:8000/session) to load questions. Please do not open the HTML file directly.");
+                alert("Error: This page must be served through the FastAPI server to load questions.");
                 return;
             }
             try {
-                console.log("Fetching MBTI, Temperament, Enneagram, Brain Dominance, Multiple Intelligence and Big 5 questions...");
-                const [mbtiRes, tempRes, ennRes, bdRes, miRes, b5Res] = await Promise.all([
-                    fetch('/questions?category=mbti'),
-                    fetch('/questions?category=temperament'),
-                    fetch('/questions?category=enneagram'),
-                    fetch('/questions?category=brain_dominance'),
-                    fetch('/questions?category=multiple_intelligence'),
-                    fetch('/questions?category=big5')
-                ]);
+                if (isShortMode) {
+                    // ── Short-form: single fetch ──
+                    console.log('Loading 150-question short form...');
+                    const sfRes = await fetch('/questions?category=short_form');
+                    if (!sfRes.ok) throw new Error(`Short-form fetch failed: ${sfRes.status}`);
+                    allQuestions = await sfRes.json();
+                    console.log(`Short-form questions loaded: ${allQuestions.length}`);
 
-                if (!mbtiRes.ok) throw new Error(`MBTI fetch failed: ${mbtiRes.status}`);
-                if (!tempRes.ok) throw new Error(`Temperament fetch failed: ${tempRes.status}`);
-                if (!ennRes.ok) throw new Error(`Enneagram fetch failed: ${ennRes.status}`);
-                if (!bdRes.ok)  throw new Error(`Brain Dominance fetch failed: ${bdRes.status}`);
-                if (!miRes.ok)  throw new Error(`Multiple Intelligence fetch failed: ${miRes.status}`);
-                if (!b5Res.ok)  throw new Error(`Big 5 fetch failed: ${b5Res.status}`);
+                    // Group by a friendly subtest-block label
+                    const subtestGroups = {
+                        forgetfulness: 'COGNITIVE', false_triggering: 'COGNITIVE',
+                        distractibility: 'COGNITIVE', cognitive: 'COGNITIVE',
+                        openness: 'BIG FIVE', neuroticism: 'BIG FIVE',
+                        agreeableness: 'BIG FIVE', extraversion: 'BIG FIVE',
+                        conscientiousness: 'BIG FIVE',
+                        E1:'ENNEAGRAM',E2:'ENNEAGRAM',E3:'ENNEAGRAM',
+                        E4:'ENNEAGRAM',E5:'ENNEAGRAM',E6:'ENNEAGRAM',
+                        E7:'ENNEAGRAM',E8:'ENNEAGRAM',E9:'ENNEAGRAM',
+                        L:'BRAIN DOMINANCE', R:'BRAIN DOMINANCE',
+                        EI_temperament:'TEMPERAMENT', N_temperament:'TEMPERAMENT',
+                        LIE_temperament:'TEMPERAMENT',
+                        EI:'MBTI', SN:'MBTI', TF:'MBTI', JP:'MBTI',
+                        LI:'MULTIPLE INTELLIGENCE', LMI:'MULTIPLE INTELLIGENCE',
+                        MI:'MULTIPLE INTELLIGENCE', BKI:'MULTIPLE INTELLIGENCE',
+                        SVI:'MULTIPLE INTELLIGENCE', IPI:'MULTIPLE INTELLIGENCE',
+                        INPI:'MULTIPLE INTELLIGENCE', NI:'MULTIPLE INTELLIGENCE',
+                    };
 
-                const mbtiQuestions = await mbtiRes.json();
-                const tempQuestions = await tempRes.json();
-                const ennQuestions  = await ennRes.json();
-                const bdQuestions   = await bdRes.json();
-                const miQuestions   = await miRes.json();
-                const b5Questions   = await b5Res.json();
-                allQuestions = [...mbtiQuestions, ...tempQuestions, ...ennQuestions, ...bdQuestions, ...miQuestions, ...b5Questions];
+                    questionsByDomain = {};
+                    domainList = [];
+                    allQuestions.forEach(q => {
+                        const domain = subtestGroups[q.subtest] || 'SHORT FORM';
+                        if (!questionsByDomain[domain]) {
+                            questionsByDomain[domain] = [];
+                            domainList.push(domain);
+                        }
+                        questionsByDomain[domain].push(q);
+                    });
+                } else {
+                    // ── Full test: original multi-category fetch ──
+                    console.log('Loading full battery questions...');
+                    const [mbtiRes, tempRes, ennRes, bdRes, miRes, b5Res] = await Promise.all([
+                        fetch('/questions?category=mbti'),
+                        fetch('/questions?category=temperament'),
+                        fetch('/questions?category=enneagram'),
+                        fetch('/questions?category=brain_dominance'),
+                        fetch('/questions?category=multiple_intelligence'),
+                        fetch('/questions?category=big5')
+                    ]);
+                    if (!mbtiRes.ok) throw new Error(`MBTI fetch failed: ${mbtiRes.status}`);
+                    if (!tempRes.ok) throw new Error(`Temperament fetch failed: ${tempRes.status}`);
+                    if (!ennRes.ok)  throw new Error(`Enneagram fetch failed: ${ennRes.status}`);
+                    if (!bdRes.ok)   throw new Error(`Brain Dominance fetch failed: ${bdRes.status}`);
+                    if (!miRes.ok)   throw new Error(`Multiple Intelligence fetch failed: ${miRes.status}`);
+                    if (!b5Res.ok)   throw new Error(`Big 5 fetch failed: ${b5Res.status}`);
 
-                console.log(`Questions loaded — MBTI: ${mbtiQuestions.length}, Temperament: ${tempQuestions.length}, Enneagram: ${ennQuestions.length}, Brain Dominance: ${bdQuestions.length}, Multiple Intelligence: ${miQuestions.length}, Big 5: ${b5Questions.length}`);
+                    const mbtiQ = await mbtiRes.json();
+                    const tempQ = await tempRes.json();
+                    const ennQ  = await ennRes.json();
+                    const bdQ   = await bdRes.json();
+                    const miQ   = await miRes.json();
+                    const b5Q   = await b5Res.json();
+                    allQuestions = [...mbtiQ, ...tempQ, ...ennQ, ...bdQ, ...miQ, ...b5Q];
+                    console.log(`Full questions loaded — MBTI:${mbtiQ.length}, Temp:${tempQ.length}, Enn:${ennQ.length}, BD:${bdQ.length}, MI:${miQ.length}, B5:${b5Q.length}`);
+
+                    questionsByDomain = {};
+                    domainList = [];
+                    allQuestions.forEach(q => {
+                        const domain = (q.category || 'General').toUpperCase();
+                        if (!questionsByDomain[domain]) {
+                            questionsByDomain[domain] = [];
+                            domainList.push(domain);
+                        }
+                        questionsByDomain[domain].push(q);
+                    });
+                }
 
                 if (allQuestions.length === 0) {
-                    console.warn("No questions found in database.");
-                    panelsContainer.innerHTML = '<p style="text-align:center;padding:5rem;color:#888;">No questions found in the database. Please seed the database first.</p>';
+                    panelsContainer.innerHTML = '<p style="text-align:center;padding:5rem;color:#888;">No questions found. Please seed the database first.</p>';
                     return;
                 }
 
-                // Group questions by category (domain)
-                questionsByDomain = {};
-                domainList = [];
-                allQuestions.forEach(q => {
-                    const domain = (q.category || "General").toUpperCase();
-                    if (!questionsByDomain[domain]) {
-                        questionsByDomain[domain] = [];
-                        domainList.push(domain);
-                    }
-                    questionsByDomain[domain].push(q);
-                });
-
                 renderStructure();
                 updateNav();
+                startTimer();
             } catch (err) {
-                console.error("loadData Error:", err);
-                panelsContainer.innerHTML = `<p style="color:red;text-align:center;padding:5rem;">Error loading questions: ${err.message}<br><br>Check if the backend server is running and the database is connected.</p>`;
+                console.error('loadData error:', err);
+                panelsContainer.innerHTML = `<p style="color:red;text-align:center;padding:5rem;">Error loading questions: ${err.message}<br><br>Check that the backend is running and the database is seeded.</p>`;
             }
         }
 
@@ -741,7 +828,7 @@
                         // Yes / Maybe / No — used by Temperament questions
                         inputHtml = `
                             <div class="ynm-options" style="display:flex;gap:1rem;margin-top:1.25rem;flex-wrap:wrap;">
-                                ${opts.filter(key => q.options[key]).map(key => `
+                                ${opts.filter(key => q.options[key]).map((key, idx) => `
                                     <label class="ynm-option" style="
                                         display:flex;align-items:center;gap:0.5rem;
                                         padding:0.6rem 1.4rem;
@@ -752,9 +839,12 @@
                                         letter-spacing:0.04em;
                                         transition:border-color 0.15s,background 0.15s;
                                         user-select:none;
+                                        border-radius:8px;
+                                        position:relative;
                                     " onmouseover="this.style.borderColor='#000'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'#000':'#ccc'">
                                         <input type="radio" name="q${q.id}" value="${key}" required style="accent-color:#000;width:16px;height:16px;">
                                         <span>${q.options[key]}</span>
+                                        <span class="key-hint" style="font-size:0.7rem; color:#aaa; margin-left:0.3rem;">[${idx+1}]</span>
                                     </label>
                                 `).join('')}
                             </div>
@@ -762,10 +852,10 @@
                     } else {
                         inputHtml = `
                             <div class="options-grid">
-                                ${opts.map(key => `
+                                ${opts.map((key, idx) => `
                                     <label class="option-label">
                                         <input type="radio" name="q${q.id}" value="${key}" required>
-                                        <span><strong>${key}.</strong> ${q.options[key]}</span>
+                                        <span><strong>${key}.</strong> ${q.options[key]} <span style="font-size:0.75rem; color:#aaa; font-weight:400;">[Key ${idx+1}]</span></span>
                                     </label>
                                 `).join('')}
                             </div>
@@ -872,7 +962,8 @@
                 btn.disabled = true;
                 btn.textContent = 'Submitting...';
 
-                const res = await fetch('/submit-exam', {
+                const endpoint = isShortMode ? '/submit-short-form' : '/submit-exam';
+                const res = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -897,15 +988,67 @@
             }
         }
 
-        // Timer (Optional but helpful)
-        let timeLeft = 120 * 60;
-        setInterval(() => {
-            if (timeLeft <= 0) return;
-            timeLeft--;
-            const m = Math.floor(timeLeft / 60);
-            const s = timeLeft % 60;
-            document.getElementById('timer').textContent = `${m}:${s.toString().padStart(2, '0')}`;
-        }, 1000);
+        // ── Timer — started after loadData() completes ──
+        let timeLeft = isShortMode ? 25 * 60 : 120 * 60;
+        let timerInterval = null;
+
+        function startTimer() {
+            if (timerInterval) return; // prevent double-start
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').textContent = '0:00';
+                    document.getElementById('timer').style.background = '#c0392b';
+                    return;
+                }
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60);
+                const s = timeLeft % 60;
+                document.getElementById('timer').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+                // Warn when 5 minutes remain
+                if (timeLeft === 5 * 60) {
+                    document.getElementById('timer').style.background = '#c0392b';
+                }
+            }, 1000);
+        }
+
+        // ── Keyboard Support for ALL Questions ──
+        window.addEventListener('keydown', e => {
+            // Ignore if user is typing in an input field
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+            const num = parseInt(e.key);
+            if (!isNaN(num) && num >= 1 && num <= 9) {
+                // Find all visible question cards (only in the active domain panel)
+                const activePanel = document.querySelector('.domain-panel.active');
+                if (!activePanel) return;
+
+                const cards = activePanel.querySelectorAll('.question-card');
+                
+                // Find the card closest to the top of the viewport (the "active" one)
+                let activeCard = null;
+                let minDistance = Infinity;
+                const headerHeight = document.querySelector('.session-header')?.offsetHeight || 0;
+
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    // Distance from top of viewport (adjusted for header)
+                    const distance = Math.abs(rect.top - headerHeight - 20);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeCard = card;
+                    }
+                });
+
+                if (activeCard) {
+                    const radios = activeCard.querySelectorAll('input[type="radio"]');
+                    if (radios.length >= num) {
+                        radios[num - 1].checked = true;
+                        radios[num - 1].dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }
+            }
+        });
 
         // loadData() is called by startExam() after the info form is submitted
     </script>

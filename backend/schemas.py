@@ -39,3 +39,38 @@ class ExamSubmissionResponse(BaseModel):
 class GoogleAuthRequest(BaseModel):
     credential: str
 
+
+# ── Feedback schemas ────────────────────────────────────────────────────────
+
+class FeedbackSubmit(BaseModel):
+    """Payload sent by the browser when a user submits the feedback survey."""
+    # Optional linking fields
+    user_id:   Optional[int]  = None
+    report_id: Optional[str]  = None
+
+    # Q1-Q14 quantitative (None = question was skipped)
+    q1_overall_accuracy:     Optional[int] = None  # Likert 1-5
+    q2_personality_accuracy: Optional[int] = None  # Likert 1-5
+    q3_trait_scores_accuracy: Optional[int] = None  # Likert 1-5
+    q4_self_understanding:   Optional[int] = None  # Likert 1-5
+    q5_report_clarity:       Optional[int] = None  # Likert 1-5
+    q6_trust:                Optional[int] = None  # Likert 1-5
+    q7_novelty:              Optional[int] = None  # Likert 1-5
+    q8_ei_agreement:         Optional[int] = None  # 1=Yes / 0=No
+    q9_mi_agreement:         Optional[int] = None  # 1=Yes / 0=No
+    q10_enneagram_agreement: Optional[int] = None  # 1=Yes / 0=No
+    q11_test_length:         Optional[int] = None  # Likert 1-5
+    q12_recommend:           Optional[int] = None  # Likert 1-5
+    q13_retake:              Optional[int] = None  # 1=Yes / 0=No
+    q14_satisfaction:        Optional[int] = None  # Likert 1-5
+
+    # Q15 – open-ended
+    q15_open_text: Optional[str] = None
+
+
+class FeedbackStatsResponse(BaseModel):
+    """Aggregated statistics returned by GET /api/feedback/stats."""
+    total_responses: int
+    overall_accuracy_score: float          # 0-100 %
+    per_metric_averages: Dict[str, Optional[float]]
+    open_text_samples: List[Optional[str]] # last 5 non-empty responses

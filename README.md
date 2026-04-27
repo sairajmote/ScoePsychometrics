@@ -1,20 +1,19 @@
-#  ScopePsychometrics
+# ScopePsychometrics
 
-> *Know thyself. A comprehensive personality test . FOR FREE*
+> *Know thyself. A comprehensive personality test. FOR FREE*
 
 ---
 
 ## What is this?
 
-ScopePsychometrics is a **free, comprehensive personality assessment** that goes way deeper than those 10-minute quizzes you find floating around the internet. We're talking ~500 carefully constructed questions powered by **Item Response Theory (IRT)** — the same psychometric framework used in serious academic research.
+ScopePsychometrics is a **free, comprehensive personality assessment** that goes deeper than quick online quizzes. It includes about 500 carefully crafted questions to give you detailed insights into your personality.
 
-By the time you're done, you'll walk away with a full breakdown of:
+By the end, you'll get a full breakdown of:
 
--  **MBTI Personality Type** — yes, we know you've already done this on 3 other sites
--  **Temperament Profile** — dig into the *why* behind how you tick
--  **Enneagram** — your core motivations, fears, and growth paths
--  **Other cool psychometric goodies** — because why stop there?
--  **Career Recommendations** — tailored to your actual personality, not vibes
+- **MBTI Personality Type** — your personality preferences
+- **Temperament Profile** — how you naturally behave
+- **Enneagram** — your core motivations and growth areas
+- **Other personality insights** — including career recommendations based on your results
 
 ---
 
@@ -22,17 +21,38 @@ By the time you're done, you'll walk away with a full breakdown of:
 
 | Layer     | Tech          |
 |-----------|---------------|
-| Backend   | FastAPI   |
-| Scoring   | R (IRT-based)  |
-| Frontend  | Vanilla JS  |
+| Backend   | FastAPI       |
+| Scoring   | Python        |
+| Frontend  | Vanilla JS    |
+| Database  | PostgreSQL    |
 
-Lean, fast, and no unnecessary bloat — just like a good personality test should be.
+Simple, fast, and focused — just like a good personality test.
 
 ---
 
 ## Scoring & Methodology
 
-We currently use **Classical Test Theory (CTT)** for scoring. We're planning to move to IRT-based scoring down the line — but that needs a decent dataset first, which we'll be building up through your responses over time. So every test you take is genuinely helping make the next version better. 
+We use **Classical Test Theory (CTT)** for scoring, which is a reliable method for personality assessments. This ensures accurate and consistent results based on your responses.
+
+## Assessments Included
+
+The platform covers a wide range of personality assessments:
+
+- **MBTI (Myers-Briggs Type Indicator)**: 16 personality types based on preferences in four dichotomies.
+- **Big 5 Personality Traits**: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.
+- **Enneagram**: Nine personality types focusing on core motivations and fears.
+- **Temperament**: Four temperaments (Sanguine, Choleric, Melancholic, Phlegmatic).
+- **Multiple Intelligence**: Based on Howard Gardner's theory.
+- **Brain Dominance**: Left-brain vs. right-brain thinking styles.
+- **Short Form Assessments**: Quick versions for faster insights.
+
+## How It Works
+
+1. **Sign Up/Login**: Use Google Sign-In for easy access.
+2. **Take the Assessment**: Answer a series of questions across different categories.
+3. **Scoring**: Your responses are scored using validated algorithms.
+4. **View Report**: Get a detailed report with your personality profile and recommendations.
+5. **Secure Storage**: Reports are stored securely and can be accessed anytime with a password.
 
 ## Getting Started
 
@@ -42,17 +62,17 @@ We currently use **Classical Test Theory (CTT)** for scoring. We're planning to 
 - Google Cloud Console Project (for Google Sign-In)
 
 ### Setup
-1. Clone the repository and navigate to the project root directory.
-2. Create a virtual environment and activate it:
+1. Clone the repository and go to the project root.
+2. Create and activate a virtual environment:
    ```bash
    python -m venv .venv
    .\.venv\Scripts\activate  # On Windows
    ```
-3. Install the dependencies:
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-4. Set up the `.env` file in the root directory with your database connection string and Google Client ID:
+4. Create a `.env` file in the root with your database details and Google Client ID:
    ```env
    DATABASE_URL=postgresql://user:password@localhost:5432/psycho_db
    GOOGLE_CLIENT_ID=your_client_id_here
@@ -63,17 +83,69 @@ We currently use **Classical Test Theory (CTT)** for scoring. We're planning to 
    ```
 
 ### Running the Application
-1. Seed the database with the assessment questions:
+1. Add the assessment questions to the database:
    ```bash
-   python seed_questions.py  # Master seeding script
+   python seed_questions.py
    ```
-2. Start the FastAPI development server:
+2. Start the server:
    ```bash
    uvicorn backend.main:app --reload --port 8001
    ```
-3. Open your browser and navigate to `http://localhost:8001`.
+3. Open `http://localhost:8001` in your browser.
 
-### Key Features
-- **Google Sign-In**: Integrated across enrollment and report lookup for a seamless experience.
-- **Multi-Vector Analysis**: MBTI, Big 5, Enneagram, Temperament, and Brain Dominance scoring.
-- **Secure Reports**: Reports are password-protected and easily searchable.
+### Testing
+To run tests (if available):
+```bash
+pytest
+```
+
+## Key Features
+
+
+- **Multi-Vector Analysis**: Comprehensive coverage of multiple personality models for a holistic view.
+- **Secure Reports**: Password-protected reports that are easy to find and retrieve.
+- **Responsive Design**: Works well on desktop and mobile devices.
+- **Data Privacy**: User data is handled securely with encryption.
+- **Career Recommendations**: Tailored suggestions based on your personality profile.
+- **Feedback System**: Users can provide feedback on their reports.
+
+## API Endpoints
+
+The backend provides RESTful APIs for various functionalities:
+
+- `POST /auth/login`: User authentication
+- `GET /questions`: Retrieve assessment questions
+- `POST /submit`: Submit responses and get scores
+- `GET /report/{id}`: Fetch user reports
+
+For full API documentation, refer to the FastAPI auto-generated docs at `/docs` when running the server.
+
+## Deployment & Architecture (PaaS)
+
+This project is built using a **Platform as a Service (PaaS)** model to ensure scalability, security, and low maintenance overhead.
+
+### Why PaaS?
+Instead of managing raw virtual machines (IaaS), we leverage managed services that handle the "heavy lifting" of infrastructure management, such as OS patching, scaling, and high availability.
+
+### Cloud Infrastructure
+- **Azure App Service (Web App for Containers)**: Hosts the FastAPI application. It automatically manages the container lifecycle and scaling.
+- **Azure Database for PostgreSQL (Flexible Server)**: A fully managed database service that handles backups, security, and performance tuning.
+- **Azure Container Registry (ACR)**: Stores our production Docker images securely.
+
+### Containerization
+The application is fully containerized using **Docker**, ensuring consistency across development and production environments.
+- **Image**: Python 3.11-slim
+- **Registry**: Azure Container Registry
+- **Deployment**: Automatic pulls from ACR to Azure App Service upon new image pushes.
+
+For detailed deployment instructions, see the [Azure Hosting Guide](AZURE_HOSTING_GUIDE.md).
+
+## Contributing
+
+We welcome contributions! Please see the contributing guidelines (if available) or open an issue for feature requests.
+
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

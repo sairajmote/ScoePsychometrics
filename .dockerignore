@@ -1,0 +1,36 @@
+# Ignore virtual environment
+.venv/
+venv/
+env/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local environment variables and secrets
+.env
+
+# Ignore version control
+.git/
+.gitignore
+
+# Ignore IDE settings
+.vscode/
+.idea/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore documentation and text files except requirements.txt
+*.md
+*.txt
+!requirements.txt
+alembic.ini
+
+# Ignore deployment-related files
+Dockerfile
+.dockerignore
+AZURE_HOSTING_GUIDE.md

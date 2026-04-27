@@ -134,7 +134,7 @@ function renderReport(D) {
             ${sub.big5 ? `<button class="tab-btn" onclick="switchTab('tab-big5', event)">TRAITS (BIG 5)</button>` : ''}
             ${sub.multiple_intelligence ? `<button class="tab-btn" onclick="switchTab('tab-mi', event)">INTELLIGENCE (MI)</button>` : ''}
             ${sub.enneagram ? `<button class="tab-btn" onclick="switchTab('tab-enneagram', event)">MOTIVATIONS (ENNEA)</button>` : ''}
-            ${sub.brain_dominance ? `<button class="tab-btn" onclick="switchTab('tab-brain', event)">COGNITIVE STYLE</button>` : ''}
+            ${sub.brain_dominance ? `<button class="tab-btn" onclick="switchTab('tab-brain', event)">BRAIN DOMINANCE</button>` : ''}
         </div>
         
         <div class="results-container">`;
@@ -606,6 +606,13 @@ function renderReport(D) {
                 <hr style="border:0; border-top:1px solid #eee; margin:1rem 0;">
                 <p style="font-size:0.85rem; color:#666;">${sub.temperament?.interpretation?.substring(0, 200)}...</p>
             </div>
+            ${sub.multiple_intelligence ? `
+            <div class="print-card">
+                <h3>Multiple Intelligence (MI)</h3>
+                <p style="font-size:0.9rem;"><strong>Dominant:</strong> ${sub.multiple_intelligence.dominant_labels.join(', ')}</p>
+                <hr style="border:0; border-top:1px solid #eee; margin:1rem 0;">
+                <p style="font-size:0.85rem; color:#666;">${sub.multiple_intelligence.profile_summary.substring(0, 200)}...</p>
+            </div>` : ''}
         </div>
     </div>
 

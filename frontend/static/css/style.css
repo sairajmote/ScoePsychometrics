@@ -85,7 +85,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 0.6rem 10%;
+    padding: 1.2rem 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -96,11 +96,25 @@ header {
 }
 
 .header-home {
-    background-image: conic-gradient(from 45deg, rgba(0, 0, 0, 0.06) 25%, transparent 0 50%, rgba(0, 0, 0, 0.06) 0 75%, transparent 0);
-    background-size: 40px 40px;
-    background-color: #ffffff;
+    background-color: #000000;
     backdrop-filter: none;
+    border-bottom: 1px solid #333;
 }
+
+.header-home .logo,
+.header-home nav a {
+    color: #ffffff;
+}
+
+.header-home nav a::after {
+    background: #ffffff;
+}
+
+.header-home .nav-logo {
+    filter: none;
+    mix-blend-mode: screen;
+}
+
 
 .logo-container {
     display: flex;
@@ -109,7 +123,7 @@ header {
 }
 
 .nav-logo {
-    height: 40px;
+    height: 50px;
     width: auto;
     object-fit: contain;
 }
@@ -152,7 +166,7 @@ nav a.active::after {
     width: 100%;
 }
 
-/* Buttons - SQUARE */
+/* Buttons */
 .btn {
     display: inline-block;
     padding: 1.2rem 2.5rem;
@@ -165,8 +179,7 @@ nav a.active::after {
     font-size: 0.9rem;
     transition: all var(--transition-speed) cubic-bezier(0.19, 1, 0.22, 1);
     cursor: pointer;
-    border-radius: 0;
-    /* Ensuring they are square */
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
 }
@@ -211,8 +224,9 @@ nav a.active::after {
     max-width: 100%;
     height: auto;
     border: 1px solid #000;
+    border-radius: 12px;
     filter: grayscale(1);
-    box-shadow: 20px 20px 0px #000;
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 .hero h1 span {
@@ -226,6 +240,38 @@ nav a.active::after {
 .hero p {
     margin: 2rem 0;
     color: #444;
+}
+
+/* Accuracy Badge Styles */
+.live-stats-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: #000;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    border: 2px solid #000;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.stats-label {
+    color: #aaa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.stats-value {
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
 }
 
 /* About Brief Integration */
