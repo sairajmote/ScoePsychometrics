@@ -204,16 +204,16 @@ function renderReport(D) {
             <div class="section-block">
                 <div class="section-heading"><span class="section-num">1.5</span><h2>${temp.label}</h2></div>
                 <div class="section-body">
-                    <div style="display:flex; justify-content:center; margin-bottom:2.5rem;">
-                        <div style="background:#000; color:#fff; padding:3.5rem 5rem; text-align:center; border-radius:4px; max-width:800px; width:100%;">
+                    <div class="temp-result-wrap">
+                        <div class="temp-result-box">
                             <div style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; color:#888; margin-bottom:0.5rem;">Resulting Type</div>
-                            <div style="font-size:3.5rem; font-weight:900; letter-spacing:-0.03em;">${temp.result_type.toUpperCase()}</div>
+                            <div class="temp-type-label">${temp.result_type.toUpperCase()}</div>
                             <div style="font-size:1.1rem; color:#aaa; margin-top:1rem; font-style:italic;">"${shortTagline}"</div>
                         </div>
                     </div>
 
-                    <div style="max-width:750px; margin:0 auto; padding:0 1rem;">
-                        <div style="font-size:1.15rem; line-height:1.7; color:#444; font-weight:400; text-align:justify;">
+                    <div class="temp-detail-wrap">
+                        <div class="temp-detail-text">
                             ${detailedInterp}
                         </div>
                     </div>
@@ -308,21 +308,21 @@ function renderReport(D) {
                 <div class="section-desc">${en.description}</div>
                 
                 <!-- Core Identity Box -->
-                <div style="background:#000; color:#fff; padding:3rem; margin-bottom:2rem; position:relative; overflow:hidden;">
-                    <div style="position:absolute; top:-20px; right:-20px; font-size:15rem; font-weight:900; opacity:0.03; line-height:1; pointer-events:none;">${en.primary_type.number}</div>
+                <div class="ennea-identity-box">
+                    <div class="ennea-bg-num">${en.primary_type.number}</div>
                     
                     <div style="font-size:0.8rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:#888; margin-bottom:0.5rem;">Primary Pattern</div>
-                    <div style="font-size:3rem; font-weight:900; line-height:1.1; margin-bottom:0.5rem;">Type ${en.primary_type.number}: ${en.primary_type.label}</div>
+                    <div class="ennea-type-title">Type ${en.primary_type.number}: ${en.primary_type.label}</div>
                     
-                    <div style="display:flex; align-items:center; gap:0.8rem; margin-top:2rem;">
+                    <div style="display:flex; align-items:center; gap:0.8rem; margin-top:1.5rem; flex-wrap:wrap;">
                         <div style="background:var(--c-purple); color:#fff; padding:0.3rem 0.8rem; font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em;">Wing ${en.primary_type.wing}</div>
                         <span style="font-size:0.9rem; opacity:0.8;">Influenced by ${en.primary_type.wing_label}</span>
                     </div>
                 </div>
 
                 <!-- Intelligence Center -->
-                <div style="border:1px solid #eee; padding:2rem; margin-bottom:2rem; background:#f9f9f9; display:flex; align-items:flex-start; gap:1.5rem;">
-                    <div style="width:60px; height:60px; background:var(--c-teal); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:900; border-radius:50%; flex-shrink:0;">
+                <div class="ennea-center-box enneagram-center-box">
+                    <div class="ennea-center-icon">
                         ${en.center.key === 'head' ? '🧠' : en.center.key === 'heart' ? '❤️' : '⚡'}
                     </div>
                     <div>
@@ -384,7 +384,7 @@ function renderReport(D) {
                 <div class="section-desc">${bd.description}</div>
                 <div class="section-body">
                     <div style="margin-top:2rem;">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-weight:900; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;">
+                        <div class="brain-label-row">
                             <span>Left Brain (Analytical)</span>
                             <span>Right Brain (Creative)</span>
                         </div>

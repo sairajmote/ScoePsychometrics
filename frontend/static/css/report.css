@@ -1148,12 +1148,147 @@
     border-radius: 10px;
 }
 
+/* ── Temperament Section ── */
+.temp-result-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.temp-result-box {
+    background: #000;
+    color: #fff;
+    padding: 3.5rem 5rem;
+    text-align: center;
+    border-radius: 4px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.temp-type-label {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+
+.temp-detail-wrap {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.temp-detail-text {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #444;
+    font-weight: 400;
+    text-align: justify;
+}
+
+/* ── Enneagram Section ── */
+.ennea-identity-box {
+    background: #000;
+    color: #fff;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.ennea-bg-num {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 15rem;
+    font-weight: 900;
+    opacity: 0.03;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.ennea-type-title {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.ennea-center-box {
+    border: 1px solid #eee;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background: #f9f9f9;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.ennea-center-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--c-teal);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── Brain Dominance Section ── */
+.brain-label-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
 /* ── Mobile Responsiveness for Psychometric Reports ── */
 @media (max-width: 768px) {
+
+    /* ── Shell & Layout ── */
     .report-shell {
-        padding: 5rem 1rem 3rem !important;
+        padding: 4.5rem 0.75rem 3rem !important;
+        margin-top: 0 !important;
     }
 
+    /* ── Cover Card ── */
+    .report-cover {
+        padding: 1.8rem 1.2rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .cover-title {
+        font-size: 2.4rem !important;
+        letter-spacing: -0.02em !important;
+        word-break: break-word;
+    }
+
+    .cover-meta {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        margin-top: 1.5rem !important;
+        padding-top: 1.2rem !important;
+    }
+
+    .cover-meta-value {
+        font-size: 1rem !important;
+    }
+
+    .ai-summary-box {
+        padding: 1.2rem !important;
+    }
+
+    .ai-summary-text {
+        font-size: 0.95rem !important;
+    }
+
+    /* ── Tab Navigation ── */
     .section-nav {
         top: 58px !important;
         padding: 0.5rem 0.5rem !important;
@@ -1163,9 +1298,7 @@
         justify-content: flex-start !important;
     }
 
-    .section-nav::-webkit-scrollbar {
-        display: none;
-    }
+    .section-nav::-webkit-scrollbar { display: none; }
 
     .section-nav a {
         font-size: 0.72rem !important;
@@ -1178,55 +1311,196 @@
         white-space: nowrap;
         flex-wrap: nowrap !important;
         justify-content: flex-start !important;
-        padding-bottom: 0.5rem;
+        padding: 0 0.75rem 0.5rem !important;
+        gap: 0.5rem !important;
+        margin-bottom: 1rem !important;
         -webkit-overflow-scrolling: touch;
     }
 
-    .report-tabs::-webkit-scrollbar {
-        display: none;
-    }
+    .report-tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
-        padding: 0.6rem 1rem !important;
-        font-size: 0.72rem !important;
+        padding: 0.55rem 0.85rem !important;
+        font-size: 0.65rem !important;
         flex-shrink: 0;
     }
 
-    .report-hero,
-    .overview-hero {
+    /* ── Section Blocks (shared) ── */
+    .section-block,
+    .b5-section,
+    .mi-section {
+        padding: 1.4rem 1rem !important;
+    }
+
+    .section-heading {
+        gap: 0.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .section-heading h2 {
+        font-size: 1.35rem !important;
+    }
+
+    .section-num {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.8rem !important;
+        flex-shrink: 0;
+    }
+
+    .section-desc {
+        font-size: 0.88rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* ── MBTI ── */
+    .mbti-type-display {
         padding: 1.5rem 1rem !important;
         margin-bottom: 1.5rem !important;
     }
 
-    .report-grid,
-    .results-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1rem !important;
+    .mbti-type-code {
+        font-size: 3.5rem !important;
     }
 
-    .report-card,
-    .metric-card,
-    .trait-card {
-        padding: 1.25rem 1rem !important;
-    }
-
-    .card-header h3 {
+    .mbti-type-name {
         font-size: 1.1rem !important;
     }
 
-    .stat-row,
-    .trait-row {
+    .dichotomy-row {
         flex-direction: column !important;
-        align-items: flex-start !important;
         gap: 0.4rem !important;
+        align-items: flex-start !important;
+        margin-bottom: 1.4rem !important;
     }
 
-    .stat-bar-container {
+    .dich-label,
+    .dich-label-right {
         width: 100% !important;
+        text-align: left !important;
+        font-size: 0.72rem !important;
     }
 
+    .dich-bar-wrap {
+        width: 100% !important;
+        height: 22px !important;
+    }
+
+    /* ── Big Five ── */
+    .b5-trait {
+        grid-template-columns: 1fr auto !important;
+        grid-template-rows: auto auto !important;
+        gap: 0.5rem !important;
+    }
+
+    .b5-trait > div:nth-child(2) {
+        grid-column: 1 / -1;
+    }
+
+    .b5-trait-name {
+        font-size: 0.72rem !important;
+    }
+
+    .b5-pct {
+        text-align: right;
+    }
+
+    /* ── Multiple Intelligence ── */
+    .mi-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.8rem !important;
+    }
+
+    .mi-dominant-banner {
+        padding: 1.2rem !important;
+        gap: 1rem !important;
+    }
+
+    /* ── Insights Block ── */
+    .insights-block {
+        padding: 2rem 1.2rem !important;
+    }
+
+    .insights-block h2 {
+        font-size: 1.6rem !important;
+    }
+
+    .insights-summary {
+        font-size: 0.95rem !important;
+    }
+
+    .detailed-report-btn {
+        position: static !important;
+        display: block;
+        margin-bottom: 1.2rem !important;
+    }
+
+    .insights-columns {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        margin-top: 2rem !important;
+    }
+
+    .career-paths-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+    }
+
+    .compat-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+    }
+
+    /* ── Footer Bar ── */
+    .report-footer-bar {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        text-align: center !important;
+        padding: 1.2rem !important;
+        font-size: 0.62rem !important;
+    }
+
+    /* ── Modal ── */
     .modal-content {
         width: 95% !important;
         padding: 1.2rem !important;
+    }
+
+    /* ── Enneagram inline boxes ── */
+    .enneagram-center-box {
+        flex-direction: column !important;
+    }
+
+    /* ── Temperament ── */
+    .temp-result-box {
+        padding: 2rem 1.5rem !important;
+    }
+
+    .temp-type-label {
+        font-size: 2.2rem !important;
+    }
+
+    .temp-detail-text {
+        font-size: 0.95rem !important;
+    }
+
+    /* ── Enneagram ── */
+    .ennea-identity-box {
+        padding: 1.5rem 1.2rem !important;
+    }
+
+    .ennea-type-title {
+        font-size: 1.8rem !important;
+        word-break: break-word;
+    }
+
+    .ennea-bg-num {
+        font-size: 8rem !important;
+    }
+
+    .ennea-center-box {
+        flex-direction: column !important;
+        padding: 1.2rem !important;
+        gap: 1rem !important;
     }
 }
