@@ -66,27 +66,35 @@ async def debug_gemini():
     key_exists = bool(api_key)
     key_prefix = api_key[:8] + "..." if key_exists else None
     
-    try:
-        from google import genai
-        client = genai.Client(api_key=api_key)
-        res = client.models.generate_content(
-            model="gemini-3.6-flash",
-            contents="Say hello in one word."
-        )
-        return {
-            "status": "success",
-            "key_configured": key_exists,
-            "key_prefix": key_prefix,
-            "model": "gemini-3.6-flash",
-            "response": res.text.strip()
-        }
-    except Exception as e:
-        return {
-            "status": "error",
-            "key_configured": key_exists,
-            "key_prefix": key_prefix,
-            "error": str(e)
-        }
+    from .insights_engine import CANDIDATE_MODELS, get_client
+    client = get_client()
+    if not client:
+        return {"status": "error", "key_configured": False, "error": "Client could not be initialized"}
+
+    attempts = []
+    for model_name in CANDIDATE_MODELS:
+        try:
+            res = client.models.generate_content(
+                model=model_name,
+                contents="Say hello in one word."
+            )
+            return {
+                "status": "success",
+                "key_configured": key_exists,
+                "key_prefix": key_prefix,
+                "successful_model": model_name,
+                "response": res.text.strip(),
+                "attempts": attempts
+            }
+        except Exception as e:
+            attempts.append({"model": model_name, "error": str(e)})
+
+    return {
+        "status": "all_failed",
+        "key_configured": key_exists,
+        "key_prefix": key_prefix,
+        "attempts": attempts
+    }
 
 @app.get("/questions", response_model=list[schemas.QuestionBase])
 async def get_questions(category: Optional[str] = None, db: Session = Depends(get_db)):
