@@ -11,13 +11,10 @@ load_dotenv(override=True)
 # Best-to-worst order based on availability and capability.
 # gemini-3.6-flash is confirmed working; others are fallbacks.
 CANDIDATE_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
     "gemini-3.6-flash",
+    "gemini-3.5-flash-lite",
     "gemini-1.5-flash",
     "gemini-1.5-pro",
-    "gemini-flash-lite-latest",
     "gemini-flash-latest",
     "gemini-pro-latest",
 ]
