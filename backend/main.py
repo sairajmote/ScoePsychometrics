@@ -60,6 +60,34 @@ async def health_db(db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/debug-gemini")
+async def debug_gemini():
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    key_exists = bool(api_key)
+    key_prefix = api_key[:8] + "..." if key_exists else None
+    
+    try:
+        from google import genai
+        client = genai.Client(api_key=api_key)
+        res = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents="Say hello in one word."
+        )
+        return {
+            "status": "success",
+            "key_configured": key_exists,
+            "key_prefix": key_prefix,
+            "model": "gemini-3.6-flash",
+            "response": res.text.strip()
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "key_configured": key_exists,
+            "key_prefix": key_prefix,
+            "error": str(e)
+        }
+
 @app.get("/questions", response_model=list[schemas.QuestionBase])
 async def get_questions(category: Optional[str] = None, db: Session = Depends(get_db)):
     query = db.query(models.Question)
