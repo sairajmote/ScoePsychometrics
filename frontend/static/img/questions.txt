@@ -1,0 +1,561 @@
+PSYCHOMETRIC ASSESSMENT QUESTIONS
+
+## CATEGORY: COGNITIVE ABILITIES
+1. (Forgetfulness) Read something without thinking about it and must re-read?
+2. (Forgetfulness/False Triggering) Forget why you moved from one room to another?
+3. (False Triggering) Fail to notice road signposts?
+4. (Cognitive) Confuse right and left when giving directions?
+5. (Forgetfulness/False Triggering) Bump into people?
+6. (False Triggering) Forget whether you've turned off a light/fire or locked the door?
+7. (Forgetfulness) Forget people's names when being introduced?
+8. (Distractibility) Say something that could be taken as insulting?
+9. (Distractibility) Fail to hear people when doing something else?
+10. (Distractibility) Lose your temper and regret it?
+11. (Distractibility) Leave important letters unanswered for days?
+12. (False Triggering) Forget which way to turn on a rarely-used familiar road?
+13. (Cognitive) Fail to spot something in a supermarket even though it's there?
+14. (Distractibility) Wonder whether you've used a word correctly?
+15. (Cognitive) Have trouble making up your mind?
+16. (Cognitive) Forget appointments?
+17. (Forgetfulness) Forget where you put something like a book or newspaper?
+18. (False Triggering) Accidentally throw away the wrong thing?
+19. (Distractibility) Daydream when you should be listening?
+20. (Forgetfulness) Forget people's names?
+21. (Distractibility) Start one task and get distracted into doing another?
+22. (Forgetfulness) Have something "on the tip of your tongue" but can't recall it?
+23. (Forgetfulness/False Triggering) Forget what you came to the shops to buy?
+24. (False Triggering) Drop things?
+25. (Distractibility) Find you can't think of anything to say?
+26. If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops definitely Lazzies?
+27. If all X are Y, and no Y are Z, then no X can be Z. Is this logic valid?
+28. What comes next in the sequence: 2, 6, 12, 20, 30, ...?
+29. A train travels at 60 km/h for 2.5 hours. How far does it travel?
+30. Which shape is the odd one out: Triangle, Square, Circle, Pentagon?
+
+## CATEGORY: PERSONALITY TRAITS
+1. (Extraversion) Am the life of the party.
+2. (Agreeableness) Feel little concern for others.
+3. (Conscientiousness) Am always prepared.
+4. (Emotional Stability) Get stressed out easily.
+5. (Intellect/Imagination) Have a rich vocabulary.
+6. (Extraversion) Don't talk a lot.
+7. (Agreeableness) Am interested in people.
+8. (Conscientiousness) Leave my belongings around.
+9. (Emotional Stability) Am relaxed most of the time.
+10. (Intellect/Imagination) Have difficulty understanding abstract ideas.
+11. (Extraversion) Feel comfortable around people.
+12. (Agreeableness) Insult people.
+13. (Conscientiousness) Pay attention to details.
+14. (Emotional Stability) Worry about things.
+15. (Intellect/Imagination) Have a vivid imagination.
+16. (Extraversion) Keep in the background.
+17. (Agreeableness) Sympathize with others' feelings.
+18. (Conscientiousness) Make a mess of things.
+19. (Emotional Stability) Seldom feel blue.
+20. (Intellect/Imagination) Am not interested in abstract ideas.
+21. (Extraversion) Start conversations.
+22. (Agreeableness) Am not interested in other people's problems.
+23. (Conscientiousness) Get chores done right away.
+24. (Emotional Stability) Am easily disturbed.
+25. (Intellect/Imagination) Have excellent ideas.
+26. (Extraversion) Have little to say.
+27. (Agreeableness) Have a soft heart.
+28. (Conscientiousness) Often forget to put things back in their proper place.
+29. (Emotional Stability) Get upset easily.
+30. (Intellect/Imagination) Do not have a good imagination.
+31. (Extraversion) Talk to a lot of different people at parties.
+32. (Agreeableness) Am not really interested in others.
+33. (Conscientiousness) Like order.
+34. (Emotional Stability) Change my mood a lot.
+35. (Intellect/Imagination) Am quick to understand things.
+36. (Extraversion) Don't like to draw attention to myself.
+37. (Agreeableness) Take time out for others.
+38. (Conscientiousness) Shirk my duties.
+39. (Emotional Stability) Have frequent mood swings.
+40. (Intellect/Imagination) Use difficult words.
+41. (Extraversion) Don't mind being the center of attention.
+42. (Agreeableness) Feel others' emotions.
+43. (Conscientiousness) Follow a schedule.
+44. (Emotional Stability) Get irritated easily.
+45. (Intellect/Imagination) Spend time reflecting on things.
+46. (Extraversion) Am quiet around strangers.
+47. (Agreeableness) Make people feel at ease.
+48. (Conscientiousness) Am exacting in my work.
+49. (Emotional Stability) Often feel blue.
+50. (Intellect/Imagination) Am full of ideas.
+
+## CATEGORY: ENNEAGRAM
+1. Critical of myself (my own worst critic) and find it easy to be judgmental and critical of other people as well.
+2. Believe that rules, regulations, policies, and procedures have a purpose and should be followed and I'm frustrated when others break rules.
+3. Value being well organized and punctual in myself and others.
+4. Motivated by the need to be correct, fair, and self-disciplined.
+5. Have a strong sense of right and wrong and strive for perfection.
+6. Easily discern what is wrong in a situation and how it could be done better.
+7. Do not consider being a perfectionist a negative thing and like to make sure all the details are just right.
+8. Personal integrity is extremely important to me.
+9. Manners and good taste are extremely important to me.
+10. Routine and structure help me stay focused and accomplish things.
+11. I'm extremely protective of my loved ones and feel good about helping the underdog.
+12. Listen patiently and can be very understanding and comforting to friends.
+13. Have a strong need to be noticed, liked, and appreciated for what I do for others.
+14. Like people to depend on me and deliver on my promises.
+15. Believe that my motives for helping others are noble and helpful.
+16. I'm told I'm a "nice person" and dislike putting myself first.
+17. Motivated by the need to be appreciated, loved, and connected to people.
+18. Need to feel close to people and feel rejected and hurt if I don't experience that closeness.
+19. I often sense what others need before they ask for it.
+20. I find it hard to say no when someone asks for my help.
+21. I feel most fulfilled when I am taking care of someone I love.
+22. I tend to give advice even when people have not asked for it.
+23. I sometimes feel resentful when my efforts go unnoticed or unappreciated.
+24. I naturally take on the role of caregiver in my relationships.
+25. Work hard and know how to get things done.
+26. To impress, I may take on too much and make promises I can't keep.
+27. Value exceeding standards and rising to the top of my profession.
+28. Value looking good, presenting a good first impression, and "dressing for success."
+29. Believe that negative feelings are an obstacle to getting the job done.
+30. Tend to be idealistic and ambitious and want to contribute something positive to the world.
+31. Love to work and be productive, and work has tended to be a top priority in my life.
+32. Have been goal-oriented for as long as I can remember.
+33. I tend to adjust my personality depending on who I am trying to impress.
+34. Failure is something I find very difficult to accept about myself.
+35. I am very aware of how I am perceived by others in professional settings.
+36. I measure my self-worth largely by my achievements and accomplishments.
+37. I find it uncomfortable to slow down and do nothing productive.
+38. I tend to compare my progress and success to those around me.
+39. Creative and have an artistic view of life.
+40. Thrive in environments where I can express my creativity.
+41. Can be deeply hurt by the slightest criticism.
+42. Tend to be romantic and long for the great love of my life to come along.
+43. Feel different from others, as if "on the outside looking in."
+44. Strive to be unique and have done things to avoid being ordinary.
+45. Can be caught in a fantasy world of romance and imagination.
+46. Tend to experience more melancholy than most people I know.
+47. Attracted to what is intense and out of the ordinary.
+48. Feel that something is missing in my life.
+49. Feel envious of other people's relationships, lifestyles, and accomplishments.
+50. Enjoy having elegant, refined, unique things that no one else has.
+51. I am drawn to art, music, or literature that expresses deep emotion or suffering.
+52. I sometimes idealize the past or mourn opportunities I feel I have missed.
+53. Tend to be more logical than emotional.
+54. Enjoy having control of my own time and private space.
+55. Enjoy the sense of independence that comes from living frugally.
+56. Prefer people not to know how I feel or what I think unless I tell them.
+57. May hesitate while I try to organize my thoughts and may not speak at all if I'm not comfortable with what I want to say.
+58. Can be critical, cynical, and argumentative and can act intellectually superior.
+59. Have ideas, theories, and opinions about almost everything.
+60. Have been told I am not in touch with my emotions.
+61. I feel uncomfortable around loud, emotional people.
+62. Enjoy spending time alone pursuing my personal interests.
+63. Easily annoyed by people who act unintelligent or uninformed.
+64. I prefer to observe a situation thoroughly before deciding to participate.
+65. I tend to detach emotionally when I feel overwhelmed or overstimulated.
+66. I value knowledge and often research topics extensively before forming an opinion.
+67. I'm not gullible; you must earn my trust, and I will challenge your loyalty.
+68. Friends and family provide the support I feel is necessary in life.
+69. Fear being criticized or judged as being improper by other people.
+70. Look for danger, unsafe people, or unsafe situations.
+71. When afraid of something, I've done what was necessary to overcome my fear.
+72. When I trust people, I can let down my guard and be more sensitive.
+73. Value the belief that everything is going to be all right yet often lack faith in this belief.
+74. Making decisions on my own may cause me anxiety.
+75. When feeling anxious I can be overly vigilant and controlling.
+76. Try to prepare for every contingency.
+77. People may find it difficult to follow my train of thought.
+78. Like to leave my options open; "don't hem me in" describes me well.
+79. Dislike being around pessimistic, negative people.
+80. Become frustrated if there is not enough time to do all the fun things I want to do.
+81. Enjoy trying many things and can do many different things fairly well.
+82. Have difficulty making decisions because "everything looks good."
+83. Tend to be excited and impatient about accomplishing plans.
+84. Find it easy to adapt to different people and situations.
+85. Tend to do things in excess and to always want more.
+86. I tend to reframe negative experiences quickly so I can stay positive and move on.
+87. I get bored easily and constantly look for the next exciting thing to do.
+88. I prefer to focus on possibilities and future plans rather than dwelling on problems.
+89. I find it hard to commit to one path because I fear missing out on other options.
+90. I tend to keep conversations light and avoid going too deep into painful topics.
+91. Tend to be possessive and demanding when stressed.
+92. Dislike people nagging me; this makes me quite stubborn.
+93. I'm uncomfortable expressing emotions other than anger.
+94. Love to be challenged and enjoy a good fight.
+95. Proud about being direct, telling it "like it is," and expressing "tough love."
+96. Tend to be rebellious, controlling, and insensitive when stressed.
+97. Impatient with people who are indirect or indecisive.
+98. Have difficulty admitting I'm wrong.
+99. Find it difficult to forgive and can carry a grudge for a long time.
+100. I naturally take charge in situations where others seem hesitant or weak.
+101. I respect people who stand their ground and speak their mind directly.
+102. I have a strong instinct for sensing when someone is being dishonest or manipulative.
+103. I would rather be feared than be seen as weak or vulnerable.
+104. I believe that showing vulnerability is a risk that can be used against me.
+105. Tend to be insightful, objective, and sensitive when not stressed.
+106. Believe it is important for people to be with other people or to belong to a group or an organization.
+107. Have a strong sense of responsibility and I'm a hard worker.
+108. Prefer being with people to being alone.
+109. Tend to see the glass as "half empty" and to look for what needs fixing.
+110. Believe it is important to understand my own and other people's feelings.
+111. In relationships, I seek harmony and peace through a sense of belonging and/or by bonding with the other person.
+112. Try to avoid confrontations.
+113. When feeling relaxed I tend to be friendly and responsive to people.
+114. Tend to be shy and withdrawn, especially at social events.
+115. Can be a "homebody" and enjoy the comfort and peace of home.
+116. Attracted to habits and routines, can relax easily and tune out reality through TV, daydreaming, a good book, etc.
+117. Sensitive to criticism but try to hide that sensitivity.
+118. Tend to be rational, reasonable, and accepting when not stressed.
+119. Tend to be reflective and to search for the meaning of my life.
+120. Tend to take things too seriously and overreact to small issues.
+121. Tend to socialize with people who are interested in the same things I am.
+122. Dislike confrontation and try to keep the peace.
+123. Tend to be more emotional than most people I know.
+124. Tend to go along with what people say just to get them off my back.
+125. Tend to be distant, stubborn, and pessimistic when stressed.
+
+## CATEGORY: BRAIN DOMINANCE
+1. When faced with a problem, I rely on logic and reasoning above everything else.
+2. I tend to leave my belongings scattered around rather than putting them away.
+3. I would much rather take a mathematics class than an art or pottery class.
+4. I often dive straight into a task without bothering to read the instructions first.
+5. I believe that important decisions should always be grounded in facts and logical reasoning.
+6. I have a vivid imagination and spend a lot of time in my own inner world.
+7. I plan my life carefully and approach things in a logical, methodical way.
+8. I tend to follow my intuition rather than thinking things through step by step.
+9. I handle situations in a calm, objective manner rather than letting emotions take over.
+10. I would describe myself as a creative person who needs a regular creative outlet.
+11. I almost never show up late — punctuality is something I take seriously.
+12. I prefer variety and spontaneity in life over having a fixed routine.
+13. I make decisions based on hard facts and evidence, not on how I feel at the time.
+14. I frequently daydream and find my mind wandering off into fantasy.
+15. I behave in a businesslike, organised manner in most situations.
+16. I enjoy letting my imagination run wild and exploring flights of fantasy.
+17. I could not live comfortably in a messy or disorganised environment.
+18. I tend to do things in a half-hearted or incomplete way rather than seeing them through.
+19. I listen to my brain rather than my heart when making important choices.
+20. I regularly forget to put things back in their proper place after using them.
+21. I rarely cry or get emotional during sad films or moving stories.
+22. I need to have music playing in the background when I am working or studying.
+23. I tend to think deeply and quietly rather than talking through my thoughts out loud.
+24. I believe strongly in the importance of art and creative expression in the world.
+25. I am not easily unsettled or disturbed by unexpected events or bad news.
+26. I tend to rebel against rules and resist being told what to do.
+27. I approach most situations in a calm and composed way, even under pressure.
+28. I enjoy abstract art and am drawn to things that are open to interpretation.
+29. I rarely feel the need for praise or validation from other people.
+30. I consider myself a romantic person who is deeply in touch with my emotions.
+31. I tend to be sceptical and like to question claims before accepting them as true.
+32. I regularly come up with new ideas and find fresh ways of looking at things.
+33. I never travel or go anywhere without having a clear plan in place beforehand.
+34. I often make a mess of things and find it hard to stay organised.
+35. I prefer to work with numbers, data, and concrete information.
+36. I tend to leave tasks half finished or let my responsibilities slide.
+37. I am calm and steady even in tense or high-pressure situations.
+38. I find it easy to get stressed out and overwhelmed by things.
+39. I behave in a structured, methodical way and take my duties seriously.
+40. I am a totally random, unpredictable person who rarely does things the same way twice.
+
+## CATEGORY: TEMPERAMENT
+1. Do you often feel a craving for new experiences, to shake things up, or to feel a thrill?
+2. Do you often feel that you need friends who can understand you, encourage you, or sympathize with you?
+3. Do you consider yourself a carefree person?
+4. Is it very hard for you to give up on your intentions?
+5. Do you think things over slowly and prefer to wait before acting?
+6. Do you always keep your promises, even when it's inconvenient for you?
+7. Do you often have mood swings — highs and lows?
+8. Do you usually speak and act quickly?
+9. Have you ever felt unhappy without any real reason for it?
+10. Is it true that you could dare to do anything on a dare?
+11. Do you feel shy when you want to get to know someone of the opposite sex that you like?
+12. Does it ever happen that when you get angry, you lose your temper?
+13. Does it often happen that you act without thinking, on impulse?
+14. Do you often worry about things you feel you shouldn't have done or said?
+15. Do you prefer reading books over meeting people?
+16. Is it true that you are easily offended?
+17. Do you like going out and being in company often?
+18. Do you sometimes have thoughts you would rather not share with others?
+19. Is it true that sometimes you are so full of energy that everything goes great, but other times you feel exhausted?
+20. Do you try to keep your social circle small, limited to your closest friends?
+21. Do you daydream a lot?
+22. When someone shouts at you, do you shout back?
+23. Do you often feel guilty about something?
+24. Do you consider all your habits to be good ones?
+25. Are you sometimes able to let yourself go and have a great time in a lively group?
+26. Would you say your nerves are often stretched to the limit?
+27. Are you known as a lively and cheerful person?
+28. After something is done, do you often think back and feel you could have done it better?
+29. Do you feel at ease when you're in a large group?
+30. Do you ever pass on rumors?
+31. Does it happen that you can't sleep because different thoughts keep running through your head?
+32. If you want to find something out, do you prefer to look it up in a book rather than ask someone?
+33. Do you ever have a racing heartbeat?
+34. Do you enjoy work that requires concentration?
+35. Do you ever have fits of trembling?
+36. Do you always tell the truth?
+37. Do you find it unpleasant to be in a group where people tease each other?
+38. Are you an irritable person?
+39. Do you enjoy work that requires quick action?
+40. Is it true that you are often troubled by thoughts about unpleasant things and horrors that could have happened, even though everything turned out fine?
+41. Is it true that you are slow in your movements and somewhat unhurried?
+42. Are you ever late for work or for a meeting with someone?
+43. Do you often have nightmares?
+44. Is it true that you love to talk so much that you never miss a chance to chat with a new person?
+45. Do you suffer from any aches or pains?
+46. Would you feel upset if you couldn't see your friends for a long time?
+47. Would you call yourself a nervous person?
+48. Are there people among your acquaintances that you clearly dislike?
+49. Would you call yourself a self-confident person?
+50. Are you easily hurt by criticism of your faults or your work?
+51. Is it hard for you to genuinely enjoy events where a lot of people are present?
+52. Are you bothered by a feeling that you are somehow worse than others?
+53. Could you liven up a dull gathering?
+54. Does it happen that you talk about things you know nothing about?
+55. Do you worry about your health?
+56. Do you like to play pranks on others?
+57. Do you suffer from insomnia?
+
+## CATEGORY: BIG FIVE
+1. When confronted with unfamiliar perspectives that challenge long-held beliefs, I feel intellectually energized rather than defensive.
+2. I rarely see value in exploring ideas that have no immediate practical application.
+3. Abstract discussions about philosophy, art, or theoretical possibilities tend to capture my attention more than routine conversations.
+4. I prefer familiar patterns of thinking over experimenting with unconventional viewpoints.
+5. Encountering ambiguous or complex problems usually stimulates curiosity in me rather than frustration.
+6. I feel uncomfortable when conversations drift into imaginative or speculative territories.
+7. I am naturally inclined to reinterpret everyday experiences through creative or symbolic meanings.
+8. Novel experiences often seem unnecessarily disruptive to an otherwise efficient routine.
+9. I frequently find myself mentally exploring 'what if' scenarios beyond immediate reality.
+10. I see little benefit in questioning traditions or long-standing methods that already function adequately.
+11. Minor setbacks can remain on my mind long after the situation has passed.
+12. I rarely dwell on stressful situations once they are resolved.
+13. Unexpected uncertainty tends to trigger noticeable tension in my thoughts.
+14. Emotional fluctuations rarely influence how I approach daily responsibilities.
+15. I sometimes anticipate negative outcomes even when circumstances appear stable.
+16. I generally remain calm even when several problems arise simultaneously.
+17. Criticism can linger in my mind longer than compliments.
+18. I usually recover quickly from embarrassment or mistakes.
+19. Situations outside my control occasionally provoke persistent worry.
+20. I tend to maintain emotional steadiness even during demanding periods.
+21. When disagreements arise, I instinctively attempt to understand the other person's perspective before asserting my own.
+22. I sometimes feel that being too considerate of others only slows down decision-making.
+23. I often find myself mediating conflicts so that everyone involved feels heard.
+24. In competitive situations, I rarely worry about how my actions affect others emotionally.
+25. I tend to assume that most people have reasonable intentions unless proven otherwise.
+26. I am generally skeptical of others' motives until they demonstrate reliability.
+27. I feel uneasy when someone around me is upset, even if the situation does not directly involve me.
+28. I sometimes prioritize personal advantage even when it inconveniences others.
+29. I usually adjust my communication style to maintain harmony in conversations.
+30. I believe blunt honesty is more important than protecting people's feelings.
+31. Prolonged periods of social interaction tend to energize rather than exhaust me.
+32. In group settings, I often prefer observing quietly rather than actively participating.
+33. I usually find it easy to initiate conversations even with unfamiliar individuals.
+34. After extended social events, I typically feel the need to withdraw and recharge alone.
+35. I often feel stimulated by environments with many people and dynamic activity.
+36. When discussions become lively, I tend to step back rather than insert my opinions.
+37. I am comfortable directing attention toward myself when presenting ideas publicly.
+38. Unexpected social interactions sometimes make me feel mentally drained.
+39. I tend to seek environments where conversations, movement, and interaction are constant.
+40. I usually prefer smaller, quieter settings over crowded or socially demanding ones.
+41. Even when external supervision is absent, I tend to maintain structured progress toward long-term goals.
+42. Deadlines become negotiable in my mind if the task begins to feel tedious or inconvenient.
+43. I often break large responsibilities into organized steps before beginning the task.
+44. I frequently underestimate how much preparation a task will require.
+45. Completing obligations tends to provide me with a stronger sense of satisfaction than spontaneous leisure.
+46. I sometimes leave projects partially completed when my interest shifts elsewhere.
+47. I naturally monitor my progress when working toward objectives to ensure efficiency.
+48. My workspace or digital environment often becomes disorganized without me noticing immediately.
+49. I am inclined to think ahead about possible complications before initiating important tasks.
+50. I rarely develop structured routines unless someone else expects them from me.
+51. I enjoy experimenting with new approaches even when familiar methods already work well.
+52. I tend to avoid activities that require imaginative thinking.
+53. Learning about unfamiliar cultures or ideas excites me.
+54. I prefer sticking to traditional ways rather than trying something new.
+55. I often reflect deeply on abstract concepts or ideas.
+56. I find creative hobbies unnecessary or unproductive.
+57. I am curious about possibilities beyond what is immediately visible.
+58. I feel uneasy when asked to think outside conventional boundaries.
+59. I enjoy connecting unrelated ideas to form something new.
+60. I believe imagination is less important than practicality.
+61. I sometimes find it difficult to relax even when there is no clear reason to worry.
+62. I remain emotionally stable even under unexpected pressure.
+63. Small problems can feel overwhelming at times.
+64. I usually stay composed even when things don’t go as planned.
+65. I tend to overthink situations that others might ignore.
+66. I can quickly let go of worries once a situation is resolved.
+67. I often feel tense without a clear cause.
+68. I handle criticism without it affecting my mood significantly.
+69. I sometimes imagine worst-case scenarios unnecessarily.
+70. I generally feel confident and secure in my emotions.
+71. I try to be considerate of others even when it requires extra effort.
+72. I prioritize my own needs even if it inconveniences others.
+73. I feel satisfied when I help others solve their problems.
+74. I rarely compromise when I strongly believe I am right.
+75. I value cooperation more than competition.
+76. I sometimes ignore others’ feelings to get things done faster.
+77. I tend to forgive people easily after conflicts.
+78. I find it difficult to trust people without strong proof.
+79. I try to maintain positive relationships with people around me.
+80. I believe personal success matters more than group harmony.
+81. I enjoy being the center of attention in social gatherings.
+82. I feel uncomfortable speaking up in large groups.
+83. I actively seek opportunities to meet new people.
+84. I prefer spending time alone rather than socializing frequently.
+85. I feel energized when engaging in group activities.
+86. I avoid initiating conversations with strangers.
+87. I enjoy expressing my thoughts openly in discussions.
+88. Social interactions often leave me feeling exhausted.
+89. I like environments that are lively and interactive.
+90. I tend to stay quiet even when I have something to say.
+91. I set clear goals and work consistently toward achieving them.
+92. I often delay tasks until the last moment.
+93. I pay attention to details to ensure accuracy in my work.
+94. I find it hard to stay organized over long periods.
+95. I feel responsible for completing tasks on time.
+96. I sometimes lose focus and leave work unfinished.
+97. I plan my activities in advance to avoid last-minute stress.
+98. I struggle to maintain discipline without external pressure.
+99. I take pride in being reliable and dependable.
+100. I often act impulsively without proper planning.
+
+## CATEGORY: MBTI
+1. I feel energized when I spend time with a lot of people.
+2. I focus on details and specifics when learning something new.
+3. I prioritize logic and objectivity when making decisions.
+4. I prefer to have a plan and stick to it.
+5. I find it easy to relate to people and understand their perspective.
+6. I prefer to reflect quietly by myself.
+7. I enjoy thinking about the future and the possibilities it holds.
+8. I consider people's feelings when making decisions.
+9. I am comfortable with changes and surprises.
+10. I find it easy to solve complex problems and puzzles.
+11. I enjoy being the center of attention.
+12. I rely on my experiences when making decisions.
+13. I am straightforward and direct in my communication.
+14. I like to complete tasks well before the deadline.
+15. I prefer to focus on one task at a time.
+16. I often think before I speak.
+17. I trust my gut feelings and intuition.
+18. I try to be tactful and considerate in my communication.
+19. I often leave tasks until the last minute.
+20. I often find myself multi-tasking.
+21. I seek out social events and gatherings.
+22. I prefer clear and concrete information over abstract ideas.
+23. I value fairness and justice.
+24. I prefer structured environments with clear rules.
+25. I am drawn to artistic and creative activities.
+26. I need time alone to recharge after social interactions.
+27. I enjoy brainstorming and considering various ideas.
+28. I value empathy and compassion.
+29. I enjoy flexibility and spontaneity.
+30. I like to gather facts and data before making decisions.
+31. I like to talk through my problems.
+32. I am practical and down-to-earth.
+33. I enjoy analyzing problems and finding logical solutions.
+34. I like to keep my space organized and tidy.
+35. I like to think big picture rather than the details.
+36. I tend to keep my thoughts and feelings to myself.
+37. I often get lost in my own imagination.
+38. I am concerned with maintaining harmony in my relationships.
+39. I am adaptable and go with the flow.
+40. I am thorough and detail-oriented in my work.
+41. I prefer to work in teams rather than alone.
+42. I like to focus on what is happening right now.
+43. I am more likely to criticize than to compliment.
+44. I set goals and work systematically towards them.
+45. I prefer practical and hands-on activities.
+46. I enjoy deep, one-on-one conversations.
+47. I am drawn to concepts and theories.
+48. I often find myself putting others' needs ahead of my own.
+49. I prefer to keep my options open.
+50. I often contemplate the meaning and purpose of life.
+51. You focus more on facts than ideas.
+52. You enjoy imagining future possibilities.
+53. You rely on practical information.
+54. You enjoy abstract discussions.
+55. You prefer realistic solutions.
+56. You enjoy exploring theories.
+57. You trust past experiences.
+58. You like thinking about future innovations.
+59. You prefer concrete facts.
+60. You enjoy conceptual thinking.
+61. You trust facts over speculation.
+62. You enjoy philosophical thinking.
+63. You like meeting new people.
+64. You feel drained after social gatherings.
+65. You enjoy group activities.
+66. You like spending time alone.
+67. You start conversations easily.
+68. You prefer observing rather than participating in discussions.
+69. You enjoy networking events.
+70. You enjoy lively discussions.
+71. You prefer working independently.
+72. You feel energized around people.
+73. You need alone time to recharge.
+74. You enjoy being part of a crowd.
+75. You make decisions based on logic.
+76. You consider people's feelings when deciding.
+77. You value fairness over compassion.
+78. You analyze problems objectively.
+79. You prioritize truth over emotions.
+80. You try to avoid hurting people's feelings.
+81. You enjoy logical debates.
+82. You care deeply about others' emotions.
+83. You focus on objective reasoning.
+84. You value kindness in decisions.
+85. You trust logical conclusions.
+86. You trust emotional understanding.
+87. You prefer planning things in advance.
+88. You prefer being spontaneous.
+89. You like organized schedules.
+90. You prefer flexible plans.
+91. You complete tasks early.
+92. You enjoy adapting to sudden changes.
+93. You like structured routines.
+94. You prefer open-ended situations.
+95. You enjoy making detailed plans.
+96. You enjoy exploring without plans.
+97. You prefer clear deadlines.
+98. You prefer freedom in scheduling.
+
+## CATEGORY: MULTIPLE INTELLIGENCE
+1. I like to spend time going deeper and deeper into the things that are going on within me.
+2. I enjoy singing or playing a musical instrument.
+3. I enjoy sequential puzzles like Rubik's cube or Sudoku.
+4. Others often come to me for support or advice.
+5. I often contemplate questions related to theology or philosophy.
+6. I don't mind getting my hands dirty from activities that involve creating, fixing, or building things.
+7. I spend a lot of time thinking about the emotions of others.
+8. I am good with numbers.
+9. I like tending to gardens and plants.
+10. I like measuring or categorizing stuff.
+11. I enjoy spending time alone, processing my own emotions and reactions to things.
+12. I am good at reading maps and finding my way around unfamiliar places.
+13. I have always excelled in math and science at school.
+14. It is easy for me to identify how I feel and why.
+15. I am often pondering the meaning of life.
+16. I like dancing, sports, or working out.
+17. I am often humming a song or tune to myself in my head.
+18. Music is one of my biggest interests.
+19. I vividly remember details about furniture and the interior decoration of rooms that I've been in.
+20. I can learn better if things are accompanied by charts, diagrams, or other technical illustrations.
+21. I enjoy challenges that require lateral thinking, like chess.
+22. I enjoy learning new words and/or languages.
+23. I am good at mediating disputes or conflicts between individuals.
+24. I am good at making a good impression when meeting new people.
+25. I spend a lot of time reflecting on my own reactions to things.
+26. I find it easiest to solve problems when my body is in motion.
+27. Questions like 'Where is humanity heading?' or 'Why are we here?' are of interest to me.
+28. I like taking long walks in nature, alone or with my friends.
+29. I feel the most alive when I am in contact with nature.
+30. I am interested in writing poetry, quotes, stories, or journals.
+31. I am interested in sports.
+32. I am good at detecting dishonesty in others.
+33. I am better at remembering faces than names.
+34. I am always discovering new kinds of music.
+35. I am usually good with animals.
+36. I keep going over deep questions about life and existence that seem foolish to others.
+37. I spend a lot of time analyzing my own emotions and reactions.
+38. I often look things up in the dictionary.
+39. I enjoy learning about how the various world religions have attempted to answer 'the big questions'.
+40. I draw charts and tables to help me think.
+41. I love reading.
+42. I can tell when a note is off-key.
+43. I enjoy learning about different species of plants and animals.
+44. I like sewing, carving, model-building, or other activities that involve dexterity.

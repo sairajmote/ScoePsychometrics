@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Active Session | SCOE-Psychometrics</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=2">
     <style>
         .mode-badge {
             font-size: 0.7rem;
@@ -617,9 +617,63 @@
             studentEducation = educationEl.value.trim();
             studentPassword = passwordEl.value.trim();
 
+            // Save basic exam session state to localStorage
+            saveSessionState();
+
             // Hide overlay and begin loading exam
             document.getElementById('info-overlay').style.display = 'none';
             loadData();
+        }
+
+        const STORAGE_KEY = `scoe_session_${examMode}`;
+
+        function saveSessionState() {
+            try {
+                const answers = {};
+                document.querySelectorAll('input[type="radio"]:checked').forEach(r => {
+                    answers[r.name] = r.value;
+                });
+                const state = {
+                    studentName,
+                    studentEmail,
+                    studentEducation,
+                    studentPassword,
+                    timeLeft,
+                    currentDomainIndex,
+                    answers,
+                    inProgress: true,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {
+                console.warn('Could not save session state:', e);
+            }
+        }
+
+        function clearSessionState() {
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+            } catch (e) {}
+        }
+
+        function restoreAnswersFromState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const state = JSON.parse(raw);
+                if (!state || !state.answers) return;
+
+                Object.entries(state.answers).forEach(([name, val]) => {
+                    const radio = document.querySelector(`input[name="${name}"][value="${val}"]`);
+                    if (radio) radio.checked = true;
+                });
+
+                if (typeof state.currentDomainIndex === 'number' && state.currentDomainIndex > 0) {
+                    goToDomain(state.currentDomainIndex);
+                }
+            } catch (e) {
+                console.warn('Could not restore answers from state:', e);
+            }
         }
 
         /**
@@ -750,6 +804,7 @@
                 }
 
                 renderStructure();
+                restoreAnswersFromState();
                 updateNav();
                 startTimer();
             } catch (err) {
@@ -884,9 +939,10 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.question-card').forEach(c => observer.observe(c));
 
-            // Auto-scroll to next question after answering
+            // Auto-scroll to next question after answering & auto-save state
             panelsContainer.addEventListener('change', e => {
                 if (e.target.type !== 'radio') return;
+                saveSessionState();
                 const currentCard = e.target.closest('.question-card');
                 if (!currentCard) return;
                 const nextCard = currentCard.nextElementSibling;
@@ -971,6 +1027,7 @@
                 
                 const data = await res.json();
                 if (data.status === 'success') {
+                    clearSessionState();
                     const params = new URLSearchParams({
                         id: data.report_id,
                         temperament: data.temperament_type || '',
@@ -1050,7 +1107,50 @@
             }
         });
 
-        // loadData() is called by startExam() after the info form is submitted
+        // ── Auto-Resume on Page Reload ──
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const state = JSON.parse(raw);
+                if (state && state.inProgress) {
+                    // Restore student information
+                    studentName = state.studentName || '';
+                    studentEmail = state.studentEmail || '';
+                    studentEducation = state.studentEducation || '';
+                    studentPassword = state.studentPassword || '';
+
+                    if (state.timeLeft && state.timeLeft > 0) {
+                        timeLeft = state.timeLeft;
+                    }
+
+                    // Hide the initial info-overlay directly
+                    const overlay = document.getElementById('info-overlay');
+                    if (overlay) overlay.style.display = 'none';
+
+                    // Load questions and restore answers
+                    loadData();
+                }
+            } catch (e) {
+                console.warn('Could not auto-resume session:', e);
+            }
+        });
+
+        // ── Warn before accidental page reload / close during exam ──
+        window.addEventListener('beforeunload', e => {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const state = JSON.parse(raw);
+                    if (state && state.inProgress) {
+                        saveSessionState();
+                        e.preventDefault();
+                        e.returnValue = 'Your exam is currently in progress. Are you sure you want to leave?';
+                        return e.returnValue;
+                    }
+                }
+            } catch (err) {}
+        });
     </script>
 
 </body>

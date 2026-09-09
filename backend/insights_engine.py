@@ -1,54 +1,46 @@
 import os
 import json
-import google.generativeai as genai
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
+from google import genai
+from google.genai import types
 
 # Configuration is loaded from system environment (Azure) or .env (Local)
-load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
+load_dotenv(override=True)
 
-def get_model():
-    """Tries to initialize the best available Gemini model."""
-    if not api_key or api_key == "your_api_key_here":
+# Best-to-worst order based on availability and capability.
+# gemini-3.6-flash is confirmed working; others are fallbacks.
+CANDIDATE_MODELS = [
+    "gemini-3.6-flash",
+    "gemini-flash-lite-latest",
+    "gemini-flash-latest",
+    "gemini-pro-latest",
+]
+
+def get_api_key():
+    """Dynamically reads and strips the Gemini API key from environment."""
+    load_dotenv(override=True)
+    key = os.getenv("GEMINI_API_KEY", "").strip()
+    return key if key and key != "your_api_key_here" else None
+
+def get_client() -> genai.Client | None:
+    """Returns a configured google.genai Client, or None if key is missing."""
+    key = get_api_key()
+    if not key:
         return None
-    
     try:
-        genai.configure(api_key=api_key)
-        # We've verified these exact model names are available for this key
-        for model_name in ["models/gemini-flash-latest", "models/gemini-2.0-flash", "models/gemini-pro-latest"]:
-            try:
-                # We initialize with a global safety setting to avoid false positives on psychometric terms
-                m = genai.GenerativeModel(
-                    model_name=model_name,
-                    safety_settings={
-                        "HATE": "BLOCK_NONE",
-                        "HARASSMENT": "BLOCK_NONE",
-                        "SEXUAL": "BLOCK_NONE",
-                        "DANGEROUS": "BLOCK_NONE",
-                    }
-                )
-                return m
-            except Exception as e:
-                print(f"Model Init failed for {model_name}: {e}")
-                continue
-        print("No valid models could be initialized.")
-        return None
+        return genai.Client(api_key=key)
     except Exception as e:
-        print(f"GenAI Configuration failed: {e}")
+        print(f"GenAI client creation failed: {e}")
         return None
 
-model = get_model()
-
-def generate_ai_insights(mbti_results: Dict[str, Any], 
-                         temperament_results: Dict[str, Any], 
-                         enneagram_results: Dict[str, Any], 
+def generate_ai_insights(mbti_results: Dict[str, Any],
+                         temperament_results: Dict[str, Any],
+                         enneagram_results: Dict[str, Any],
                          big5_results: Dict[str, Any],
-                         brain_dominance_results: Dict[str, Any] = None,
-                         mi_results: Dict[str, Any] = None) -> Dict[str, Any]:
+                         brain_dominance_results: Optional[Dict[str, Any]] = None,
+                         mi_results: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Generates a professional psychometric overview using Gemini as a JSON object."""
-    global model
-    
     fallback = {
         "personality_summary": "Your AI Overview is currently processing. Please check back in a moment or verify your API configuration.",
         "top_strengths": ["Analytical Thinking", "Strategic Planning", "Adaptability"],
@@ -64,10 +56,9 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
         }
     }
 
-    if not model:
-        model = get_model()
-        if not model:
-            return {**fallback, "personality_summary": "Gemini API is not configured. Please add your GEMINI_API_KEY to the .env file."}
+    client = get_client()
+    if not client:
+        return {**fallback, "personality_summary": "Gemini API is not configured. Please add your GEMINI_API_KEY to the .env file."}
 
     # Extract clean strings for the prompt
     mbti = mbti_results.get("result_type", "Unknown")
@@ -75,11 +66,11 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
     temp = temperament_results.get("temperament_type", "Unknown")
     ennea = enneagram_results.get("primary_type", {}).get("label", "Unknown")
     big5 = big5_results.get("profile_summary", "No Big Five data available.")
-    
+
     brain = "Unknown"
     if brain_dominance_results:
         brain = f"{brain_dominance_results.get('dominance', {}).get('label', 'Unknown')} dominance"
-        
+
     mi_top = "Unknown"
     if mi_results:
         mi_top = ", ".join(mi_results.get("dominant_labels", []))
@@ -131,16 +122,38 @@ def generate_ai_insights(mbti_results: Dict[str, Any],
     Return ONLY the raw JSON object. Do not include markdown formatting or explanations.
     """
 
-    try:
-        response = model.generate_content(prompt)
-        text = response.text.strip()
-        # Clean up potential markdown formatting if Gemini includes it
-        if "```" in text:
-            text = text.split("```")[1]
-            if text.startswith("json"):
-                text = text[4:].strip()
-        
-        return json.loads(text)
-    except Exception as e:
-        print(f"Gemini API Error: {e}")
-        return fallback
+    last_error = None
+    for model_name in CANDIDATE_MODELS:
+        try:
+            print(f"Attempting AI Insights with {model_name} for MBTI: {mbti}, Temp: {temp}...")
+            response = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    safety_settings=[
+                        types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_NONE"),
+                        types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_NONE"),
+                        types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="BLOCK_NONE"),
+                        types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_NONE"),
+                    ]
+                )
+            )
+            text = response.text.strip()
+            print(f"AI Response received from {model_name} ({len(text)} chars)")
+
+            # Clean up potential markdown formatting if Gemini includes it
+            if "```" in text:
+                text = text.split("```")[1]
+                if text.startswith("json"):
+                    text = text[4:].strip()
+
+            parsed_data = json.loads(text)
+            print(f"AI Insights successfully parsed using {model_name}.")
+            return parsed_data
+        except Exception as e:
+            last_error = e
+            print(f"Gemini API attempt with {model_name} failed: {str(e)}")
+            continue
+
+    print(f"CRITICAL Gemini API Error across all models: {str(last_error)}")
+    return fallback

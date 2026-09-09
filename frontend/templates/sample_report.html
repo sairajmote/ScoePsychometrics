@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Report | ScoePsychometrics</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=2">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -609,11 +609,15 @@
                     </div>
                 </div>
                 <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-bottom:1.2rem;">Recommended Career Domains</div>
-                <div class="career-paths-grid">${ins.recommended_career_domains.map(c=>`
+                <div class="career-paths-grid">${(ins.recommended_career_domains || []).map(c => {
+                    const name = typeof c === 'object' ? (c.name || '') : c;
+                    const reason = typeof c === 'object' ? (c.reason || '') : '';
+                    return `
                     <div class="career-path-card">
-                        <div class="career-path-name">${c.name}</div>
-                        <div class="career-path-reason">${c.reason}</div>
-                    </div>`).join('')}</div>
+                        <div class="career-path-name">${name}</div>
+                        ${reason ? `<div class="career-path-reason">${reason}</div>` : ''}
+                    </div>`;
+                }).join('')}</div>
                 <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:#888;margin-top:2rem;margin-bottom:0.8rem;">Workplace Compatibility</div>
                 <div class="compat-grid">
                     <div class="compat-card"><div class="compat-label">Work Environment</div><div class="compat-value">${ins.compatibility_notes.work_environment}</div></div>

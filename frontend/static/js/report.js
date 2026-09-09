@@ -565,12 +565,15 @@ function renderReport(D) {
         </div>
         <h3>Recommended Roles</h3>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            ${(insights.recommended_career_domains || []).map(c => `
+            ${(insights.recommended_career_domains || []).map(c => {
+                const name = typeof c === 'object' ? (c.name || '') : c;
+                const reason = typeof c === 'object' ? (c.reason || '') : '';
+                return `
                 <div class="print-card" style="margin:0; padding:1rem;">
-                    <strong>${c.name}</strong>
-                    <p style="font-size:0.8rem; color:#666; margin:0.3rem 0 0 0;">${c.reason}</p>
-                </div>
-            `).join('')}
+                    <strong>${name}</strong>
+                    ${reason ? `<p style="font-size:0.8rem; color:#666; margin:0.3rem 0 0 0;">${reason}</p>` : ''}
+                </div>`;
+            }).join('')}
         </div>
     </div>
 

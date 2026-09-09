@@ -81,7 +81,8 @@ section {
 }
 
 /* Header */
-header {
+header,
+.header-home {
     position: fixed;
     top: 0;
     width: 100%;
@@ -90,29 +91,28 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgb(251, 249, 249);
+    background: #ffffff !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #e5e5e5 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
-.header-home {
-    background-color: #000000;
-    backdrop-filter: none;
-    border-bottom: 1px solid #333;
-}
-
+header .logo,
 .header-home .logo,
+header nav a,
 .header-home nav a {
-    color: #ffffff;
+    color: #000000 !important;
 }
 
+header nav a::after,
 .header-home nav a::after {
-    background: #ffffff;
+    background: #000000 !important;
 }
 
+header .nav-logo,
 .header-home .nav-logo {
     filter: none;
-    mix-blend-mode: screen;
+    mix-blend-mode: multiply;
 }
 
 
