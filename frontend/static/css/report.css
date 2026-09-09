@@ -13,6 +13,54 @@
     --c-yellow-light: rgba(241, 196, 15, 0.12);
 }
 
+/* ── Section Nav (secondary fixed bar) ── */
+.section-nav {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: #111;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 2rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-bottom: 1px solid #222;
+}
+
+.section-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.section-nav a {
+    display: inline-block;
+    color: #aaa !important;
+    text-decoration: none !important;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.85rem 1.2rem;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+}
+
+.section-nav a:hover {
+    color: #fff !important;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.section-nav a.active,
+.section-nav a.nav-active {
+    color: #1abc9c !important;
+    border-bottom: 3px solid #1abc9c !important;
+}
+
 /* ── Tabs Navigation ── */
 .report-tabs {
     max-width: 1100px;
@@ -263,7 +311,7 @@
 /* ── Report Shell ── */
 .report-shell {
     max-width: 1100px;
-    margin: 120px auto 5rem auto;
+    margin: 130px auto 5rem auto;
     padding: 0 2rem;
 }
 
